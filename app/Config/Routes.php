@@ -6,9 +6,5 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->setDefaultController('Login');
-$routes->setDefaultMethod('index');
-$routes->get('/', 'Login::index', ['filter' => 'NoAuth']);
-$routes->get('/home', 'Home::index',['filter' => 'UserAuth']);
-
-$routes->get('/panel', 'PanelController::index');
+$routes->add('/', 'Home::index');
+$routes->get('active/(:any)', 'Home::getUserByActive/$1');

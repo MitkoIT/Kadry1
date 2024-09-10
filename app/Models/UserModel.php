@@ -6,10 +6,16 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $DBGroup = 'orfeusz';
+    //protected $DBGroup = 'mitko';
     protected $table = 'users';
     protected $primaryKey = 'idusers';
     protected $useAutoIncrement = true;
-    protected $returnType = 'array';
 
+    protected $allowedFields = [ 
+        'name',
+        'email',
+        'password',
+        'idusers',
+        'phone_shop_mitko'
+    ]; 
 }
