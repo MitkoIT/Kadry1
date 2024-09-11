@@ -16,6 +16,6 @@ class UserModel extends Model
         'email',
         'password',
         'idusers',
-        'phone_shop_mitko'
+        'phone_shop_mitko',
     ]; 
 }
