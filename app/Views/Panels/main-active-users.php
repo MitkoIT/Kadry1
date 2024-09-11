@@ -1,5 +1,5 @@
- <!--Main Component-->
- <div class="main">
+<!--Main Component-->
+<div class="main">
     <nav class="navbar navbar-expand border-bootom">
         <button class="toggler-btn" type="button">
             <i class="lni lni-text-align-left"></i>
@@ -20,24 +20,24 @@
                                 <th>Firma</th>
                             </tr>
                             <?php
-                                if ($user_data) {
-                                    foreach ($user_data as $user) { ?>  
-                                        <tr>
-                                            <td><?php echo $user['idusers'];?></td>
-                                            <td><?php echo $user['user_name'];?></td>
-                                            <td><?php echo $user['user_email'];?></td>
-                                            <td><?php echo $user['phone_shop_mitko'];?></td>
-                                            <td><?php echo $user['company_name']?></td>
-                                        </tr>
-                                    <?php }
-                                }?>
+                            if ($user_data) {
+                                foreach ($user_data as $user) { ?>
+                                    <tr>
+                                        <td><?php echo $user['idusers']; ?></td>
+                                        <td><?php echo $user['user_name']; ?></td>
+                                        <td><?php echo $user['user_email']; ?></td>
+                                        <td><?php echo $user['phone_shop_mitko']; ?></td>
+                                        <td><?php echo $user['company_name'] ?></td>
+                                    </tr>
+                                <?php }
+                            } ?>
                         </table>
                     </div>
-                <div>
+                    <div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</main>
+    </main>
 </div>
 <!--Main Component Ends-->
