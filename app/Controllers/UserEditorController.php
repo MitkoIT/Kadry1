@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class HomeController extends BaseController
+class UserEditorController extends BaseController
 {
     public function index(): string
     {
@@ -10,8 +10,8 @@ class HomeController extends BaseController
                 'title' => 'Panel Administracyjny'
             ]).
             view('Panels/side-bar').
-            view('Panels/main', [
-                'header' => 'Panel Administracyjny'
+            view('Panels/main-edit', [
+                'header' => 'Edytuj Dane Użytkownika'
             ]).
             view('Base/footer');
     }
