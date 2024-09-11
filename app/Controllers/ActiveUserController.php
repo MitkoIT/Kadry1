@@ -4,20 +4,8 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 
-class Home extends BaseController
+class ActiveUserController extends BaseController
 {
-    public function index(): string
-    {
-        return view('Base/header', [
-                    'title' => 'Panel Administracyjny'
-                ]).
-            view('Panels/side-bar').
-            view('Panels/main', [
-                'header' => 'Panel Administracyjny'
-            ]).
-            view('Base/footer');
-    }
-
     public function getUserByActive($a)
     {
         $userModel = new UserModel();
