@@ -13,19 +13,7 @@
                 <li class="sidebar-items">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-user"></i>
-                        <span>Dodaj<br>Użytkownika</span>
-                    </a>
-                </li>
-                <li class="sidebar-items">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Edytuj<br>Użytkownika</span>
-                    </a>
-                </li>
-                <li class="sidebar-items">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Dezaktywuj<br>Użytkownika</span>
+                        <span>Dodaj Użytkownika</span>
                     </a>
                 </li>
                 <li class="sidebar-header">
@@ -39,12 +27,12 @@
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="sidebar">
                         <li class="sidebar-item">
-                            <a href="<?php echo base_url()?>/active/y" class="sidebar-link">
+                            <a href="<?php echo base_url()?>active/y" class="sidebar-link">
                                 Aktywni
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?php echo base_url()?>/active/n" class="sidebar-link">
+                            <a href="<?php echo base_url()?>active/n" class="sidebar-link">
                                 Nieaktywni
                             </a>
                         </li>

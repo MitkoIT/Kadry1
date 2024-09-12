@@ -2,7 +2,7 @@
 
 body{
     font-family: 'Teko', sans-serif;
-    font-size: 200%;
+    font-size: 100%;
 }
 
 li {
@@ -18,6 +18,8 @@ a {
     width: 100%;
     overflow: hidden;
     background-color: white;
+    background-image: url('background2.jpg');
+    background-size: cover;
 }
 
 #sidebar {
@@ -61,12 +63,12 @@ a {
 .sidebar-logo a {
     color: white;
     font-weight: 800;
-    font-size: 2.25rem;
+    font-size: 1.25rem;
 }
 
 .sidebar-header {
     color: white;
-    font-size: 1.75rem;
+    font-size: 0.75rem;
     padding: 1.5rem 0.5rem .375rem;
 }
 
@@ -113,4 +115,59 @@ a.sidebar-link:hover {
 #auth li {
     padding: 0rem 2.5rem 0rem;
     font-size: 75%;
+}
+
+label {
+    display: inline-block; /* Allows width to be set */
+    width: 150px; /* Set a fixed width */
+    font-size: 16px; /* Adjust font size */
+    margin: 5px 0; /* Spacing between labels */
+}
+
+.fixed-button {
+    width: 1500px;  /* Set your desired width */
+    height: 75px;  /* Set your desired height */
+    display: inline-flex; /* Align items inside the button */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    font-size: 100%;
+}
+
+.custom-bg {
+    background-image: url('background.jpg');
+    padding: 20px; /* Optional: Add some padding */
+    background-size: cover;
+}
+
+.alert-warning {
+    font-size: 5.0rm;
+}
+
+.pagination li a {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.pagination li.active a {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.mail-span {
+    font-size: 75%;
+    color: blue;
+}
+
+.szukaj {
+    /*display: flex;
+    /*justify-content: space-between;*/
+    margin-bottom: 10px; /* Space between the elements */
 }
