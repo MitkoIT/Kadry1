@@ -11,10 +11,13 @@
                 <h1><?php echo $header; ?></h1>
                 <div class="row g-3 align-items-center szukaj">
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary">Aktywni</button>
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url()?>/'">Wszyscy</button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary">Nieaktywni</button>
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url()?>active'">Aktywni</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url()?>unactive'">Nieaktywni</button>
                     </div>
                     <div class="col-auto">
                         <input type="text" id="inputName" class="form-control" placeholder="Imię i Nazwisko" name="name">
