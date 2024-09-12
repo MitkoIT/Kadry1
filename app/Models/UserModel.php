@@ -45,4 +45,14 @@ class UserModel extends Model
             return redirect()->to('/');
         }
     }
+
+    public function getUserById(int $id)
+    {
+        return $this->find($id);
+    }
+
+    public function getUserByName(string $name)
+    {
+        return $this->find($name);
+    }
 }

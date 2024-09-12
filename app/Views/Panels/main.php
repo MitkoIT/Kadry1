@@ -8,23 +8,25 @@
     <main class="p-3">
         <div class="container-fluid">
             <div class="mb-3 text-center">
-                <h1><?php echo $header; ?></h1>
-                <div class="row g-3 align-items-center szukaj">
+                <h1 class="title-space">
+                    <?php echo $header; ?>
+                </h1>
+                <div class="row g-3 align-items-center szukaj-space">
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url()?>/'">Wszyscy</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo base_url()?>/'">Wszyscy</button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url()?>active'">Aktywni</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo base_url()?>active'">Aktywni</button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo base_url()?>unactive'">Nieaktywni</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo base_url()?>unactive'">Nieaktywni</button>
                     </div>
                     <div class="col-auto">
                         <input type="text" id="inputName" class="form-control" placeholder="Imię i Nazwisko" name="name">
                     </div>
                     <div class="col-auto">
                         <div class="col-auto">
-                            <button type="button" class="btn btn-primary">Szukaj</button>
+                            <button type="button" class="btn btn-secondary">Szukaj</button>
                         </div>
                     </div>
                 </div>
@@ -54,7 +56,11 @@
                                         </td>
                                         <td><?php echo $user['phone_shop_mitko']; ?></td>
                                         <td><?php echo $user['company_name']; ?> </td>
-                                        <td><?php echo 'Edytuj <br> Dezaktywuj';?></td>
+                                        <td>
+                                            <a href="<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>">Edytuj</a> 
+                                            <br>
+                                            <a href="<?php echo base_url()?>setunactive/<?php echo $user['idusers'] ?>">Deaktywuj</a> 
+                                        </td>
                                     </tr>
                                 <?php }
                             } ?>
