@@ -10,7 +10,7 @@
             <div class="mb-3 text-center">
                 <h1><?php echo $header; ?> <?php echo $user_data["name"]; ?></h1>
             </div>
-            <?php echo form_open('store/'.$user_data['idusers']) ?>
+            <?php echo form_open('store/'.$user_data['idusers'].'/'.$company_data['idcompany']) ?>
             <div class="row g-3 align-items-center szukaj-space">
                     <div class="col-auto">
                         <?php 

@@ -95,7 +95,7 @@ class HomeController extends BaseController
             view('Base/footer');
     }
 
-    public function setUserData(int $id)
+    public function setUserData(int $id, int $idcompany)
     {
         helper(['form']);
         $rules = [
@@ -120,13 +120,19 @@ class HomeController extends BaseController
                 'id_company'  => $this->request->getVar('firma')
             ];
 
-            $userModel->update($id, $data);
-            $userCompanyModel->update($userCompanyModel->getUserCompanyByData($id, 00), $companyData);
+            if ($userModel->update($id, $data)) {
 
-            return redirect()->to('/');
+                if ($userCompanyModel->update($userCompanyModel->getUserCompanyByData($id, $idcompany), $companyData)) {
+                    return redirect()->to('/');
+                } else {
+                    echo 'failed company update';
+                }
+            } else {
+                echo 'failed...user update';
+            }
 
         } else {
-            echo 'failed';
+            echo 'failed by validation';
         }
     }
 }

@@ -12,4 +12,4 @@ $routes->add('active', 'HomeController::getActiveUsers');
 $routes->add('unactive', 'HomeController::getUnactiveUsers');
 $routes->get('setunactive/(:any)', 'HomeController::SetUserUnactive/$1');
 $routes->get('edit/(:any)/(:any)', 'HomeController::editUserData/$1/$2');
-$routes->post('store/(:any)', 'HomeController::setUserData/$1');
+$routes->post('store/(:any)/(:any)', 'HomeController::setUserData/$1/$2');
