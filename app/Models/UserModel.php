@@ -13,14 +13,7 @@ class UserModel extends Model
         'idusers',
         'name',
         'email',
-        'password',
-        'idusers',
         'phone_shop_mitko',
-        'photo',
-        'position',
-        'role',
-        'phone',
-        'id_user_optima',
         'active'
     ]; 
 

@@ -38,18 +38,13 @@ class UserAddController extends BaseController
         if ($this->validate($rules)) { 
             $userModel = new UserModel();
             $userCompanyModel = new UserCompanyModel();
-
-            $nextId = $userModel->getNextId();
-            if ($nextId === null) {
-                $nextId = 1;
-            }
-
+            
             $data = [ 
-                'idusers'               => $nextId,
+                'idusers'               => $userModel->getNextId(),
                 'name'                  => $this->request->getVar('name'),
                 'email'                 => $this->request->getVar('email'),
                 'phone_shop_mitko'      => $this->request->getVar('phone'),
-                'active'                =>'n'
+                'active'                => 'n'
             ]; 
 
             $companyData = [
@@ -57,10 +52,21 @@ class UserAddController extends BaseController
                 'id_company'    => $this->request->getVar('firma')
             ];
 
-            $userModel->insert($data);
-            $userCompanyModel->save($companyData);
+            //Your $success is returning the result not false.
+            //If the query does not validate it returns false. 
+
+            if ($userModel->insert($data)) {
+
+                //false
+                echo $userModel->getLastQuery();
+            } else {   //success
+                $userCompanyModel->insert($companyData);
+                return redirect()->to('/');
+            }
             
-            return redirect()->to('/');
+            
+
+            
 
         } else {
             echo 'failed by validation';

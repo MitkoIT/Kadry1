@@ -20,23 +20,7 @@
                     Statystyki
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="true" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Użytkownicy</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="sidebar">
-                        <li class="sidebar-item">
-                            <a href="<?php echo base_url()?>active/y" class="sidebar-link">
-                                Aktywni
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="<?php echo base_url()?>active/n" class="sidebar-link">
-                                Nieaktywni
-                            </a>
-                        </li>
-                    </ul>
+                   
                 </li>
             </ul>
             <!--Sidebar Navigation Ends-->
