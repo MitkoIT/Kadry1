@@ -13,22 +13,42 @@
                 </h1>
                 <div class="row g-3 align-items-center szukaj-space">
                     <div class="col-auto">
-                        <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo base_url()?>/'">Wszyscy</button>
+                        <button type="button" class="btn btn-secondary" 
+                        onclick="window.location='<?php echo base_url()?>/'">Wszyscy</button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo base_url()?>active'">Aktywni</button>
+                        <button type="button" class="btn btn-secondary" 
+                        onclick="window.location='<?php echo base_url()?>active'">Aktywni</button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-secondary" onclick="window.location='<?php echo base_url()?>unactive'">Nieaktywni</button>
+                        <button type="button" class="btn btn-secondary" 
+                        onclick="window.location='<?php echo base_url()?>unactive'">Nieaktywni</button>
                     </div>
                     <div class="col-auto">
-                        <input type="text" id="inputName" class="form-control" placeholder="Imię i Nazwisko" name="name">
+                        <?php echo form_open('search') ?>
+                            <?php 
+                                $attribs = [
+                                    'name'          => 'name',
+                                    'type'          => 'text', 
+                                    'placeholder'   => 'Imię i Nazwisko',
+                                    'class'         => 'form-control',
+                                ];
+                                echo form_input($attribs); 
+                            ?>
                     </div>
                     <div class="col-auto">
                         <div class="col-auto">
-                            <button type="button" class="btn btn-secondary">Szukaj</button>
+                            <?php
+                                $attrib = [
+                                    'class' => 'btn btn-secondary',
+                                    'type'  => 'submit', 
+                                    'value' => 'Szukaj'
+                                ];
+                                echo form_input($attrib);
+                            ?>
                         </div>
                     </div>
+                    <?php echo form_close(); ?>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

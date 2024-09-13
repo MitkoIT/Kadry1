@@ -52,8 +52,11 @@ class UserModel extends Model
         return $this->find($id);
     }
 
-    public function getUserByName(string $name)
+    public function getUserByName(string $name, int $perPage, $page)
     {
-        return $this->find($name);
+        return $this->select('*, users.name as user_name, users.email as user_email, 
+            company.name as company_name, company.email as company_email')->join(
+        'user_company', 'user_company.id_user = users.idusers', 'left')->join(
+            'company', 'company.idcompany = user_company.id_company', 'left')->where('users.name', $name)->paginate($perPage, $page);
     }
 }

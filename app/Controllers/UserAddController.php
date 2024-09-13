@@ -6,25 +6,9 @@ use App\Models\UserModel;
 use App\Models\CompanyModel;
 use App\Models\UserCompanyModel;
 
-class UserEditController extends BaseController
+class UserAddController extends BaseController
 {
-   
-    public function setUserUnactive(int $id)
-    {
-        $data = [
-            'active' => 'n'
-        ];
-
-        $userModel = new UserModel();
-
-        if ($userModel->update($id, $data)) {
-            return redirect()->to('unactive');
-        } else {
-            return redirect()->to('/');
-        }
-    }
-
-    public function editUserData(int $id, int $companyId)
+    public function editUserData(int $companyId)
     {
         helper(['form']);
 
