@@ -55,19 +55,10 @@ class UserAddController extends BaseController
             //Your $success is returning the result not false.
             //If the query does not validate it returns false. 
 
-            if ($userModel->insert($data)) {
+            $userModel->insert($data);
+            $userCompanyModel->insert($companyData);
 
-                //false
-                echo $userModel->getLastQuery();
-            } else {   //success
-                $userCompanyModel->insert($companyData);
-                return redirect()->to('/');
-            }
-            
-            
-
-            
-
+            return redirect()->to('/');
         } else {
             echo 'failed by validation';
         }
