@@ -8,9 +8,7 @@ class UserModel extends Model
 {
     //protected $DBGroup = 'mitko';
     protected $table = 'users';
-    protected $primaryKey = 'idusers';
-    protected $useAutoIncrement = true;
-
+    protected $primaryKey = 'idusers';    
     protected $allowedFields = [ 
         'idusers',
         'name',
@@ -58,5 +56,10 @@ class UserModel extends Model
             company.name as company_name, company.email as company_email')->join(
         'user_company', 'user_company.id_user = users.idusers', 'left')->join(
             'company', 'company.idcompany = user_company.id_company', 'left')->where('users.name', $name)->paginate($perPage, $page);
+    }
+
+    public function getNextId()
+    {
+        return $this->select('COALESCE(MAX(idusers), 0) + 1 AS next_id')->first();
     }
 }

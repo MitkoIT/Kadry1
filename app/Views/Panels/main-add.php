@@ -82,7 +82,7 @@
                             }
 
                             $attribs = $data;
-                            echo form_dropdown('firma', $attribs, $company_data['idcompany']); 
+                            echo form_dropdown('firma', $attribs, 'MITKO'); 
                         ?>
                     </div>
                 </div>

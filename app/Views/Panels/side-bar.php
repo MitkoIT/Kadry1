@@ -11,7 +11,7 @@
                     Zarządzaj
                 </li>
                 <li class="sidebar-items">
-                    <a href="#" class="sidebar-link">
+                    <a href="<?php echo base_url()?>paste" class="sidebar-link">
                         <i class="lni lni-user"></i>
                         <span>Dodaj Użytkownika</span>
                     </a>

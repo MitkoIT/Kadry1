@@ -16,4 +16,5 @@ $routes->get('setunactive/(:any)', 'UserEditController::SetUserUnactive/$1');
 $routes->get('edit/(:any)/(:any)', 'UserEditController::editUserData/$1/$2');
 $routes->post('store/(:any)/(:any)', 'UserEditController::setUserData/$1/$2');
 
-$routes-add('paste', 'UserAddController::editUserData');
+$routes->add('paste', 'UserAddController::editUserData');
+$routes->post('add', 'UserAddController::setUserData');
