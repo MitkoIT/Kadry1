@@ -59,19 +59,23 @@ class UserEditController extends BaseController
             $userCompanyModel = new UserCompanyModel();
 
             $data = [ 
-                'name'                  => $this->request->getVar('name'),
-                'email'                 => $this->request->getVar('email'),
-                'phone_shop_mitko'      => $this->request->getVar('phone'),
+                'name'                  => $this->request->getPost('name'),
+                'email'                 => $this->request->getPost('email'),
+                'phone_shop_mitko'      => $this->request->getPost('phone'),
             ]; 
 
             $companyData = [
                 'id_user'   => $id,
-                'id_company'  => $this->request->getVar('firma')
+                'id_company'  => $this->request->getPost('firma')
             ];
 
             if ($userModel->update($id, $data)) {
 
                 if ($userCompanyModel->update($userCompanyModel->getUserCompanyByData($id, $idcompany), $companyData)) {
+                    
+                   // $lastQuery = $userCompanyModel->getLastQuery();
+                   // echo $lastQuery; // wyswietl ostatnia kwerende
+                   // echo $companyData['id_company'];
                     return redirect()->to('/');
                 } else {
                     echo 'failed company update';

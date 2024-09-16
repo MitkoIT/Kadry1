@@ -77,10 +77,9 @@
                     <div class="col-auto">
                         <?php 
                             $data = [];
-                            
                             if ($company_list) {
                                 foreach ($company_list as $company) {
-                                    array_push($data, [$company['idcompany'] => $company['name']]);
+                                    $data[$company['idcompany']] = $company['name'];
                                 }
                             }
 

@@ -9,7 +9,6 @@ class CompanyModel extends Model
     //protected $DBGroup = 'mitko';
     protected $table = 'company';
     protected $primaryKey = 'idcompany';
-    protected $useAutoIncrement = true;
 
     protected $allowedFields = [ 
         'name',
@@ -20,12 +19,12 @@ class CompanyModel extends Model
 
     public function getCompanyById(int $id)
     {
-        return $this->find($id);
+        return $this->where('idcompany', $id)->first();
     }
 
     public function getCompanyByName(string $name)
     {
-        return $this->find($name);
+        return $this->where('name', $name)->first();
     }
 
     public function getAllCompanies()

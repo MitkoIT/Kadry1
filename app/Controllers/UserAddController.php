@@ -41,15 +41,15 @@ class UserAddController extends BaseController
             
             $data = [ 
                 'idusers'               => $userModel->getNextId(),
-                'name'                  => $this->request->getVar('name'),
-                'email'                 => $this->request->getVar('email'),
-                'phone_shop_mitko'      => $this->request->getVar('phone'),
+                'name'                  => $this->request->getPost('name'),
+                'email'                 => $this->request->getPost('email'),
+                'phone_shop_mitko'      => $this->request->getPost('phone'),
                 'active'                => 'n'
             ]; 
 
             $companyData = [
                 'id_user'       => $data['idusers'],
-                'id_company'    => $this->request->getVar('firma')
+                'id_company'    => $this->request->getPost('firma')
             ];
 
             //Your $success is returning the result not false.
