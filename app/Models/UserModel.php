@@ -14,7 +14,8 @@ class UserModel extends Model
         'name',
         'email',
         'phone_shop_mitko',
-        'active'
+        'active', 
+        'password'
     ]; 
 
     public function getPaginatedAllUsers($perPage, $page)
@@ -40,7 +41,7 @@ class UserModel extends Model
 
     public function getUserById(int $id)
     {
-        return $this->find($id);
+        return $this->select('*')->where('idusers', $id)->first();
     }
 
     public function getUserByName(string $name, int $perPage, $page)

@@ -24,6 +24,90 @@ class UserEditController extends BaseController
         }
     }
 
+    public function editUserPassword(int $id)
+    {
+        helper(['form']);
+
+        $userModel = new UserModel();
+
+        $data['user_data'] = $userModel->getUserById($id);
+
+        if ($data['user_data']) {
+            if ($data['user_data']['active'] == 'n' && 
+                $data['user_data']['password'] == '') {
+               
+                $data['header'] = 'Ustaw hasło dla użytkownika ';
+
+                return view('Base/header', [
+                    'title' => 'Ustaw pierwsze hasło użytkownika'
+                ]).
+                view('Panels/side-bar').
+                view('Panels/main-passwd-first', $data).
+                view('Base/footer');
+
+            } else {
+
+                //TODO: zmiana hasla uzytkownika istniejacego i z ustawiony haslem
+                return redirect()->to('/');
+            }
+        } else {
+            return redirect()->to('/');
+        }
+    }
+
+    public function setUserPassword(int $id)
+    {
+        helper(['form']);
+
+        $rules = [
+            'password' => [
+                'rules' => 'required|min_length[8]|regex_match[/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/]',
+                'label' => 'Password',
+                'errors' => [
+                    'required' => 'Musisz wprowadzić hasło.',
+                    'min_length' => 'Minimum 8 znaków',
+                    'regex_match' => 'Aby Twoje hasło było silne i bezpieczne, powinno zawierać 4 z 4 grup znakowych – 
+                                        co najmniej jedna mała oraz wielka litera, a także jeden znak specjalny (np. !, @, $) i jedną cyfre.'
+                ]
+            ], 
+            'confirmpasswd' => [
+                'rules' => 'matches[password]',
+                'errors' => [
+                    'matches' => 'Wprowadzone hasła muszą być identyczne'
+                ]
+            ],
+        ];
+
+        $userModel = new UserModel();
+
+        if ($this->validate($rules)) {
+            $data = [
+                'password'  => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                'active'    => 'y'
+            ];
+
+            if ($userModel->update($id, $data)) {
+                return redirect()->to('/');
+            } else {
+                echo 'password update failed';
+            }
+
+        } else {
+            $data = [
+                'user_data' => $userModel->getUserById($id),
+                'header'    => 'Ustaw hasło dla użytkownika ',
+                'validation' => $this->validator
+            ];
+
+            return view('Base/header', [
+                'title' => 'Ustaw pierwsze hasło użytkownika'
+            ]).
+            view('Panels/side-bar').
+            view('Panels/main-passwd-first', $data).
+            view('Base/footer');
+        }
+    }
+
     public function editUserData(int $id, int $companyId)
     {
         helper(['form']);

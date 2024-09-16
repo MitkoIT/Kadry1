@@ -58,9 +58,33 @@ class UserAddController extends BaseController
             $userModel->insert($data);
             $userCompanyModel->insert($companyData);
 
+            $this->sendEmailPassword($data['idusers'], $data['email']);
+
             return redirect()->to('/');
         } else {
             echo 'failed by validation';
         }
+    }
+
+    public function sendEmailPassword($id, string $emailto)
+    {
+
+        $email = service('email');
+        $email->setFrom('tomasz.rynka@mitko.pl', 'Rynka Tomasz');
+        $email->setTo($emailto); 
+        $email->setSubject('Nowy Użytkownika na example.pl');
+
+        $clientData['id'] = $id;
+
+        ob_start();
+            echo view('Base/header', [
+                'title' => 'Nowy Użytkownik'
+            ]).
+                view('Base/email', $clientData);
+            $output = ob_get_contents();
+        ob_end_clean();
+
+        $email->setMessage($output);
+        $email->send();
     }
 }
