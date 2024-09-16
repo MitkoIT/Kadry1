@@ -58,7 +58,7 @@ class UserAddController extends BaseController
             $userModel->insert($data);
             $userCompanyModel->insert($companyData);
 
-            $this->sendEmailPassword($data['idusers'], $data['email']);
+            $this->sendEmailPassword($data['idusers']['next_id'], $data['email']);
 
             return redirect()->to('/');
         } else {
@@ -66,7 +66,7 @@ class UserAddController extends BaseController
         }
     }
 
-    public function sendEmailPassword($id, string $emailto)
+    public function sendEmailPassword(int $id, string $emailto)
     {
 
         $email = service('email');

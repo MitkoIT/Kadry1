@@ -15,6 +15,7 @@ class HomeController extends BaseController
 
         $userModel = new UserModel();
         $perPage = 10;
+        //jezeli nic tu nie ma to wstaw 1 strone
         $page = $this->request->getVar('page') ?: 1;
         $data['user_data'] = $userModel->getPaginatedAllUsersWithCompany($perPage, $page);
         $data['pager'] = $userModel->pager;
