@@ -18,7 +18,8 @@ class UserEditController extends BaseController
         $userModel = new UserModel();
 
         if ($userModel->update($id, $data)) {
-            return redirect()->to('unactive');
+            //komunikat o tym czy napewno chcesz go dezaktywowac i informacja ze jest dezaktywowany
+            return redirect()->to('/');
         } else {
             return redirect()->to('/');
         }
@@ -41,7 +42,6 @@ class UserEditController extends BaseController
                 return view('Base/header', [
                     'title' => 'Ustaw pierwsze hasło użytkownika'
                 ]).
-                view('Panels/side-bar').
                 view('Panels/main-passwd-first', $data).
                 view('Base/footer');
 
@@ -102,7 +102,6 @@ class UserEditController extends BaseController
             return view('Base/header', [
                 'title' => 'Ustaw pierwsze hasło użytkownika'
             ]).
-            view('Panels/side-bar').
             view('Panels/main-passwd-first', $data).
             view('Base/footer');
         }

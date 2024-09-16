@@ -52,6 +52,7 @@ class UserAddController extends BaseController
                 'id_company'    => $this->request->getPost('firma')
             ];
 
+            //In Insert:
             //Your $success is returning the result not false.
             //If the query does not validate it returns false. 
 
@@ -72,7 +73,7 @@ class UserAddController extends BaseController
         $email = service('email');
         $email->setFrom('tomasz.rynka@mitko.pl', 'Rynka Tomasz');
         $email->setTo($emailto); 
-        $email->setSubject('Nowy Użytkownika na example.pl');
+        $email->setSubject('Nowy Użytkownika na firma.mitko.pl');
 
         $clientData['id'] = $id;
 

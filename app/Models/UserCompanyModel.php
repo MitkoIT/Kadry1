@@ -15,9 +15,15 @@ class UserCompanyModel extends Model
         'id_company'
     ]; 
 
-    public function getUserCompanyByData(int $userid, int $companyid) 
-    {
-        //return $this->find()->where(['id_user'=> $userid, 'id_company' => $companyid])->first();
-        return $this->select('id_user_company')->where('id_user', $userid)->where('id_company', $companyid)->first();
+    public function getUserCompanyByData(
+        int $userid, 
+        int $companyid
+    ) {
+        
+        return $this
+        ->select('id_user_company')
+        ->where( 'id_user', $userid)
+        ->where('id_company', $companyid)
+        ->first();
     }
 }

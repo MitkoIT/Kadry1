@@ -1,10 +1,8 @@
 <!--Main Component-->
 <div class="main">
-    <nav class="navbar navbar-expand border-bootom">
-        <button class="toggler-btn" type="button">
-            <i class="lni lni-text-align-left"></i>
-        </button>
-    </nav>
+    <div class="d-flex justify-content-end">
+        tutaj ma byc kto jest zalogowany po lewej stronie ekranu i przycisk wyloguj
+    </div>
     <main class="p-3">
         <div class="container-fluid">
             <div class="mb-3 text-center">
@@ -49,6 +47,10 @@
                         </div>
                     </div>
                     <?php echo form_close(); ?>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" 
+                        onclick="window.location='<?php echo base_url()?>paste'">Dodaj Użytkownika</button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -64,19 +66,19 @@
                             if ($user_data) {
                                 foreach ($user_data as $user) { ?>
                                     <tr>
-                                        <td>
+                                        <td class="text-center align-middle">
                                             <?php echo $user['idusers']; ?>
                                         </td>
-                                        <td>
+                                        <td class="text-center align-middle">
                                             <?php echo $user['user_name']; ?>
                                             <br>
                                             <span class="mail-span"> 
                                                 <?php echo $user['user_email']; ?>
                                             </span>
                                         </td>
-                                        <td><?php echo $user['phone_shop_mitko']; ?></td>
-                                        <td><?php echo $user['company_name']; ?> </td>
-                                        <td>
+                                        <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
+                                        <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
+                                        <td class="text-center align-middle">
                                             <a href="<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>">Edytuj</a> 
                                             <br>
                                             <a href="<?php echo base_url()?>setunactive/<?php echo $user['idusers'] ?>">Deaktywuj</a> 

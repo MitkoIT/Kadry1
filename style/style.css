@@ -175,3 +175,7 @@ label {
     /*justify-content: space-between;*/
     margin-bottom: 10px; /* Space between the elements */
 }
+
+.dodaj {
+    margin-left: auto;
+}
