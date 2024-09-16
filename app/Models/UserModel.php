@@ -18,7 +18,7 @@ class UserModel extends Model
         'password'
     ]; 
 
-    public function getPaginatedAllUsers($perPage, $page)
+    public function getPaginatedAllUsersWithCompany($perPage, $page)
     {
         return $this->select('*, users.name as user_name, users.email as user_email, 
             company.name as company_name, company.email as company_email')->join(
@@ -27,7 +27,7 @@ class UserModel extends Model
                         $perPage, 'default', $page); // Use paginate method
     }
 
-    public function getPaginatedANUsers(int $perPage, $page, string $a)
+    public function getPaginatedANUsersWithCompany(int $perPage, $page, string $a)
     {
         if ($a == 'y' || $a == 'n') {
             return $this->select('*, users.name as user_name, users.email as user_email, 
@@ -44,7 +44,7 @@ class UserModel extends Model
         return $this->select('*')->where('idusers', $id)->first();
     }
 
-    public function getUserByName(string $name, int $perPage, $page)
+    public function getUserByNameWithCompany(string $name, int $perPage, $page)
     {
         return $this->select('*, users.name as user_name, users.email as user_email, 
             company.name as company_name, company.email as company_email')->join(

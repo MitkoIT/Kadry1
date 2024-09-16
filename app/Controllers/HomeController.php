@@ -16,7 +16,7 @@ class HomeController extends BaseController
         $userModel = new UserModel();
         $perPage = 10;
         $page = $this->request->getVar('page') ?: 1;
-        $data['user_data'] = $userModel->getPaginatedAllUsers($perPage, $page);
+        $data['user_data'] = $userModel->getPaginatedAllUsersWithCompany($perPage, $page);
         $data['pager'] = $userModel->pager;
         $data['header'] = 'Wszyscy Użytkownicy';
 
@@ -34,7 +34,7 @@ class HomeController extends BaseController
         $userModel = new UserModel();
         $perPage = 10;
         $page = $this->request->getVar('page') ?: 1;
-        $data['user_data'] = $userModel->getPaginatedANUsers($perPage, $page, 'y');
+        $data['user_data'] = $userModel->getPaginatedANUsersWithCompany($perPage, $page, 'y');
         $data['pager'] = $userModel->pager;
         $data['header'] = 'Aktywni Użytkownicy';
 
@@ -52,7 +52,7 @@ class HomeController extends BaseController
         $userModel = new UserModel();
         $perPage = 10;
         $page = $this->request->getVar('page') ?: 1;
-        $data['user_data'] = $userModel->getPaginatedANUsers($perPage, $page, 'n');
+        $data['user_data'] = $userModel->getPaginatedANUsersWithCompany($perPage, $page, 'n');
         $data['pager'] = $userModel->pager;
         $data['header'] = 'Nieaktywni Użytkownicy';
 
@@ -76,7 +76,7 @@ class HomeController extends BaseController
             $userModel = new UserModel();
             $perPage = 10;
             $page = $this->request->getVar('page') ?: 1;
-            $data['user_data'] = $userModel->getUserByName(
+            $data['user_data'] = $userModel->getUserByNameWithCompany(
                 $this->request->getVar('name'),
                 $perPage,
                 $page
