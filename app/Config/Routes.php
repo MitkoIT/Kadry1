@@ -13,11 +13,11 @@ $routes->add('unactive', 'HomeController::getUnactiveUsers');
 $routes->post('search', 'HomeController::getUserByName');
 $routes->get('pass-success', 'HomeController::passSetSuccess');
 
-$routes->get('passchng/(:num)', 'UserEditController::editUserPassword/$1');
-$routes->get('setunactive/(:num)', 'UserEditController::setUserUnactive/$1');
-$routes->get('edit/(:num)/(:num)', 'UserEditController::editUserData/$1/$2');
-$routes->post('store/(:num)/(:num)', 'UserEditController::setUserData/$1/$2');
-$routes->post('firstpasswd/(:num)', 'UserEditController::setUserPassword/$1');
+$routes->get('passchng/(:num)', 'UserController::editUserPassword/$1');
+$routes->get('setunactive/(:num)', 'UserController::setUserUnactive/$1');
+$routes->get('edit/(:num)/(:num)', 'UserController::editUserDataForEdit/$1/$2');
+$routes->post('store/(:num)/(:num)', 'UserController::setUserDataForEdit/$1/$2');
+$routes->post('firstpasswd/(:num)', 'UserController::setUserPassword/$1');
 
-$routes->add('paste', 'UserAddController::editUserData');
-$routes->post('add', 'UserAddController::setUserData');
+$routes->add('paste', 'UserController::editUserDataForAdd');
+$routes->post('add', 'UserController::setUserDataForAdd');

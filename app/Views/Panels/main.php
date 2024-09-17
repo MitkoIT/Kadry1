@@ -110,8 +110,6 @@
                         <!-- Pagination Links -->
                         <?= $pager->links(); ?>
                     </div>
-                    
-                    
                 </div>
             </div>
         </div>
