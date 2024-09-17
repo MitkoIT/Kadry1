@@ -86,7 +86,7 @@
                 <div class="d-grid justify-content-center szukaj-space">
                 <?php
                                 $attrib = [
-                                    'class'     => 'btn btn-secondary',
+                                    'class'     => 'btn btn-success',
                                     'type'      => 'submit', 
                                     'value'     => 'Zapisz Dane',
                                     'content' => '<i class="lni lni-save"></i> Zapisz Dane'

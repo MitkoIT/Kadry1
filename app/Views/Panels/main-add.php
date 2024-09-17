@@ -82,7 +82,7 @@
                 <div class="d-grid justify-content-center szukaj-space">
                 <?php
                                 $attrib = [
-                                    'class'     => 'btn btn-secondary',
+                                    'class'     => 'btn btn-success',
                                     'type'      => 'submit', 
                                     'value'     => 'Dodaj Użytkownika',
                                     'content' => '<i class="lni lni-plus"></i> Dodaj Użytkownika'

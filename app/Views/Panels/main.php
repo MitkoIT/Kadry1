@@ -2,7 +2,7 @@
 <div class="main">
     <div class="d-flex justify-content-end mt-3">
         <span>Użytkownik </span>
-        <button class="btn btn-primary mx-4">
+        <button class="btn btn-danger mx-4">
             <i class="lni lni-exit"></i>
             Wyloguj
         </button>
@@ -22,7 +22,7 @@
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
                             onclick="window.location='<?php echo base_url()?>/'">
-                            <i class="lni lni-user"></i>
+                            <i class="lni lni-users"></i>
                             Wszyscy
                         </button>
                     </div>
@@ -36,7 +36,7 @@
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
                             onclick="window.location='<?php echo base_url()?>unactive'">
-                            <i class="lni lni-user"></i>
+                            <i class="lni lni-cross-circle"></i>
                             Nieaktywni
                         </button>
                     </div>
@@ -134,15 +134,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Potwierdz</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Potwierdź</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     Czy na pewno chcesz deaktywować użytkownika <span id="user-name"></span>?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="lni lni-backward"></i>
+                        Nie
+                    </button>
                     <button type="button" class="btn btn-primary" id="confirm-deactivate">
+                        <i class="lni lni-eraser"></i>
                         Tak
                     </button>
                 </div>
