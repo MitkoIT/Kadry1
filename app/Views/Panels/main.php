@@ -91,10 +91,12 @@
                                         <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
                                         <td class="text-center align-middle mb-2">
                                             <button type="button" class="btn btn-success btn-sm btn-sml" 
-                                                onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'">
+                                                onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'"
+                                                style="background-color:rgba(0, 255, 0, 0.3); color: #006400; border: 3px solid #0f0;">
                                                 Edytuj
                                             </button>
                                             <button type="button" class="btn btn-danger btn-sm btn-sml" 
+                                                style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#deactiveModal"
                                                 data-userid = "<?php echo $user['idusers'] ?>"
