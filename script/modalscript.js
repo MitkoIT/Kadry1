@@ -1,6 +1,5 @@
 
-    // JavaScript to handle modal data
-    const modal = document.getElementById('deactiveModal');
+const modal = document.getElementById('deactiveModal');
     modal.addEventListener('show.bs.modal', function (event) {
         // Get the button that triggered the modal
         const button = event.relatedTarget;

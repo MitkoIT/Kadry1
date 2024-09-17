@@ -130,22 +130,22 @@
         </div>
     </main>
     <!-- Modal -->
-    <div class="modal fade" id="deactiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deactiveModal" tabindex="-1" aria-labelledby="deactiveModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Potwierdź</h5>
+                    <h5 class="modal-title" id="deactiveModalLabel">Potwierdź</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     Czy na pewno chcesz deaktywować użytkownika <span id="user-name"></span>?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                         <i class="lni lni-backward"></i>
                         Nie
                     </button>
-                    <button type="button" class="btn btn-primary" id="confirm-deactivate">
+                    <button type="button" class="btn btn-success" id="confirm-deactivate">
                         <i class="lni lni-eraser"></i>
                         Tak
                     </button>
@@ -153,5 +153,6 @@
             </div>
         </div>
     </div>
+    <!--Modal Ends-->
 </div>
 <!--Main Component Ends-->
