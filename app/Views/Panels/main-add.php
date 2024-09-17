@@ -80,14 +80,15 @@
                     </div>
                 </div>
                 <div class="d-grid justify-content-center szukaj-space">
-                    <?php
-                        $attrib = [
-                            'class' => 'btn btn-secondary',
-                            'type'  => 'submit', 
-                            'value' => 'Dodaj Użytkownika'
-                        ];
-                        echo form_input($attrib);
-                    ?>
+                <?php
+                                $attrib = [
+                                    'class'     => 'btn btn-secondary',
+                                    'type'      => 'submit', 
+                                    'value'     => 'Dodaj Użytkownika',
+                                    'content' => '<i class="lni lni-plus"></i> Dodaj Użytkownika'
+                                ];
+                                echo form_button($attrib);
+                            ?>
                 </div>
             <?php echo form_close(); ?>
         </div>

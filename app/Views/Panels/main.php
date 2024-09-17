@@ -1,11 +1,11 @@
 <!--Main Component-->
 <div class="main">
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mt-3">
         <span>Użytkownik </span>
-        <a href="#" class="mx-4">
+        <button class="btn btn-primary mx-4">
             <i class="lni lni-exit"></i>
-            <span>Wyloguj</span> 
-        </a>
+            Wyloguj
+        </button>
     </div>
     <main class="p-3">
         <div class="container-fluid">
@@ -21,15 +21,24 @@
                 <div class="row g-3 align-items-center szukaj-space">
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
-                        onclick="window.location='<?php echo base_url()?>/'">Wszyscy</button>
+                            onclick="window.location='<?php echo base_url()?>/'">
+                            <i class="lni lni-user"></i>
+                            Wszyscy
+                        </button>
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
-                        onclick="window.location='<?php echo base_url()?>active'">Aktywni</button>
+                            onclick="window.location='<?php echo base_url()?>active'">
+                            <i class="lni lni-user"></i>
+                            Aktywni
+                        </button>
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
-                        onclick="window.location='<?php echo base_url()?>unactive'">Nieaktywni</button>
+                            onclick="window.location='<?php echo base_url()?>unactive'">
+                            <i class="lni lni-user"></i>
+                            Nieaktywni
+                        </button>
                     </div>
                     <div class="col-auto">
                         <?php echo form_open('search') ?>
@@ -47,11 +56,12 @@
                         <div class="col-auto">
                             <?php
                                 $attrib = [
-                                    'class' => 'btn btn-secondary',
-                                    'type'  => 'submit', 
-                                    'value' => 'Szukaj'
+                                    'class'     => 'btn btn-secondary',
+                                    'type'      => 'submit', 
+                                    'value'     => 'Szukaj',
+                                    'content' => '<i class="lni lni-search"></i> Szukaj'
                                 ];
-                                echo form_input($attrib);
+                                echo form_button($attrib);
                             ?>
                         </div>
                     </div>
@@ -59,6 +69,7 @@
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-primary" 
                             onclick="window.location='<?php echo base_url()?>paste'">
+                            <i class="lni lni-plus"></i>
                             Dodaj Użytkownika
                         </button>
                     </div>
@@ -90,18 +101,20 @@
                                         <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
                                         <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
                                         <td class="text-center align-middle mb-2">
-                                            <button type="button" class="btn btn-success btn-sm btn-sml" 
+                                            <button type="button" class="btn btn-success btn-sm btn-sml rounded-start" 
                                                 onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'"
                                                 style="background-color:rgba(0, 255, 0, 0.3); color: #006400; border: 3px solid #0f0;">
+                                                <i class="lni lni-credit-cards"></i>
                                                 Edytuj
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-sm btn-sml" 
+                                            <button type="button" class="btn btn-danger btn-sm btn-sml rounded-end" 
                                                 style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#deactiveModal"
                                                 data-userid = "<?php echo $user['idusers'] ?>"
                                                 data-username = "<?php echo $user['user_name'] ?>"
                                                 data-path = "<?php echo base_url()?>setunactive/">
+                                                <i class="lni lni-cross-circle"></i>
                                                 Deaktywuj
                                             </button>
                                         </td>
