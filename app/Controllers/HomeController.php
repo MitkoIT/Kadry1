@@ -29,6 +29,19 @@ class HomeController extends BaseController
             view('Base/footer');
     }
 
+    public function passSetSuccess()
+    {
+        $data = [
+            'header' => ''
+        ];
+
+        return view('Base/header', [
+            'title' => 'Password Successfull'
+        ]).
+        view('Base/pass-success', $data).
+        view('Base/footer'); 
+    }
+
     public function getActiveUsers(): string
     {
         helper(['form']);
@@ -77,7 +90,7 @@ class HomeController extends BaseController
             $userModel = new UserModel();
             $perPage = 10;
             $page = $this->request->getVar('page') ?: 1;
-            $data['user_data'] = $userModel->getUserByNameWithCompany(
+            $data['user_data'] = $userModel->getUsersByFirstLetterWithCompany(
                 $this->request->getVar('name'),
                 $perPage,
                 $page

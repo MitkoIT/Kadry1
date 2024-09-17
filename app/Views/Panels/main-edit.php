@@ -2,7 +2,7 @@
 <div class="main">
     <main class="p-3">
         <div class="container-fluid">
-            <div class="mb-3 text-center">
+            <div class="mb-3">
                 <h1><?php echo $header; ?> <?php echo $user_data["name"]; ?></h1>
             </div>
             <?php echo form_open('store/'.$user_data['idusers'].'/'.$company_data['idcompany']) ?>

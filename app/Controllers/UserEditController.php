@@ -87,7 +87,8 @@ class UserEditController extends BaseController
             ];
 
             if ($userModel->update($id, $data)) {
-                return redirect()->to('/');
+                session()->setFlashdata('success', 'Hasło użytkownika zostało ustawione poprawnie.');
+                return redirect()->to('pass-success');
             } else {
                 echo 'password update failed';
             }
@@ -159,6 +160,7 @@ class UserEditController extends BaseController
                    // $lastQuery = $userCompanyModel->getLastQuery();
                    // echo $lastQuery; // wyswietl ostatnia kwerende
                    // echo $companyData['id_company'];
+                   session()->setFlashdata('success', 'Dane Użytkownika zostały zapisane poprawnie.');
                     return redirect()->to('/');
                 } else {
                     echo 'failed company update';

@@ -11,10 +11,7 @@
                     Zarządzaj
                 </li>
                 <li class="sidebar-items">
-                    <a href="<?php echo base_url()?>paste" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Dodaj Użytkownika</span>
-                    </a>
+                   
                 </li>
                 <li class="sidebar-header">
                     Statystyki
@@ -25,10 +22,7 @@
             </ul>
             <!--Sidebar Navigation Ends-->
             <div class="sidebat-footer">
-                <a href="#" class="sidebar-link">
-                   <i class="lni lni-exit"></i>
-                   <span>Wyloguj</span> 
-                </a>
+                
             </div>
         </aside>
         <!--Sidebar Ends-->

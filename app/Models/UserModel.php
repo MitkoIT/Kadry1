@@ -49,14 +49,16 @@ class UserModel extends Model
         return $this->select('*')->where('idusers', $id)->first();
     }
 
-    public function getUserByNameWithCompany(string $name, int $perPage, $page)
+    //This one is for search
+    //searches by first letters
+    public function getUsersByFirstLetterWithCompany(string $name, int $perPage, $page)
     {
         return $this
         ->select('*, users.name as user_name, users.email as user_email, 
             company.name as company_name, company.email as company_email')
         ->join('user_company', 'user_company.id_user = users.idusers', 'left')
         ->join('company', 'company.idcompany = user_company.id_company', 'left')
-        ->where('users.name', $name)
+        ->like('users.name', $name, 'after')
         ->paginate($perPage, $page);
     }
 

@@ -11,6 +11,7 @@ $routes->add('index', 'HomeController::index');
 $routes->add('active', 'HomeController::getActiveUsers');
 $routes->add('unactive', 'HomeController::getUnactiveUsers');
 $routes->post('search', 'HomeController::getUserByName');
+$routes->get('pass-success', 'HomeController::passSetSuccess');
 
 $routes->get('passchng/(:num)', 'UserEditController::editUserPassword/$1');
 $routes->get('setunactive/(:num)', 'UserEditController::setUserUnactive/$1');

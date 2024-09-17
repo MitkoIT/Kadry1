@@ -61,6 +61,8 @@ class UserAddController extends BaseController
 
             $this->sendEmailPassword($data['idusers']['next_id'], $data['email']);
 
+
+            session()->setFlashdata('success', 'Użytkownik został dodany poprawnie.');
             return redirect()->to('/');
         } else {
             echo 'failed by validation';
