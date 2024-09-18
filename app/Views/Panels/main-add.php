@@ -5,6 +5,11 @@
             <div class="mb-3">
                 <h1><?php echo $header; ?></h1>
             </div>
+            <?php if (isset($validation)) { ?>
+                <div class="alert alert-warning">
+                    <?= $validation->listErrors() ?>
+                </div>
+            <?php } ?>
             <?php echo form_open('add')?>
             <div class="row g-3 align-items-center szukaj-space">
                     <div class="col-auto">

@@ -16,6 +16,7 @@ class UserController extends BaseController
 
         $data['company_list'] = $companyModel->getAllCompanies();
         $data['header'] = 'Dodaj Użytkownika';
+        $data['validation'] = $this->validator;
 
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
@@ -29,10 +30,26 @@ class UserController extends BaseController
     {
         helper(['form']);
         $rules = [
-            'name'              => 'required|min_length[2]|max_length[128]',
             'email'             => 'required|min_length[4]|max_length[128]|valid_email|',
-            'phone'             => 'required|min_length[2]|max_length[20]',
-            'firma'             => 'required'
+            'firma'             => 'required',
+            'name' => [
+                'rules' => 'required|min_length[2]|Max_length[128]',
+                'label' => 'Name',
+                'errors' => [
+                    'required' => 'Musisz wprowadzić nazwisko i imię.',
+                    'min_length' => 'Minimum 2 znaki w Imię i Nazwisko',
+                    'max_length' => 'Maksimum 128 znaków w Imię i Nazwisko'
+                ]
+            ], 
+            'phone' => [
+                'rules' => 'required|min_length[2]|Max_length[20]',
+                'label' => 'Phone',
+                'errors' => [
+                    'required' => 'Musisz wprowadzić numer telefonu.',
+                    'min_length' => 'Minimum 2 cyfry w numerze telefonu.',
+                    'max_length' => 'Maksimum 20 cyfr w numerze telefonu.'
+                ]
+            ], 
         ]; 
           
         if ($this->validate($rules)) { 
@@ -65,7 +82,7 @@ class UserController extends BaseController
             session()->setFlashdata('success', 'Użytkownik został dodany poprawnie.');
             return redirect()->to('/');
         } else {
-            echo 'failed by validation';
+            return $this->editUserDataForAdd();
         }
     }
 
@@ -115,6 +132,7 @@ class UserController extends BaseController
         $userModel = new UserModel();
 
         $data['user_data'] = $userModel->getUserById($id);
+        $data['validation'] = $this->validator;
 
         if ($data['user_data']) {
             if ($data['user_data']['active'] == 'n' && 
@@ -177,17 +195,7 @@ class UserController extends BaseController
             }
 
         } else {
-            $data = [
-                'user_data' => $userModel->getUserById($id),
-                'header'    => 'Ustaw hasło dla użytkownika ',
-                'validation' => $this->validator
-            ];
-
-            return view('Base/header', [
-                'title' => 'Ustaw pierwsze hasło użytkownika'
-            ]).
-            view('Panels/main-passwd-first', $data).
-            view('Base/footer');
+           return $this->editUserPassword($id);
         }
     }
 
@@ -202,6 +210,7 @@ class UserController extends BaseController
         $data['company_data'] = $companyModel->getCompanyById($companyId);
         $data['company_list'] = $companyModel->getAllCompanies();
         $data['header'] = 'Edytuj Użytkownika';
+        $data['validation'] = $this->validator;
 
         return view('Base/header', [
                 'title' => 'Edytu Użytkownika'
@@ -262,34 +271,19 @@ class UserController extends BaseController
                    session()->setFlashdata('success', 'Dane Użytkownika zostały zapisane poprawnie.');
                     return redirect()->to('/');
                 } else {
-                    echo 'failed company update';
+                    echo 'failed... company update';
                 }
             } else {
-                echo 'failed...user update';
+                echo 'failed... user update';
             }
 
         } else {
             // skrot ale 
             //session()->setFlashdata('error', 'Wprowadzone dane nie spełniaja wymogów...');
-            //return $this->editUserDataForEdit($id, $idcompany);
+            return $this->editUserDataForEdit($id, $idcompany);
 
-            helper(['form']);
-
-            $userModel = new UserModel();
-            $companyModel = new CompanyModel();
-    
-            $data['user_data'] = $userModel->getUserById($id);
-            $data['company_data'] = $companyModel->getCompanyById($idcompany);
-            $data['company_list'] = $companyModel->getAllCompanies();
-            $data['header'] = 'Edytuj Użytkownika';
-            $data['validation'] = $this->validator;
-    
-            return view('Base/header', [
-                    'title' => 'Edytu Użytkownika'
-                ]).
-                view('Panels/side-bar').
-                view('Panels/main-edit', $data).
-                view('Base/footer');
+            //to nie funkcionuje 
+            //return redirect()->to(route_to('edit', $id, $idcompany));
         }
     }
 }
