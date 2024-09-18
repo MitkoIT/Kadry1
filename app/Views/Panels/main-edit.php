@@ -5,6 +5,16 @@
             <div class="mb-3">
                 <h1><?php echo $header; ?> <?php echo $user_data["name"]; ?></h1>
             </div>
+            <?php if (session()->getFlashdata('error')) { ?>
+                <div class="alert alert-success">
+                    <?= session()->getFlashdata('error') ?>
+                </div>
+            <?php } ?>
+            <?php if (isset($validation)) { ?>
+                <div class="alert alert-warning">
+                    <?= $validation->listErrors() ?>
+                </div>
+            <?php } ?>
             <?php echo form_open('store/'.$user_data['idusers'].'/'.$company_data['idcompany']) ?>
             <div class="row g-3 align-items-center szukaj-space">
                     <div class="col-auto">

@@ -67,7 +67,7 @@ class UserModel extends Model
             ')
         ->join('user_company', 'user_company.id_user = users.idusers', 'left')
         ->join('company', 'company.idcompany = user_company.id_company', 'left')
-        ->like('users.name', $name, 'after')
+        ->like('users.name', $name)
         ->paginate($perPage, $page);
     }
 

@@ -215,10 +215,26 @@ class UserController extends BaseController
     {
         helper(['form']);
         $rules = [
-            'name'              => 'required|min_length[2]|max_length[128]',
             'email'             => 'required|min_length[4]|max_length[128]|valid_email|',
-            'phone'             => 'required|min_length[2]|max_length[20]',
-            'firma'             => 'required'
+            'firma'             => 'required',
+            'name' => [
+                'rules' => 'required|min_length[2]|Max_length[128]',
+                'label' => 'Name',
+                'errors' => [
+                    'required' => 'Musisz wprowadzić nazwisko i imię.',
+                    'min_length' => 'Minimum 2 znaki w Imię i Nazwisko',
+                    'max_length' => 'Maksimum 128 znaków w Imię i Nazwisko'
+                ]
+            ], 
+            'phone' => [
+                'rules' => 'required|min_length[2]|Max_length[20]',
+                'label' => 'Phone',
+                'errors' => [
+                    'required' => 'Musisz wprowadzić numer telefonu.',
+                    'min_length' => 'Minimum 2 cyfry w numerze telefonu.',
+                    'max_length' => 'Maksimum 20 cyfr w numerze telefonu.'
+                ]
+            ], 
         ]; 
           
         if ($this->validate($rules)) { 
@@ -253,7 +269,27 @@ class UserController extends BaseController
             }
 
         } else {
-            echo 'failed by validation';
+            // skrot ale 
+            //session()->setFlashdata('error', 'Wprowadzone dane nie spełniaja wymogów...');
+            //return $this->editUserDataForEdit($id, $idcompany);
+
+            helper(['form']);
+
+            $userModel = new UserModel();
+            $companyModel = new CompanyModel();
+    
+            $data['user_data'] = $userModel->getUserById($id);
+            $data['company_data'] = $companyModel->getCompanyById($idcompany);
+            $data['company_list'] = $companyModel->getAllCompanies();
+            $data['header'] = 'Edytuj Użytkownika';
+            $data['validation'] = $this->validator;
+    
+            return view('Base/header', [
+                    'title' => 'Edytu Użytkownika'
+                ]).
+                view('Panels/side-bar').
+                view('Panels/main-edit', $data).
+                view('Base/footer');
         }
     }
 }

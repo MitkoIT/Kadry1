@@ -1,7 +1,7 @@
 <!--Main Component-->
 <div class="main">
     <div class="d-flex justify-content-end mt-3">
-        <span>Użytkownik </span>
+        <span class="mt-3"> Witaj! zalogowany użytkowniku </span>
         <button class="btn btn-danger mx-4">
             <i class="lni lni-exit"></i>
             Wyloguj
@@ -46,8 +46,10 @@
                                 $attribs = [
                                     'name'          => 'name',
                                     'type'          => 'text', 
-                                    'placeholder'   => 'Imię i Nazwisko',
+                                    'placeholder'   => 'Nazwisko i Imię',
                                     'class'         => 'form-control',
+                                    'id'            => 'myInput',
+                                    'onkeyup'       => 'MySearchFunction()',
                                 ];
                                 echo form_input($attribs); 
                             ?>
@@ -74,9 +76,9 @@
                         </button>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="overflow-y:auto; height: calc(100vh - 325px);">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
+                        <table id="myTable" class="table table-striped table-bordered">
                             <tr>
                                 <th>ID</th>
                                 <th>Imię i nazwisko</th>
@@ -122,10 +124,10 @@
                                 <?php }
                             } ?>
                         </table>
-                        <!-- Pagination Links -->
-                        <?= $pager->links(); ?>
                     </div>
                 </div>
+                 <!-- Pagination Links -->
+                    <?= $pager->links(); ?>
             </div>
         </div>
     </main>

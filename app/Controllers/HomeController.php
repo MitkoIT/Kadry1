@@ -14,7 +14,7 @@ class HomeController extends BaseController
         helper(['form']);
 
         $userModel = new UserModel();
-        $perPage = 10;
+        $perPage = 100;
         //jezeli nic tu nie ma to wstaw 1 strone
         $page = $this->request->getVar('page') ?: 1;
         $data['user_data'] = $userModel->getPaginatedAllUsersWithCompany($perPage, $page);
@@ -46,7 +46,7 @@ class HomeController extends BaseController
     {
         helper(['form']);
         $userModel = new UserModel();
-        $perPage = 10;
+        $perPage = 100;
         $page = $this->request->getVar('page') ?: 1;
         $data['user_data'] = $userModel->getPaginatedANUsersWithCompany($perPage, $page, 'y');
         $data['pager'] = $userModel->pager;
@@ -64,7 +64,7 @@ class HomeController extends BaseController
     {
         helper(['form']);
         $userModel = new UserModel();
-        $perPage = 10;
+        $perPage = 100;
         $page = $this->request->getVar('page') ?: 1;
         $data['user_data'] = $userModel->getPaginatedANUsersWithCompany($perPage, $page, 'n');
         $data['pager'] = $userModel->pager;
@@ -88,7 +88,7 @@ class HomeController extends BaseController
 
         if ($this->validate($rules)) { 
             $userModel = new UserModel();
-            $perPage = 10;
+            $perPage = 100;
             $page = $this->request->getVar('page') ?: 1;
             $data['user_data'] = $userModel->getUsersByFirstLetterWithCompany(
                 $this->request->getVar('name'),
