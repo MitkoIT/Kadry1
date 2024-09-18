@@ -18,6 +18,23 @@ h1{
     margin-bottom: 50px;
 }
 
+.table-responsive {
+    height: 635px; /* Set the desired height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+thead th {
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick to the top */
+    z-index: 1; /* Ensure it stays above the table body */
+    background-color: white; /* Set background color */
+    /*font-size: 1.25rem; /* Increase font size for headers */
+    /*font-weight: bold; /* Make the font bold */
+    padding: 15px; /* Increase padding for headers */
+    /*width: 150px; /* Set a specific width for header cells */
+    /*height: 95px;*/
+}
+
 .main {
     min-height: 100vh;
     width: 100%;

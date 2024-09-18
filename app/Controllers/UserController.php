@@ -37,8 +37,8 @@ class UserController extends BaseController
                 'label' => 'Name',
                 'errors' => [
                     'required' => 'Musisz wprowadzić nazwisko i imię.',
-                    'min_length' => 'Minimum 2 znaki w Imię i Nazwisko',
-                    'max_length' => 'Maksimum 128 znaków w Imię i Nazwisko'
+                    'min_length' => 'Minimum 2 znaki w Imię i Nazwisko.',
+                    'max_length' => 'Maksimum 128 znaków w Imię i Nazwisko.'
                 ]
             ], 
             'phone' => [
@@ -166,7 +166,7 @@ class UserController extends BaseController
                 'label' => 'Password',
                 'errors' => [
                     'required' => 'Musisz wprowadzić hasło.',
-                    'min_length' => 'Minimum 8 znaków',
+                    'min_length' => 'Minimum 8 znaków.',
                     'regex_match' => 'Aby Twoje hasło było silne i bezpieczne, powinno zawierać 4 z 4 grup znakowych – 
                                         co najmniej jedna mała oraz wielka litera, a także jeden znak specjalny (np. !, @, $) i jedną cyfre.'
                 ]
@@ -174,7 +174,7 @@ class UserController extends BaseController
             'confirmpasswd' => [
                 'rules' => 'matches[password]',
                 'errors' => [
-                    'matches' => 'Wprowadzone hasła muszą być identyczne'
+                    'matches' => 'Wprowadzone hasła muszą być identyczne.'
                 ]
             ],
         ];
@@ -231,8 +231,8 @@ class UserController extends BaseController
                 'label' => 'Name',
                 'errors' => [
                     'required' => 'Musisz wprowadzić nazwisko i imię.',
-                    'min_length' => 'Minimum 2 znaki w Imię i Nazwisko',
-                    'max_length' => 'Maksimum 128 znaków w Imię i Nazwisko'
+                    'min_length' => 'Minimum 2 znaki w Imię i Nazwisko.',
+                    'max_length' => 'Maksimum 128 znaków w Imię i Nazwisko.'
                 ]
             ], 
             'phone' => [

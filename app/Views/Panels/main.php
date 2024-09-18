@@ -58,7 +58,7 @@
                         <div class="col-auto">
                             <?php
                                 $attrib = [
-                                    'class'     => 'btn btn-secondary',
+                                    'class'     => 'btn btn-primary',
                                     'type'      => 'submit', 
                                     'value'     => 'Szukaj',
                                     'content' => '<i class="lni lni-search"></i> Szukaj'
@@ -76,59 +76,61 @@
                         </button>
                     </div>
                 </div>
-                <div class="card-body" style="overflow-y:auto; height: calc(100vh - 325px);">
                     <div class="table-responsive">
-                        <table id="myTable" class="table table-striped table-bordered">
-                            <tr>
-                                <th>ID</th>
-                                <th>Imię i nazwisko</th>
-                                <th>Tel.</th>
-                                <th>Firma</th>
-                                <th>Action</th>
-                            </tr>
-                            <?php
-                            if ($user_data) {
-                                foreach ($user_data as $user) { ?>
-                                    <tr>
-                                        <td class="text-center align-middle">
-                                            <?php echo $user['idusers']; ?>
-                                        </td>
-                                        <td class="text-center align-middle">
-                                            <?php echo $user['user_name']; ?>
-                                            <br>
-                                            <span class="mail-span"> 
-                                                <?php echo $user['user_email']; ?>
-                                            </span>
-                                        </td>
-                                        <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
-                                        <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
-                                        <td class="text-center align-middle mb-2">
-                                            <button type="button" class="btn btn-success btn-sm btn-sml rounded-start" 
-                                                onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'"
-                                                style="background-color:rgba(0, 255, 0, 0.3); color: #006400; border: 3px solid #0f0;">
-                                                <i class="lni lni-credit-cards"></i>
-                                                Edytuj
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm btn-sml rounded-end" 
-                                                style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#deactiveModal"
-                                                data-userid = "<?php echo $user['idusers'] ?>"
-                                                data-username = "<?php echo $user['user_name'] ?>"
-                                                data-path = "<?php echo base_url()?>setunactive/">
-                                                <i class="lni lni-cross-circle"></i>
-                                                Deaktywuj
-                                            </button>
-                                        </td>
-                                    </tr>
+                        <table id="myTable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">Imię i nazwisko</th>
+                                    <th class="text-center">Tel.</th>
+                                    <th class="text-center">Firma</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($user_data) {
+                                    foreach ($user_data as $user) { ?>
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                <?php echo $user['idusers']; ?>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <?php echo $user['user_name']; ?>
+                                                <br>
+                                                <span class="mail-span"> 
+                                                    <?php echo $user['user_email']; ?>
+                                                </span>
+                                            </td>
+                                            <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
+                                            <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
+                                            <td class="text-center align-middle mb-2">
+                                                <button type="button" class="btn btn-success btn-sm btn-sml rounded-start" 
+                                                    onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'"
+                                                    style="background-color:rgba(0, 255, 0, 0.3); color: #006400; border: 3px solid #0f0;">
+                                                    <i class="lni lni-credit-cards"></i>
+                                                    Edytuj
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm btn-sml rounded-end" 
+                                                    style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#deactiveModal"
+                                                    data-userid = "<?php echo $user['idusers'] ?>"
+                                                    data-username = "<?php echo $user['user_name'] ?>"
+                                                    data-path = "<?php echo base_url()?>setunactive/">
+                                                    <i class="lni lni-cross-circle"></i>
+                                                    Deaktywuj
+                                                </button>
+                                            </td>
+                                        </tr>
                                 <?php }
                             } ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
                  <!-- Pagination Links -->
                     <?= $pager->links(); ?>
-            </div>
         </div>
     </main>
     <!-- Modal -->
