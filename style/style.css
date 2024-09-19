@@ -20,7 +20,7 @@ h1{
 }
 
 .table-responsive {
-    height: calc(100vh - 320px); /*610px; /* Set the desired height */
+    height: calc(100vh - 420px); /*610px; /* Set the desired height */
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
