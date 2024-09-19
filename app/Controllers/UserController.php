@@ -171,8 +171,10 @@ class UserController extends BaseController
                 'errors' => [
                     'required' => 'Musisz wprowadzić hasło.',
                     'min_length' => 'Minimum 8 znaków.',
-                    'regex_match' => 'Aby Twoje hasło było silne i bezpieczne, powinno zawierać 4 z 4 grup znakowych – 
-                                        co najmniej jedna mała oraz wielka litera, a także jeden znak specjalny (np. !, @, $) i jedną cyfre.'
+                    'regex_match' => 'Aby Twoje hasło było silne i bezpieczne, 
+                                        powinno zawierać 4 z 4 grup znakowych – 
+                                        co najmniej jedna mała oraz wielka litera, 
+                                        a także jeden znak specjalny (np. !, @, $) i jedną cyfre.'
                 ]
             ], 
             'confirmpasswd' => [
@@ -213,7 +215,7 @@ class UserController extends BaseController
         $data = [
             'user_data'     => $userModel->getUserById($id),
             'company_list'  => $companyModel->getAllCompanies(),
-            'company_data'  => $companyModel->getAllCompanyById($companyId),
+            'company_data'  => $companyModel->getCompanyById($companyId),
             'header'        => 'Edytuj Użytkownika',
             'validation'    => $this->validator    
         ];
