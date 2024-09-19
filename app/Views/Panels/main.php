@@ -94,6 +94,7 @@
                                     <th class="text-center">Imię i nazwisko</th>
                                     <th class="text-center">Tel.</th>
                                     <th class="text-center">Firma</th>
+                                    <th class="text-center">Status</th>
                                     <th class="text-center">Akcja</th>
                                 </tr>
                             </thead>
@@ -119,6 +120,21 @@
                                             </td>
                                             <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
                                             <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
+                                            <td class="text-center align-middle">
+                                                <?php if ($user['active'] == 'n') { ?> 
+                                                    <span class="border p-1 rounded" 
+                                                        style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;">
+                                                        <i class="lni lni-cross-circle"></i>
+                                                        Nieaktywny
+                                                    </span>
+                                                <?php } else { ?>
+                                                    <span class="border rounded p-1" 
+                                                        style="background-color:rgba(0, 255, 0, 0.3);  color: rgb(0,255,0); border: 3px solid #0f0;">
+                                                        <i class="lni lni-checkmark"></i>
+                                                        Aktywny
+                                                    </span>
+                                                <?php } ?>
+                                            </td>
                                             <td class="text-center align-middle mb-2">
                                                 <button type="button" class="btn btn-success btn-sm btn-edit-deactive rounded-start" 
                                                     onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'"
@@ -132,16 +148,17 @@
                                                     <i class="lni lni-cloud-sync"></i>
                                                     
                                                 </button>
-                                                <button type="button" class="btn btn-danger btn-sm btn-edit-deactive rounded-end" 
-                                                    style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#deactiveModal"
-                                                    data-userid = "<?php echo $user['idusers'] ?>"
-                                                    data-username = "<?php echo $user['user_name'] ?>"
-                                                    data-path = "<?php echo base_url()?>setunactive/">
-                                                    <i class="lni lni-cross-circle"></i>
-                                                    
-                                                </button>
+                                                <?php if ($user['active'] == 'y') { ?> 
+                                                    <button type="button" class="btn btn-danger btn-sm btn-edit-deactive rounded-end" 
+                                                        style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#deactiveModal"
+                                                        data-userid = "<?php echo $user['idusers'] ?>"
+                                                        data-username = "<?php echo $user['user_name'] ?>"
+                                                        data-path = "<?php echo base_url()?>setunactive/">
+                                                        <i class="lni lni-cross-circle"></i> 
+                                                    </button>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                 <?php }
