@@ -18,16 +18,24 @@
     <main class="p-3">
         <div class="container-fluid">
             <div class="mb-1">
-                <h1 class="title-space">
-                    <i class="lni lni-list"></i>
-                    <b><?php echo $header; ?></b>
-                </h1>
+                <div class="d-flex justify-content-between">
+                    <h1 class="title-space">
+                        <i class="lni lni-list"></i>
+                        <b><?php echo $header; ?></b>
+                    </h1>
+                        <!-- Diagram -->
+                    <div class="col-md-2">
+                        <canvas id="myDiagram"></canvas>
+                    </div>
+                    <!-- Diagram End -->
+                 </div>
                 <?php if (session()->getFlashdata('success')) { ?>
                     <div class="alert alert-success">
                         <?= session()->getFlashdata('success') ?>
                     </div>
                 <?php } ?>
-                <div class="row g-3 align-items-center szukaj-space">
+
+                <div class="row g-3 szukaj-space">
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
                             onclick="window.location='<?php echo base_url()?>/'">
@@ -85,6 +93,7 @@
                         </button>
                     </div>
                 </div>
+                <div>
                     <div class="table-responsive border border-3 rounded">
                         <table id="myTable" class="table table-striped">
                             <thead>
@@ -169,6 +178,7 @@
                 </div>
                  <!-- Pagination Links -->
                     <?= $pager->links(); ?>
+            </>
         </div>
     </main>
     <!-- Modal -->
