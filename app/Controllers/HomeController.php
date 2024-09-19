@@ -17,9 +17,15 @@ class HomeController extends BaseController
         $perPage = 100;
         //jezeli nic tu nie ma to wstaw 1 strone
         $page = $this->request->getVar('page') ?: 1;
-        $data['user_data'] = $userModel->getPaginatedAllUsersWithCompany($perPage, $page);
-        $data['pager'] = $userModel->pager;
-        $data['header'] = 'Wszyscy Użytkownicy';
+
+        $data = [
+            'user_data' => $userModel
+                ->getPaginatedAllUsersWithCompany(
+                    $perPage, $page
+                ),
+            'pager'     => $userModel->pager,
+            'header'    => 'Wszyscy Użytkownicy'
+        ];
 
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
@@ -48,9 +54,15 @@ class HomeController extends BaseController
         $userModel = new UserModel();
         $perPage = 100;
         $page = $this->request->getVar('page') ?: 1;
-        $data['user_data'] = $userModel->getPaginatedANUsersWithCompany($perPage, $page, 'y');
-        $data['pager'] = $userModel->pager;
-        $data['header'] = 'Aktywni Użytkownicy';
+       
+        $data = [
+            'user_data' => $userModel
+                ->getPaginatedANUsersWithCompany(
+                    $perPage, $page, 'y'
+                ),
+            'pager'     => $userModel->pager,
+            'header'    => 'Aktywni Użytkownicy'
+        ];
 
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
@@ -66,9 +78,15 @@ class HomeController extends BaseController
         $userModel = new UserModel();
         $perPage = 100;
         $page = $this->request->getVar('page') ?: 1;
-        $data['user_data'] = $userModel->getPaginatedANUsersWithCompany($perPage, $page, 'n');
-        $data['pager'] = $userModel->pager;
-        $data['header'] = 'Nieaktywni Użytkownicy';
+
+        $data = [
+            'user_data' => $userModel
+                ->getPaginatedANUsersWithCompany(
+                    $perPage, $page, 'n'
+                ),
+            'pager'     => $userModel->pager,
+            'header'    => 'Nieaktywni Użytkownicy'
+        ];
 
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
@@ -90,7 +108,8 @@ class HomeController extends BaseController
             $userModel = new UserModel();
             $perPage = 100;
             $page = $this->request->getVar('page') ?: 1;
-            $data['user_data'] = $userModel->getUsersByFirstLetterWithCompany(
+            $data['user_data'] = $userModel
+                ->getUsersByFirstLetterWithCompany(
                 $this->request->getVar('name'),
                 $perPage,
                 $page

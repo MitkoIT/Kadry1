@@ -58,7 +58,7 @@
                         <div class="col-auto">
                             <?php
                                 $attrib = [
-                                    'class'     => 'btn btn-primary',
+                                    'class'     => 'btn btn-success',
                                     'type'      => 'submit', 
                                     'value'     => 'Szukaj',
                                     'content' => '<i class="lni lni-search"></i> Szukaj'

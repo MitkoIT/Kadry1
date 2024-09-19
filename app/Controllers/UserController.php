@@ -14,9 +14,11 @@ class UserController extends BaseController
 
         $companyModel = new CompanyModel();
 
-        $data['company_list'] = $companyModel->getAllCompanies();
-        $data['header'] = 'Dodaj Użytkownika';
-        $data['validation'] = $this->validator;
+        $data = [
+            'company_list'  => $companyModel->getAllCompanies(),
+            'header'        => 'Dodaj Użytkownika',
+            'validation'    =>  $this->validator
+        ];
 
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
@@ -30,9 +32,9 @@ class UserController extends BaseController
     {
         helper(['form']);
         $rules = [
-            'email'             => 'required|min_length[4]|max_length[128]|valid_email|',
-            'firma'             => 'required',
-            'name' => [
+            'email' => 'required|min_length[4]|max_length[128]|valid_email|',
+            'firma' => 'required',
+            'name'  => [
                 'rules' => 'required|min_length[2]|Max_length[128]',
                 'label' => 'Name',
                 'errors' => [
@@ -131,8 +133,10 @@ class UserController extends BaseController
 
         $userModel = new UserModel();
 
-        $data['user_data'] = $userModel->getUserById($id);
-        $data['validation'] = $this->validator;
+        $data = [
+            'user_data'     => $userModel->getUserById($id),
+            'validation'    => $this->validator
+        ];
 
         if ($data['user_data']) {
             if ($data['user_data']['active'] == 'n' && 
@@ -206,11 +210,13 @@ class UserController extends BaseController
         $userModel = new UserModel();
         $companyModel = new CompanyModel();
 
-        $data['user_data'] = $userModel->getUserById($id);
-        $data['company_data'] = $companyModel->getCompanyById($companyId);
-        $data['company_list'] = $companyModel->getAllCompanies();
-        $data['header'] = 'Edytuj Użytkownika';
-        $data['validation'] = $this->validator;
+        $data = [
+            'user_data'     => $userModel->getUserById($id),
+            'company_list'  => $companyModel->getAllCompanies(),
+            'company_data'  => $companyModel->getAllCompanyById($companyId),
+            'header'        => 'Edytuj Użytkownika',
+            'validation'    => $this->validator    
+        ];
 
         return view('Base/header', [
                 'title' => 'Edytu Użytkownika'
