@@ -284,11 +284,9 @@ class UserController extends BaseController
             }
 
         } else {
-            // skrot ale 
-            //session()->setFlashdata('error', 'Wprowadzone dane nie spełniaja wymogów...');
             return $this->editUserDataForEdit($id, $idcompany);
 
-            //to nie funkcionuje 
+            //to nie funkcjonuje 
             //return redirect()->to(route_to('edit', $id, $idcompany));
         }
     }
