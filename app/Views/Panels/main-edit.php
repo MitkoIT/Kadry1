@@ -3,7 +3,13 @@
     <main class="p-3">
         <div class="container-fluid">
             <div class="mb-3">
-                <h1><?php echo $header; ?> <?php echo $user_data["name"]; ?></h1>
+                <h1>
+                    <i class="lni lni-stamp"></i>
+                    <?php echo $header; ?> 
+                    <span class="user-name">
+                        <?php echo $user_data["name"]; ?>
+                    </span>
+                </h1>
             </div>
             <?php if (session()->getFlashdata('error')) { ?>
                 <div class="alert alert-success">

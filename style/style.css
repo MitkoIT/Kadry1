@@ -1,7 +1,7 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap');*/
-
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 body{
-   /* font-family: 'Teko', sans-serif;*/
+    /*font-family: 'Lexend', sans-serif;*/
     font-size: 100%;
 }
 
@@ -14,12 +14,13 @@ a {
 }
 
 h1{
-    font-weight: bold;
+    /*font-weight: bold;*/
     margin-bottom: 50px;
+    font-family: 'Lexend', sans-serif;
 }
 
 .table-responsive {
-    height: 635px; /* Set the desired height */
+    height: calc(100vh - 320px); /*610px; /* Set the desired height */
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
@@ -189,19 +190,26 @@ label {
     margin-bottom: 10px; /* Space between the elements */
 }
 
-.dodaj {
-    margin-left: auto;
-}
-
 .logout-btn {
     margin: 20px 20px;
 }
 
-.btn-sml { 
-    height: 4vh; 
+.btn-edit-deactive {
+    height: 4vh;
+    width:  4vh;
 }
 
 .scrollable-div {
     height: 20px;
     overflow-y: auto;
+}
+
+.user-name {
+    font-family: 'Lexend', sans-serif;
+    color: rgb(34, 128, 151);
+}
+
+.logged-user {
+    font-family: 'Lexend', sans-serif;
+    color: rgb(97, 100, 124);
 }

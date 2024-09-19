@@ -18,7 +18,7 @@ class UserModel extends Model
         'password'
     ]; 
 
-    public function getPaginatedAllUsersWithCompany($perPage, $page)
+    public function getPaginatedAllUsersWithCompany(int $perPage, $page)
     {
         return $this
         ->select('*, users.name as user_name, users.email as user_email, 
@@ -34,11 +34,11 @@ class UserModel extends Model
         if ($a == 'y' || $a == 'n') {
             return $this
             ->select('
-            *, 
-            users.name as user_name, 
-            users.email as user_email, 
-            company.name as company_name, 
-            company.email as company_email
+                *, 
+                users.name as user_name, 
+                users.email as user_email, 
+                company.name as company_name, 
+                company.email as company_email
             ')
             ->join(  'user_company', 'user_company.id_user = users.idusers', 'left')
             ->join('company', 'company.idcompany = user_company.id_company', 'left')

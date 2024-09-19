@@ -1,16 +1,25 @@
 <!--Main Component-->
 <div class="main">
     <div class="d-flex justify-content-end mt-3">
-        <span class="mt-3"> Witaj! zalogowany użytkowniku </span>
-        <button class="btn btn-danger mx-4">
-            <i class="lni lni-exit"></i>
-            Wyloguj
-        </button>
+        <div class="border border-primary border-3 rounded-pill mx-4 p-2">
+            <span class="mt-3"> 
+                
+                <img src="<?php echo base_url('images/image.png'); ?>" class="rounded-circle" alt="Image" width="50" height="50">
+                <span class="logged-user">  
+                    Imię Nazwisko
+                </span> 
+            </span>
+            <button class="btn btn-danger mx-4">
+                <i class="lni lni-exit"></i>
+                Wyloguj
+            </button>
+        </div>
     </div>
     <main class="p-3">
         <div class="container-fluid">
-            <div class="mb-3">
+            <div class="mb-1">
                 <h1 class="title-space">
+                    <i class="lni lni-list"></i>
                     <b><?php echo $header; ?></b>
                 </h1>
                 <?php if (session()->getFlashdata('success')) { ?>
@@ -76,15 +85,16 @@
                         </button>
                     </div>
                 </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive border border-3 rounded">
                         <table id="myTable" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th class="text-center">ID</th>
+                                    <th class="text-center">Fotka</th>
                                     <th class="text-center">Imię i nazwisko</th>
                                     <th class="text-center">Tel.</th>
                                     <th class="text-center">Firma</th>
-                                    <th class="text-center">Action</th>
+                                    <th class="text-center">Akcja</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,6 +106,11 @@
                                                 <?php echo $user['idusers']; ?>
                                             </td>
                                             <td class="text-center align-middle">
+                                                <!-- zastapic zdjeciem z bazy -->
+                                                <img src="<?php echo base_url('images/image.png'); ?>" 
+                                                    class="rounded-circle" alt="Fotka" width="40" height="40">
+                                            </td>
+                                            <td class="text-center align-middle">
                                                 <?php echo $user['user_name']; ?>
                                                 <br>
                                                 <span class="mail-span"> 
@@ -105,13 +120,19 @@
                                             <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
                                             <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
                                             <td class="text-center align-middle mb-2">
-                                                <button type="button" class="btn btn-success btn-sm btn-sml rounded-start" 
+                                                <button type="button" class="btn btn-success btn-sm btn-edit-deactive rounded-start" 
                                                     onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'"
                                                     style="background-color:rgba(0, 255, 0, 0.3); color: #006400; border: 3px solid #0f0;">
-                                                    <i class="lni lni-credit-cards"></i>
-                                                    Edytuj
+                                                    <i class="lni lni-consulting"></i>
+                                                    
                                                 </button>
-                                                <button type="button" class="btn btn-danger btn-sm btn-sml rounded-end" 
+                                                <button type="button" class="btn btn-primary btn-sm btn-edit-deactive rounded" 
+                                                    onclick="window.location='#'"
+                                                    style="background-color:rgba(0, 0, 255, 0.3); color: #006400; border: 3px solid #00f;">
+                                                    <i class="lni lni-cloud-sync"></i>
+                                                    
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm btn-edit-deactive rounded-end" 
                                                     style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
                                                     data-bs-toggle="modal" 
                                                     data-bs-target="#deactiveModal"
@@ -119,7 +140,7 @@
                                                     data-username = "<?php echo $user['user_name'] ?>"
                                                     data-path = "<?php echo base_url()?>setunactive/">
                                                     <i class="lni lni-cross-circle"></i>
-                                                    Deaktywuj
+                                                    
                                                 </button>
                                             </td>
                                         </tr>

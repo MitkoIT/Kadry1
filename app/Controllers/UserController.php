@@ -78,7 +78,7 @@ class UserController extends BaseController
             $userModel->insert($data);
             $userCompanyModel->insert($companyData);
 
-            $this->sendEmailPassword($data['idusers']['next_id'], $data['email']);
+            $this->sendEmailSetPassword($data['idusers']['next_id'], $data['email']);
 
 
             session()->setFlashdata('success', 'Użytkownik został dodany poprawnie.');
@@ -88,7 +88,7 @@ class UserController extends BaseController
         }
     }
 
-    public function sendEmailPassword(int $id, string $emailto)
+    public function sendEmailSetPassword(int $id, string $emailto)
     {
 
         $email = service('email');

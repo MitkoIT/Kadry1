@@ -3,7 +3,10 @@
     <main class="p-3">
         <div class="container-fluid">
             <div class="mb-3">
-                <h1><?php echo $header; ?></h1>
+                <h1>
+                    <i class="lni lni-add-files"></i>
+                    <?php echo $header; ?>
+                </h1>
             </div>
             <?php if (isset($validation)) { ?>
                 <div class="alert alert-warning">
