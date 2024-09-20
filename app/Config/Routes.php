@@ -6,9 +6,10 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->add('/', 'HomeController::index');
-$routes->add('index', 'HomeController::index');
+$routes->add('/', 'HomeController::getActiveUsers');
+$routes->add('index', 'HomeController::getActiveUsers');
 $routes->add('active', 'HomeController::getActiveUsers');
+$routes->add('all-users', 'HomeController::getAllUsersWithCompany');
 $routes->add('unactive', 'HomeController::getUnactiveUsers');
 $routes->post('search', 'HomeController::getUserByName');
 $routes->get('pass-success', 'HomeController::passSetSuccess');

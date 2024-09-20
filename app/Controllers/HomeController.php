@@ -9,7 +9,7 @@ use App\Models\UserCompanyModel;
 
 class HomeController extends BaseController
 {
-    public function index(): string
+    public function getAllUsersWithCompany(): string
     {
         helper(['form']);
 
@@ -30,7 +30,7 @@ class HomeController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            view('Panels/side-bar').
+            //view('Panels/side-bar').
             view('Panels/main', $data).
             view('Base/footer');
     }
@@ -67,7 +67,7 @@ class HomeController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            view('Panels/side-bar').
+           // view('Panels/side-bar').
             view('Panels/main', $data).
             view('Base/footer');
     }
@@ -91,7 +91,7 @@ class HomeController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            view('Panels/side-bar').
+           // view('Panels/side-bar').
             view('Panels/main', $data).
             view('Base/footer');
     }
@@ -120,7 +120,7 @@ class HomeController extends BaseController
             return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            view('Panels/side-bar').
+           // view('Panels/side-bar').
             view('Panels/main', $data).
             view('Base/footer');            
 

@@ -3,8 +3,6 @@
     <div class="d-flex justify-content-end mt-3">
         <div class="border border-primary border-3 rounded-pill mx-4 p-2">
             <span class="mt-3"> 
-                
-                <img src="<?php echo base_url('images/image.png'); ?>" class="rounded-circle" alt="Image" width="50" height="50">
                 <span class="logged-user">  
                     Imię Nazwisko
                 </span> 
@@ -18,42 +16,33 @@
     <main class="p-3">
         <div class="container-fluid">
             <div class="mb-1">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-betwean">
                     <h1 class="title-space">
-                        <i class="lni lni-list"></i>
                         <b><?php echo $header; ?></b>
                     </h1>
-                        <!-- Diagram -->
-                    <div class="col-md-2">
-                        <canvas id="myDiagram"></canvas>
-                    </div>
-                    <!-- Diagram End -->
                  </div>
                 <?php if (session()->getFlashdata('success')) { ?>
-                    <div class="alert alert-success">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('success') ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php } ?>
-
-                <div class="row g-3 szukaj-space">
+                <div class="d-flex row g-3 szukaj-space">
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
-                            onclick="window.location='<?php echo base_url()?>/'">
-                            <i class="lni lni-users"></i>
+                            onclick="window.location='<?php echo base_url()?>all-users'">
                             Wszyscy
                         </button>
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
                             onclick="window.location='<?php echo base_url()?>active'">
-                            <i class="lni lni-user"></i>
                             Aktywni
                         </button>
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" 
                             onclick="window.location='<?php echo base_url()?>unactive'">
-                            <i class="lni lni-cross-circle"></i>
                             Nieaktywni
                         </button>
                     </div>
@@ -85,12 +74,11 @@
                         </div>
                     </div>
                     <?php echo form_close(); ?>
-                    <div class="d-flex justify-content-end">
+                    <div class="col-auto ms-auto"> <!-- ms-auto pushes this button to the end -->
                         <button type="button" class="btn btn-primary" 
                             onclick="window.location='<?php echo base_url()?>paste'">
-                            <i class="lni lni-plus"></i>
                             Dodaj Użytkownika
-                        </button>
+                            </button>
                     </div>
                 </div>
                 <div>
@@ -99,11 +87,12 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">ID</th>
-                                    <th class="text-center">Fotka</th>
                                     <th class="text-center">Imię i nazwisko</th>
                                     <th class="text-center">Tel.</th>
                                     <th class="text-center">Firma</th>
-                                    <th class="text-center">Status</th>
+                                    <?php if ($header == 'Wszyscy Użytkownicy') { ?>
+                                        <th class="text-center">Status</th>
+                                    <?php } ?>
                                     <th class="text-center">Akcja</th>
                                 </tr>
                             </thead>
@@ -116,11 +105,6 @@
                                                 <?php echo $user['idusers']; ?>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <!-- zastapic zdjeciem z bazy -->
-                                                <img src="<?php echo base_url('images/image.png'); ?>" 
-                                                    class="rounded-circle" alt="Fotka" width="40" height="40">
-                                            </td>
-                                            <td class="text-center align-middle">
                                                 <?php echo $user['user_name']; ?>
                                                 <br>
                                                 <span class="mail-span"> 
@@ -128,44 +112,36 @@
                                                 </span>
                                             </td>
                                             <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
-                                            <td class="text-center align-middle"><?php echo $user['company_name']; ?> </td>
                                             <td class="text-center align-middle">
-                                                <?php if ($user['active'] == 'n') { ?> 
-                                                    <span class="border p-1 rounded" 
-                                                        style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;">
-                                                        <i class="lni lni-cross-circle"></i>
-                                                        Nieaktywny
-                                                    </span>
-                                                <?php } else { ?>
-                                                    <span class="border rounded p-1" 
-                                                        style="background-color:rgba(0, 255, 0, 0.3);  color: rgb(0,255,0); border: 3px solid #0f0;">
-                                                        <i class="lni lni-checkmark"></i>
-                                                        Aktywny
-                                                    </span>
-                                                <?php } ?>
+                                                <span class="badge bg-secondary"><?php echo $user['company_name']; ?> </span>
                                             </td>
-                                            <td class="text-center align-middle mb-2">
-                                                <button type="button" class="btn btn-success btn-sm btn-edit-deactive rounded-start" 
-                                                    onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'"
-                                                    style="background-color:rgba(0, 255, 0, 0.3); color: #006400; border: 3px solid #0f0;">
-                                                    <i class="lni lni-consulting"></i>
-                                                    
+                                            <?php if ($header == 'Wszyscy Użytkownicy') { ?>
+                                                <td class="text-center align-middle">
+                                                    <?php if ($user['active'] == 'n') { ?> 
+                                                        <span class="badge bg-danger">
+                                                            Nieaktywny
+                                                        </span>
+                                                    <?php } else { ?>
+                                                        <span class="badge bg-success">
+                                                            Aktywny
+                                                        </span>
+                                                    <?php } ?>
+                                                </td>
+                                            <?php } ?>
+                                            <td class="text-center align-middle">
+                                                <button type="button" class="btn btn-success btn-edit-deactive rounded-start" 
+                                                    onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'">
+                                                    Edytuj
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-sm btn-edit-deactive rounded" 
-                                                    onclick="window.location='#'"
-                                                    style="background-color:rgba(0, 0, 255, 0.3); color: #006400; border: 3px solid #00f;">
-                                                    <i class="lni lni-cloud-sync"></i>
-                                                    
-                                                </button>
+                                                    <br>
                                                 <?php if ($user['active'] == 'y') { ?> 
-                                                    <button type="button" class="btn btn-danger btn-sm btn-edit-deactive rounded-end" 
-                                                        style="background-color:rgba(255, 0, 0, 0.3);  color: rgb(255,0,0); border: 3px solid #f00;" 
+                                                    <button type="button" class="btn btn-danger btn-edit-deactive rounded-end" 
                                                         data-bs-toggle="modal" 
                                                         data-bs-target="#deactiveModal"
                                                         data-userid = "<?php echo $user['idusers'] ?>"
                                                         data-username = "<?php echo $user['user_name'] ?>"
                                                         data-path = "<?php echo base_url()?>setunactive/">
-                                                        <i class="lni lni-cross-circle"></i> 
+                                                        Deaktywuj
                                                     </button>
                                                 <?php } ?>
                                             </td>

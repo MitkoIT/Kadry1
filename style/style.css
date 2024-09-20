@@ -20,7 +20,7 @@ h1{
 }
 
 .table-responsive {
-    height: calc(100vh - 420px); /*610px; /* Set the desired height */
+    height: calc(100vh - 320px); /*610px; /* Set the desired height */
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
@@ -195,8 +195,15 @@ label {
 }
 
 .btn-edit-deactive {
-    height: 4vh;
-    width:  4vh;
+    height: 2vh; /* Fixed height */
+    width: 10vh; /* Fixed width */
+    background-color: #007bff; /* Example background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Optional: rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    text-align: center; /* Center text horizontally */
+    line-height: 1vh; /* Center text vertically */
 }
 
 .scrollable-div {

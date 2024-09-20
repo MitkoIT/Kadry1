@@ -23,7 +23,7 @@ class UserController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            view('Panels/side-bar').
+           // view('Panels/side-bar').
             view('Panels/main-add', $data).
             view('Base/footer');
     }
@@ -204,6 +204,7 @@ class UserController extends BaseController
             }
 
         } else {
+            //zwracam metode zeby zachowac validatora
            return $this->editUserPassword($id);
         }
     }
@@ -222,11 +223,11 @@ class UserController extends BaseController
             'header'        => 'Edytuj Użytkownika',
             'validation'    => $this->validator    
         ];
-
+      
         return view('Base/header', [
                 'title' => 'Edytu Użytkownika'
             ]).
-            view('Panels/side-bar').
+           // view('Panels/side-bar').
             view('Panels/main-edit', $data).
             view('Base/footer');
     }
@@ -234,6 +235,7 @@ class UserController extends BaseController
     public function setUserDataForEdit(int $id, int $idcompany)
     {
         helper(['form']);
+
         $rules = [
             'email' => 'required|min_length[4]|max_length[128]|valid_email|',
             'firma' => 'required',
@@ -274,16 +276,24 @@ class UserController extends BaseController
 
             if ($userModel->update($id, $data)) {
 
-                if ($userCompanyModel->update($userCompanyModel->getUserCompanyByData($id, $idcompany), $companyData)) {
+                if ($userCompanyModel
+                ->update($userCompanyModel
+                    ->getUserCompanyByData(
+                        $id, $idcompany
+                    ), 
+                    $companyData
+                )) {
                     
                    // $lastQuery = $userCompanyModel->getLastQuery();
                    // echo $lastQuery; // wyswietl ostatnia kwerende
                    // echo $companyData['id_company'];
+                   session()->remove('error');
                    session()->setFlashdata(
              'success', 
             'Dane Użytkownika zostały zapisane poprawnie.'
                     );
-                    return redirect()->to('/');
+
+                  return redirect()->to('edit/'. $id . '/' . $companyData['id_company']);
                 } else {
                     echo 'failed... company update';
                 }
@@ -292,10 +302,13 @@ class UserController extends BaseController
             }
 
         } else {
+            session()->remove('success');
+            session()->setFlashdata(
+                'error', 
+               'Dane Użytkownika nie zostały zapisane poprawnie.'
+            );
+            //return redirect()->to('edit/'. $id . '/' . $idcompany);
             return $this->editUserDataForEdit($id, $idcompany);
-
-            //to nie funkcjonuje 
-            //return redirect()->to(route_to('edit', $id, $idcompany));
         }
     }
 }
