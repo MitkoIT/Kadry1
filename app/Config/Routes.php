@@ -22,5 +22,3 @@ $routes->post('firstpasswd/(:num)', 'UserController::setUserPassword/$1');
 
 $routes->add('paste', 'UserController::editUserDataForAdd');
 $routes->post('add', 'UserController::setUserDataForAdd');
-
-$routes->get('test', 'HomeController::getAllUsers');

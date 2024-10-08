@@ -18,20 +18,6 @@ class UserModel extends Model
         'password'
     ]; 
 
-    public function getPaginatedAllUsersWithCompany(int $perPage, $page)
-    {
-        return $this
-        ->select('*, 
-        users.name as user_name, 
-        users.email as user_email, 
-        company.name as company_name, 
-        company.email as company_email')
-        ->join( 'user_company', 'user_company.id_user = users.idusers', 'left')
-        ->join('company', 'company.idcompany = user_company.id_company', 'left')
-        ->orderby('idusers')
-        ->paginate($perPage, 'default', $page); // Use paginate method
-    }
-
     public function getPaginatedAllUsersWithCompanys(int $perPage, $page)
     {
         return $this
@@ -80,48 +66,13 @@ class UserModel extends Model
         }
     }
 
-    public function getPaginatedANUsersWithCompany(int $perPage, $page, string $a)
-    {
-        if ($a == 'y' || $a == 'n') {
-            return $this
-            ->select('
-                , 
-                users.name as user_name, 
-                users.email as user_email, 
-                company.name as company_name, 
-                company.email as company_email
-            ')
-            ->join(  'user_company', 'user_company.id_user = users.idusers', 'left')
-            ->join('company', 'company.idcompany = user_company.id_company', 'left')
-            ->where('active', $a)
-            ->paginate($perPage, $page); 
-        } else {
-            return redirect()->to('/');
-        }
-    }
-
     public function getUserById(int $id)
     {
         return $this->select('*')->where('idusers', $id)->first();
     }
 
     //This one is for search
-    //searches by first letters
-    public function getUsersByFirstLetterWithCompany(string $name, int $perPage, $page)
-    {
-        return $this
-        ->select('
-            *, users.name as user_name, 
-            users.email as user_email, 
-            company.name as company_name, 
-            company.email as company_email
-            ')
-        ->join('user_company', 'user_company.id_user = users.idusers', 'left')
-        ->join('company', 'company.idcompany = user_company.id_company', 'left')
-        ->like('users.name', $name)
-        ->paginate($perPage, $page);
-    }
-
+    //searches by first letter
     public function getUsersByFirstLetterWithCompanys(string $name, int $perPage, $page)
     {
         return $this

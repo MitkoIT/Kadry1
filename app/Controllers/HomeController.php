@@ -65,7 +65,7 @@ class HomeController extends BaseController
         ];
 
         
-        echo var_dump($data['user_data']);
+        //echo var_dump($data['user_data']);
     }
 
     public function passSetSuccess()
