@@ -2,9 +2,8 @@
 <div class="main">
     <main class="p-3">
         <div class="container-fluid">
-            <div class="mb-3">
+            <div class="mb-3 text-center">
                 <h1>
-                    <i class="lni lni-add-files"></i>
                     <?php echo $header; ?>
                 </h1>
             </div>
@@ -13,100 +12,155 @@
                     <?= $validation->listErrors() ?>
                 </div>
             <?php } ?>
-            <div class="d-grid justify-content-center border border-3 border-secondary p-3 rounded">
+            <div class="container mt-5">
                 <?php echo form_open('add')?>
-                    <div class="row g-3 align-items-center szukaj-space">
-                            <div class="col-auto">
-                                <?php 
-                                    echo form_label("Imie i Nazwisko","nameid"); 
-                                ?>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="p-3 border bg-light">
+                                <div class="d-grid justify-content-center">
+                                    <?php echo form_open('add')?>
+                                        <div class="row g-3 align-items-center szukaj-space">  
+                                            <div class="col-auto">
+                                                <?php 
+                                                    echo form_label("Imie i Nazwisko","nameid"); 
+                                                ?>
+                                            </div>
+                                            <div class="col-auto">
+                                                <?php 
+                                                    $attribs = [
+                                                        'name'          => 'name',
+                                                        'type'          => 'text', 
+                                                        'placeholder'   => 'Imię i Nazwisko',
+                                                        'class'         => 'form-control'
+                                                    ];
+                                                    echo form_input($attribs); 
+                                                ?>
+                                            </div>  
+                                        </div>
+                                        <div class="row g-3 align-items-center szukaj-space">
+                                            <div class="col-auto">
+                                                <?php 
+                                                    echo form_label("Tel.","phoneid"); 
+                                                ?>
+                                            </div>
+                                            <div class="col-auto">
+                                                <?php 
+                                                    $attribs = [
+                                                        'name'          => 'phone',
+                                                        'type'          => 'text', 
+                                                        'placeholder'   => 'Numer Telefonu',
+                                                        'class'         => 'form-control'
+                                                    ];
+                                                    echo form_input($attribs); 
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <div class="row g-3 align-items-center szukaj-space">
+                                            <div class="col-auto">
+                                                <?php 
+                                                    echo form_label("Email@","emailid"); 
+                                                ?>
+                                            </div>
+                                            <div class="col-auto">
+                                                <?php 
+                                                    $attribs = [
+                                                        'name'          => 'email',
+                                                        'type'          => 'email', 
+                                                        'placeholder'   => 'example@example.pl',
+                                                        'class'         => 'form-control'
+                                                    ];
+                                                    echo form_input($attribs); 
+                                                ?>
+                                            </div>
+                                        </div>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                                <?php 
-                                    $attribs = [
-                                        'name'          => 'name',
-                                        'type'          => 'text', 
-                                        'placeholder'   => 'Imię i Nazwisko',
-                                        'class'         => 'form-control'
-                                    ];
-                                    echo form_input($attribs); 
-                                ?>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border bg-light">
+                                <!--container for javascript -->
+                                <div id="elementContainer"> 
+                                    <div id="firmListTemplate">
+                                        <div class="row g-3 align-items-center szukaj-space">
+                                            <div class="col-auto">
+                                                <?php 
+                                                    echo form_label("Firma","firmaid"); 
+                                                ?>
+                                            </div>
+                                            <div class="col-auto">
+                                                <?php 
+                                                    $data = [];
+                                                    if ($company_list) {
+                                                        foreach ($company_list as $company) {
+                                                            $data[$company['idcompany']] = $company['name'];
+                                                        }
+                                                    }
+                                                    $attribs = $data;
+                                                    echo form_dropdown('firmy[]', $attribs); 
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center szukaj-space">
+                                    <div class="col-auto">
+                                        <button type="button" id='addCompany' class="btn btn-success">
+                                            Dodaj następną firmę
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                    </div>
-                    <div class="row g-3 align-items-center szukaj-space">
-                        <div class="col-auto">
-                            <?php 
-                                echo form_label("Tel.","phoneid"); 
-                            ?>
+
+                                        <!--tutaj dodac trzeba nastepny przycisk dodaj forme -->
                         </div>
-                        <div class="col-auto">
-                            <?php 
-                                $attribs = [
-                                    'name'          => 'phone',
-                                    'type'          => 'text', 
-                                    'placeholder'   => 'Numer Telefonu',
-                                    'class'         => 'form-control'
-                                ];
-                                echo form_input($attribs); 
-                            ?>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center szukaj-space">
-                        <div class="col-auto">
-                            <?php 
-                                echo form_label("Email@","emailid"); 
-                            ?>
-                        </div>
-                        <div class="col-auto">
-                            <?php 
-                                $attribs = [
-                                    'name'          => 'email',
-                                    'type'          => 'email', 
-                                    'placeholder'   => 'example@example.pl',
-                                    'class'         => 'form-control'
-                                ];
-                                echo form_input($attribs); 
-                            ?>
+                        <div class="col-md-4">
+                            <div class="p-3 border bg-light">
+                                <div class="g-3 align-items-center szukaj-space">
+                                    <div class="col-auto">
+                                        <?php 
+                                            echo form_label("Notatka","notatkaid"); 
+                                        ?>
+                                    </div>
+                                    <div class="col-auto">
+                                        <?php 
+                                            $attribs = [
+                                                'name'          => 'notatka',
+                                                'placeholder'   => 'Notatka',
+                                                'class'         => 'form-control',
+                                                'rows'          => '3'
+                                            ];
+                                            echo form_textarea($attribs); 
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row g-3 align-items-center szukaj-space">
-                        <div class="col-auto">
-                            <?php 
-                                echo form_label("Firma","firmaid"); 
-                            ?>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="p-3 border bg-light">
+                                <div class="row g-3 align-items-center szukaj-space">
+                                    <?php
+                                        $attrib = [
+                                            'class'     => 'btn btn-success',
+                                            'type'      => 'submit', 
+                                            'value'     => 'Dodaj Użytkownika',
+                                            'content' => 'Dodaj Użytkownika'
+                                        ];
+                                        echo form_button($attrib);
+                                    ?>
+                                    <?php
+                                        $attrib = [
+                                            'class'     => 'btn btn-danger',
+                                            'value'     => 'Wstecz',
+                                            'onclick'   => "window.location='" . base_url('active') . "'",
+                                            'content'   => 'Wstecz'
+                                        ];
+                                        echo form_button($attrib);
+                                    ?>   
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <?php 
-                                $data = [];
-                                if ($company_list) {
-                                    foreach ($company_list as $company) {
-                                        $data[$company['idcompany']] = $company['name'];
-                                    }
-                                }
-                                $attribs = $data;
-                                echo form_dropdown('firma', $attribs); 
-                            ?>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center szukaj-space">
-                        <?php
-                            $attrib = [
-                                'class'     => 'btn btn-success',
-                                'type'      => 'submit', 
-                                'value'     => 'Dodaj Użytkownika',
-                                'content' => 'Dodaj Użytkownika'
-                            ];
-                            echo form_button($attrib);
-                        ?>
-                        <?php
-                            $attrib = [
-                                'class'     => 'btn btn-danger',
-                                'value'     => 'Wstecz',
-                                'onclick'   => "window.location='" . base_url('active') . "'",
-                                'content'   => 'Wstecz'
-                            ];
-                            echo form_button($attrib);
-                        ?>   
                     </div>
                 <?php echo form_close(); ?>
             </div>

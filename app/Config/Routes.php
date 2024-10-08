@@ -9,7 +9,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->add('/', 'HomeController::getActiveUsers');
 $routes->add('index', 'HomeController::getActiveUsers');
 $routes->add('active', 'HomeController::getActiveUsers');
-$routes->add('all-users', 'HomeController::getAllUsersWithCompany');
+$routes->add('all-users', 'HomeController::getAllUsersWithCompanys');
 $routes->add('unactive', 'HomeController::getUnactiveUsers');
 $routes->post('search', 'HomeController::getUserByName');
 $routes->get('pass-success', 'HomeController::passSetSuccess');
@@ -22,3 +22,5 @@ $routes->post('firstpasswd/(:num)', 'UserController::setUserPassword/$1');
 
 $routes->add('paste', 'UserController::editUserDataForAdd');
 $routes->post('add', 'UserController::setUserDataForAdd');
+
+$routes->get('test', 'HomeController::getAllUsers');

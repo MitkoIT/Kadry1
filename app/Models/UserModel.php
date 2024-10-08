@@ -21,12 +21,63 @@ class UserModel extends Model
     public function getPaginatedAllUsersWithCompany(int $perPage, $page)
     {
         return $this
-        ->select('*, users.name as user_name, users.email as user_email, 
-            company.name as company_name, company.email as company_email')
+        ->select('*, 
+        users.name as user_name, 
+        users.email as user_email, 
+        company.name as company_name, 
+        company.email as company_email')
         ->join( 'user_company', 'user_company.id_user = users.idusers', 'left')
         ->join('company', 'company.idcompany = user_company.id_company', 'left')
         ->orderby('idusers')
         ->paginate($perPage, 'default', $page); // Use paginate method
+    }
+
+    public function getPaginatedAllUsersWithCompanys(int $perPage, $page)
+    {
+        return $this
+        ->select(
+            'users.idusers, 
+            users.active, 
+            users.phone_shop_mitko, 
+            users.name AS user_name, 
+            users.email AS user_email, 
+            GROUP_CONCAT(DISTINCT company.name SEPARATOR ", ") AS company_name, 
+            GROUP_CONCAT(DISTINCT company.email SEPARATOR ", ") AS company_email'
+            )
+        ->join( 'user_company', 'user_company.id_user = users.idusers', 'left')
+        ->join('company', 'company.idcompany = user_company.id_company', 'left')
+        ->groupBy('users.idusers')
+        ->orderBy('users.idusers')
+        ->paginate($perPage, 'default', $page);
+    }
+
+    public function getPaginatedAllUsers(int $perPage, $page)
+    {
+        return $this
+        ->select('*, users.name as user_name, users.email as user_email')
+        ->orderby('idusers')
+        ->paginate($perPage, 'default', $page); // Use paginate method
+    }
+
+    public function getPaginatedANUsersWithCompanys(int $perPage, $page, string $a)
+    {
+        if ($a == 'y' || $a == 'n') {
+            return $this
+            ->select('users.idusers, 
+            users.active, 
+            users.phone_shop_mitko, 
+            users.name AS user_name, 
+            users.email AS user_email, 
+            GROUP_CONCAT(DISTINCT company.name SEPARATOR ", ") AS company_name, 
+            GROUP_CONCAT(DISTINCT company.email SEPARATOR ", ") AS company_email')
+            ->join(  'user_company', 'user_company.id_user = users.idusers', 'left')
+            ->join('company', 'company.idcompany = user_company.id_company', 'left')
+            ->where('active', $a)
+            ->groupBy('users.idusers')
+            ->paginate($perPage, $page); 
+        } else {
+            return redirect()->to('/');
+        }
     }
 
     public function getPaginatedANUsersWithCompany(int $perPage, $page, string $a)
@@ -34,7 +85,7 @@ class UserModel extends Model
         if ($a == 'y' || $a == 'n') {
             return $this
             ->select('
-                *, 
+                , 
                 users.name as user_name, 
                 users.email as user_email, 
                 company.name as company_name, 
@@ -67,6 +118,23 @@ class UserModel extends Model
             ')
         ->join('user_company', 'user_company.id_user = users.idusers', 'left')
         ->join('company', 'company.idcompany = user_company.id_company', 'left')
+        ->like('users.name', $name)
+        ->paginate($perPage, $page);
+    }
+
+    public function getUsersByFirstLetterWithCompanys(string $name, int $perPage, $page)
+    {
+        return $this
+        ->select('users.idusers, 
+        users.active, 
+        users.phone_shop_mitko, 
+        users.name AS user_name, 
+        users.email AS user_email, 
+        GROUP_CONCAT(DISTINCT company.name SEPARATOR ", ") AS company_name, 
+        GROUP_CONCAT(DISTINCT company.email SEPARATOR ", ") AS company_email')
+        ->join('user_company', 'user_company.id_user = users.idusers', 'left')
+        ->join('company', 'company.idcompany = user_company.id_company', 'left')
+        ->groupBy('users.idusers')
         ->like('users.name', $name)
         ->paginate($perPage, $page);
     }

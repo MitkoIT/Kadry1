@@ -33,7 +33,7 @@ class UserController extends BaseController
         helper(['form']);
         $rules = [
             'email' => 'required|min_length[4]|max_length[128]|valid_email|',
-            'firma' => 'required',
+            'firmy' => 'required',
             'name'  => [
                 'rules' => 'required|min_length[2]|Max_length[128]',
                 'label' => 'Name',
@@ -66,17 +66,21 @@ class UserController extends BaseController
                 'active'                => 'n'
             ]; 
 
-            $companyData = [
-                'id_user'       => $data['idusers'],
-                'id_company'    => $this->request->getPost('firma')
-            ];
-
             //In Insert:
             //Your $success is returning the result not false.
             //If the query does not validate it returns false. 
 
             $userModel->insert($data);
-            $userCompanyModel->insert($companyData);
+
+
+            $firmy = $this->request->getPost('firmy');
+            foreach ($firmy as $firma) {
+                $companyData = [
+                    'id_user'       => $data['idusers'],
+                    'id_company'    => $firma
+                ];
+                $userCompanyModel->insert($companyData);
+            }
 
             $this->sendEmailSetPassword($data['idusers']['next_id'], $data['email']);
 

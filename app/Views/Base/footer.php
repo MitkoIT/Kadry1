@@ -4,6 +4,7 @@
     <script src="<?php echo base_url()?>script/Script.js"></script>
     <script src="<?php echo base_url()?>script/Modalscript.js"></script>
     <script src="<?php echo base_url()?>script/Search.js"></script>
-    <script src="<?php echo base_url()?>script/Diagram.js"></script>
+    <script src="<?php echo base_url()?>script/AddCompanyButton.js"></script>
+    
 </body>
 </html>

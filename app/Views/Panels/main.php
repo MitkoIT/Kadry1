@@ -130,7 +130,7 @@
                                             <?php } ?>
                                             <td class="text-center align-middle">
                                                 <button type="button" class="btn btn-success btn-edit-deactive rounded-start" 
-                                                    onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>/<?php echo $user['idcompany'] ?>'">
+                                                    onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>'">
                                                     Edytuj
                                                 </button>
                                                     <br>
@@ -154,7 +154,7 @@
                 </div>
                  <!-- Pagination Links -->
                     <?= $pager->links(); ?>
-            </>
+            </div>
         </div>
     </main>
     <!-- Modal -->

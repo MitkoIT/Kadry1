@@ -26,4 +26,14 @@ class UserCompanyModel extends Model
         ->where('id_company', $companyid)
         ->first();
     }
+
+    public function getUserCompanyByUserId(
+        int $userid
+    ) {
+        
+        return $this
+        ->select('id_user_company')
+        ->where( 'id_user', $userid)
+        ->findAll();
+    }
 }

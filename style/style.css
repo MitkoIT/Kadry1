@@ -197,7 +197,17 @@ label {
 .btn-edit-deactive {
     height: 2vh; /* Fixed height */
     width: 10vh; /* Fixed width */
-    background-color: #007bff; /* Example background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Optional: rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    text-align: center; /* Center text horizontally */
+    line-height: 1vh; /* Center text vertically */
+}
+
+.btn-edit {
+    height: 2vh; /* Fixed height */
+    width: 10vh; /* Fixed width */
     color: white; /* Text color */
     border: none; /* Remove border */
     border-radius: 5px; /* Optional: rounded corners */

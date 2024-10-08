@@ -9,7 +9,7 @@ use App\Models\UserCompanyModel;
 
 class HomeController extends BaseController
 {
-    public function getAllUsersWithCompany(): string
+    public function getAllUsersWithCompanys(): string
     {
         helper(['form']);
 
@@ -20,7 +20,7 @@ class HomeController extends BaseController
 
         $data = [
             'user_data' => $userModel
-                ->getPaginatedAllUsersWithCompany(
+                ->getPaginatedAllUsersWithCompanys(
                     $perPage, $page
                 ),
             'pager'     => $userModel->pager,
@@ -33,6 +33,39 @@ class HomeController extends BaseController
             //view('Panels/side-bar').
             view('Panels/main', $data).
             view('Base/footer');
+    }
+
+    public function getAllUsers()
+    {
+        helper(['form']);
+
+        $userModel = new UserModel();
+        $companyModel = new UserCompanyModel();
+        $perPage = 100;
+        //jezeli nic tu nie ma to wstaw 1 strone
+        $page = $this->request->getVar('page') ?: 1;
+
+        $users_data =  $userModel
+            ->getPaginatedAllUsers(
+            $perPage, $page
+        );
+
+
+        $user_company = array(array(), array());
+
+        foreach ($users_data as $user) {
+            $user_company['user'] = $user;
+            $user_company['company'] = $companyModel->getUserCompanyByUserId($user['idusers']);
+        }
+
+        $data = [
+            'user_data' => $user_company,
+            'pager'     => $userModel->pager,
+            'header'    => 'Wszyscy Użytkownicy'
+        ];
+
+        
+        echo var_dump($data['user_data']);
     }
 
     public function passSetSuccess()
@@ -57,7 +90,7 @@ class HomeController extends BaseController
        
         $data = [
             'user_data' => $userModel
-                ->getPaginatedANUsersWithCompany(
+                ->getPaginatedANUsersWithCompanys(
                     $perPage, $page, 'y'
                 ),
             'pager'     => $userModel->pager,
@@ -81,7 +114,7 @@ class HomeController extends BaseController
 
         $data = [
             'user_data' => $userModel
-                ->getPaginatedANUsersWithCompany(
+                ->getPaginatedANUsersWithCompanys(
                     $perPage, $page, 'n'
                 ),
             'pager'     => $userModel->pager,
@@ -109,7 +142,7 @@ class HomeController extends BaseController
             $perPage = 100;
             $page = $this->request->getVar('page') ?: 1;
             $data['user_data'] = $userModel
-                ->getUsersByFirstLetterWithCompany(
+                ->getUsersByFirstLetterWithCompanys(
                 $this->request->getVar('name'),
                 $perPage,
                 $page
