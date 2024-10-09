@@ -27,7 +27,7 @@ class UserCompanyModel extends Model
         ->first();
     }
 
-    public function getUserCompanyByUserId(
+    public function getUserCompanyIdByUserId(
         int $userid
     ) {
         
@@ -35,5 +35,28 @@ class UserCompanyModel extends Model
         ->select('id_user_company')
         ->where( 'id_user', $userid)
         ->findAll();
+    }
+
+    public function getCompanyIdByUserId(
+        $userid
+        ){
+            return $this
+            ->select('id_company, id_user_company')
+            ->where('id_user', $userid)
+            ->findAll();
+
+    }
+
+    public function getNumOfCompaniesForUserId(
+        int $userid
+    ) {
+        return $this
+        ->where('id_user', $userid)
+        ->countAllResults();
+    }
+
+    public function deleteById($id)
+    {
+        return $this->delete($id);
     }
 }

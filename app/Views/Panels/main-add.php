@@ -12,13 +12,12 @@
                     <?= $validation->listErrors() ?>
                 </div>
             <?php } ?>
-            <div class="container mt-5">
+            <div class="container d-flex mt-5">
                 <?php echo form_open('add')?>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="p-3 border bg-light">
+                            <div class="p-3 border bg-light h-100">
                                 <div class="d-grid justify-content-center">
-                                    <?php echo form_open('add')?>
                                         <div class="row g-3 align-items-center szukaj-space">  
                                             <div class="col-auto">
                                                 <?php 
@@ -77,7 +76,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="p-3 border bg-light">
+                            <div class="p-3 border bg-light h-100">
                                 <!--container for javascript -->
                                 <div id="elementContainer"> 
                                     <div id="firmListTemplate">
@@ -104,8 +103,8 @@
                                 </div>
                                 <div class="row g-3 align-items-center szukaj-space">
                                     <div class="col-auto">
-                                        <button type="button" id='addCompany' class="btn btn-success">
-                                            Dodaj następną firmę
+                                        <button type="button" id='addCompany' class="btn btn-seccond border border-dark">
+                                            Dodaj
                                         </button>
                                     </div>
                                 </div>
@@ -114,7 +113,7 @@
                                         <!--tutaj dodac trzeba nastepny przycisk dodaj forme -->
                         </div>
                         <div class="col-md-4">
-                            <div class="p-3 border bg-light">
+                            <div class="p-3 border bg-light h-100">
                                 <div class="g-3 align-items-center szukaj-space">
                                     <div class="col-auto">
                                         <?php 
@@ -136,22 +135,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col-md-12">
-                            <div class="p-3 border bg-light">
+                    <div class="row mt-5 justify-content-center">
+                        <div class="col-md-4">
+                            <div class="p-3">
                                 <div class="row g-3 align-items-center szukaj-space">
                                     <?php
                                         $attrib = [
-                                            'class'     => 'btn btn-success',
+                                            'class'     => 'btn btn-seccond border border-dark',
                                             'type'      => 'submit', 
                                             'value'     => 'Dodaj Użytkownika',
-                                            'content' => 'Dodaj Użytkownika'
+                                            'content'   => 'Dodaj Użytkownika'
                                         ];
                                         echo form_button($attrib);
                                     ?>
                                     <?php
                                         $attrib = [
-                                            'class'     => 'btn btn-danger',
+                                            'class'     => 'btn btn-seccond border border-dark',
                                             'value'     => 'Wstecz',
                                             'onclick'   => "window.location='" . base_url('active') . "'",
                                             'content'   => 'Wstecz'
@@ -168,3 +167,5 @@
     </main>
 </div>
 <!--Main Component Ends-->
+
+<script src="<?php echo base_url()?>script/AddCompanyButton.js"></script>

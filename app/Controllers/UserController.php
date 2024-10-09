@@ -8,6 +8,32 @@ use App\Models\UserCompanyModel;
 
 class UserController extends BaseController
 {
+
+    public function deleteUserCompanyElement(int $userId, int $companyId)
+    {
+        $userCompanyModel = new UserCompanyModel();
+        $idToDelete = $userCompanyModel->getUserCompanyByData($userId, $companyId);
+
+        $userCompanyModel->deleteById($idToDelete);
+
+       
+        return redirect()->to('edit/'. $userId);
+    }
+
+    public function addUserCompanyElement(int $userId)
+    {
+        $userCompanyModel = new UserCompanyModel();
+
+        $data = [
+            'id_user'       => $userId,
+            'id_company'    => 1
+        ];
+
+        $userCompanyModel->insert($data);
+
+        return redirect()->to('edit/'. $userId);
+    }
+
     public function editUserDataForAdd()
     {
         helper(['form']);
@@ -213,17 +239,28 @@ class UserController extends BaseController
         }
     }
 
-    public function editUserDataForEdit(int $id, int $companyId)
+    public function editUserDataForEdit(int $id)
     {
         helper(['form']);
 
         $userModel = new UserModel();
         $companyModel = new CompanyModel();
+        $userCompanyModel = new UserCompanyModel();
+
+        $companysData = [];
+
+        $companyIds = $userCompanyModel->getCompanyIdByUserId($id);
+        foreach ($companyIds as $companyId) {
+            array_push($companysData, $companyModel->getCompanyById($companyId['id_company']));
+        }
+       
+        
 
         $data = [
             'user_data'     => $userModel->getUserById($id),
             'company_list'  => $companyModel->getAllCompanies(),
-            'company_data'  => $companyModel->getCompanyById($companyId),
+            'company_num'   => $userCompanyModel->getNumOfCompaniesForUserId($id),
+            'company_data'  => $companysData,
             'header'        => 'Edytuj Użytkownika',
             'validation'    => $this->validator    
         ];
@@ -232,17 +269,17 @@ class UserController extends BaseController
                 'title' => 'Edytu Użytkownika'
             ]).
            // view('Panels/side-bar').
-            view('Panels/main-edit', $data).
+            view('Panels/main-edit-new', $data).
             view('Base/footer');
     }
 
-    public function setUserDataForEdit(int $id, int $idcompany)
+    public function setUserDataForEdit(int $userId)
     {
         helper(['form']);
 
         $rules = [
             'email' => 'required|min_length[4]|max_length[128]|valid_email|',
-            'firma' => 'required',
+            //'firmy' => 'required',
             'name'  => [
                 'rules' => 'required|min_length[2]|Max_length[128]',
                 'label' => 'Name',
@@ -273,46 +310,72 @@ class UserController extends BaseController
                 'phone_shop_mitko'      => $this->request->getPost('phone'),
             ]; 
 
-            $companyData = [
-                'id_user'   => $id,
-                'id_company'  => $this->request->getPost('firma')
-            ];
+            if ($userModel->update($userId, $data)) {
 
-            if ($userModel->update($id, $data)) {
-
-                if ($userCompanyModel
-                ->update($userCompanyModel
-                    ->getUserCompanyByData(
-                        $id, $idcompany
-                    ), 
-                    $companyData
-                )) {
-                    
-                   // $lastQuery = $userCompanyModel->getLastQuery();
-                   // echo $lastQuery; // wyswietl ostatnia kwerende
-                   // echo $companyData['id_company'];
-                   session()->remove('error');
-                   session()->setFlashdata(
+                session()->remove('error');
+                session()->setFlashdata(
              'success', 
             'Dane Użytkownika zostały zapisane poprawnie.'
-                    );
-
-                  return redirect()->to('edit/'. $id . '/' . $companyData['id_company']);
-                } else {
-                    echo 'failed... company update';
-                }
-            } else {
-                echo 'failed... user update';
-            }
-
+                );
+               return redirect()->to('edit/'. $userId);
+               //$lastQuery = $userCompanyModel->getLastQuery();
+                //echo $lastQuery; // wyswietl ostatnia kwerende     
+            } 
         } else {
             session()->remove('success');
             session()->setFlashdata(
-                'error', 
-               'Dane Użytkownika nie zostały zapisane poprawnie.'
+            'error', 
+           'Dane Użytkownika nie zostały zapisane poprawnie.'
             );
             //return redirect()->to('edit/'. $id . '/' . $idcompany);
-            return $this->editUserDataForEdit($id, $idcompany);
+            return $this->editUserDataForEdit($userId);
+        }
+    }
+
+    public function setUserCompanyForEdit(int $userId)
+    {
+        helper(['form']);
+
+        $rules = [
+            'firmy' => 'required'
+        ]; 
+          
+        if ($this->validate($rules)) { 
+            $userCompanyModel = new UserCompanyModel();
+
+            //pobieram nowe dane
+            $firmy = $this->request->getPost('firmy');
+            //pobieram wszystkie id's z tabeli user_company gdzie id_user = userId
+            $entries = $userCompanyModel->getUserCompanyIdByUserId($userId);
+            //pobieram ilosc wystapien uzytkownika w tabeli user_company
+            $amount = $userCompanyModel->getNumOfCompaniesForUserId($userId);
+
+            //wypelnij wpisy w user_company nowymi danymi
+            for($i=0; $i<$amount;$i++) {
+
+                $companyData = [
+                    'id_user'       => $userId,
+                    'id_company'    => $firmy[$i]
+                ];
+                if (!$userCompanyModel
+                    ->update($entries[$i],$companyData)) {
+                        
+                    session()->remove('success');
+                    session()->setFlashdata(
+                    'error', 
+                   'Dane Użytkownika nie zostały zapisane poprawnie.'
+                    );
+                    //return redirect()->to('edit/'. $id . '/' . $idcompany);
+                    return $this->editUserDataForEdit($userId);
+                }  
+            }
+
+            session()->remove('error');
+            session()->setFlashdata(
+        'success', 
+        'Firmy zostały przypisane poprawnie'
+            );
+            return redirect()->to('edit/'. $userId);
         }
     }
 }

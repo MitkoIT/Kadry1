@@ -128,20 +128,24 @@
                                                     <?php } ?>
                                                 </td>
                                             <?php } ?>
-                                            <td class="text-center align-middle">
-                                                <button type="button" class="btn btn-success btn-edit-deactive rounded-start" 
+                                            <td class="text-center align-middle justify-content-center">
+                                                <button type="button" class="btn btn-seccond rounded-start" 
                                                     onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>'">
-                                                    Edytuj
+                                                    <span class="badge bg-secondary">
+                                                        Edytuj
+                                                    </span>
                                                 </button>
                                                     <br>
                                                 <?php if ($user['active'] == 'y') { ?> 
-                                                    <button type="button" class="btn btn-danger btn-edit-deactive rounded-end" 
+                                                    <button type="button" class="btn btn-seccond rounded-end" 
                                                         data-bs-toggle="modal" 
                                                         data-bs-target="#deactiveModal"
                                                         data-userid = "<?php echo $user['idusers'] ?>"
                                                         data-username = "<?php echo $user['user_name'] ?>"
                                                         data-path = "<?php echo base_url()?>setunactive/">
-                                                        Deaktywuj
+                                                        <span class="badge bg-secondary">
+                                                            Deaktywuj
+                                                        </span>
                                                     </button>
                                                 <?php } ?>
                                             </td>
@@ -169,11 +173,11 @@
                     Czy na pewno chcesz deaktywować użytkownika <span id="user-name"></span>?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-seccond" data-bs-dismiss="modal">
                         <i class="lni lni-backward"></i>
                         Nie
                     </button>
-                    <button type="button" class="btn btn-success" id="confirm-deactivate">
+                    <button type="button" class="btn btn-seccond" id="confirm-deactivate">
                         <i class="lni lni-eraser"></i>
                         Tak
                     </button>
@@ -184,3 +188,5 @@
     <!--Modal Ends-->
 </div>
 <!--Main Component Ends-->
+<script src="<?php echo base_url()?>script/Modalscript.js"></script>
+<script src="<?php echo base_url()?>script/Search.js"></script>
