@@ -25,7 +25,7 @@
                 </div>
             <?php } ?>
                 <div class="container d-flex mt-5">
-                    <?php echo form_open('storeuserdata/'.$user_data['idusers']) ?>
+                    <?php echo form_open('user-edit-save/'.$user_data['idusers']) ?>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="p-3 h-100 border bg-light">
@@ -105,7 +105,7 @@
                             <!-- Sekcja z firmami -->
                             <div class="col-md-4">
                             <div class="p-3 h-100 border bg-light">
-                            <?php echo form_open('storeusercompany/'.$user_data['idusers']) ?>
+                            <?php echo form_open('user-edit-save-company/'.$user_data['idusers']) ?>
                                 <?php if ($company_num) { 
                                     for ($i = 0; $i < $company_num; $i++) { ?>
                                         <div id= '<?php echo $i; ?>' >
@@ -130,7 +130,7 @@
                                                 <div class="col-auto">
                                                     <?php if ($i > 0 ) { ?>
                                                     <button type="button" class="btn btn-seccond border border-dark" 
-                                                        onclick="window.location='<?php echo base_url()?>deletecompanyelement/<?php echo $user_data['idusers'] ?>/<?php echo $company_data[$i]['idcompany'] ?>'">
+                                                        onclick="window.location='<?php echo base_url()?>user-edit-delete-company/<?php echo $user_data['idusers'] ?>/<?php echo $company_data[$i]['idcompany'] ?>'">
                                                         Usuń
                                                     </button>
                                                     <?php } ?>
@@ -142,7 +142,7 @@
                                 <div class="row g-3 align-items-center szukaj-space">
                                     <div class="col-auto">
                                         <button type="button" class="btn btn-seccond border border-dark"
-                                            onclick="window.location='<?php echo base_url()?>addcompanyelement/<?php echo $user_data['idusers'] ?>'">
+                                            onclick="window.location='<?php echo base_url()?>user-edit-add-company/<?php echo $user_data['idusers'] ?>'">
                                             Dodaj
                                         </button>
                                     </div>
@@ -164,6 +164,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="p-3 h-100 border bg-light">
+                                <?php echo form_open('#'.$user_data['idusers']) ?>
                                 <div class="g-3 align-items-center szukaj-space">
                                     <div class="col-auto">
                                         <?php 
@@ -183,36 +184,31 @@
                                     </div>
                                 </div>
                                 <div class="d-grid justify-content-center szukaj-space">
-                            <?php
-                                $attrib = [
-                                    'class'     => 'btn btn-seccond border border-dark',
-                                    'type'      => 'submit', 
-                                    'value'     => 'Zapisz Notatkę',
-                                    'content'   => 'Zapisz Notatkę'
-                                ];
-                                echo form_button($attrib);
-                            ?>
-                        </div>
+                                    <?php
+                                        $attrib = [
+                                            'class'     => 'btn btn-seccond border border-dark',
+                                            'type'      => 'submit', 
+                                            'value'     => 'Zapisz Notatkę',
+                                            'content'   => 'Zapisz Notatkę'
+                                        ];
+                                        echo form_button($attrib);
+                                    ?>
+                                </div>
                             </div>
+                            <?php echo form_close(); ?>
                         </div>
                         <div class="row mt-5 justify-content-center">
                             <div class="col-md-3">
                                 <div class="p-3">
                                     <div class="row g-3 align-items-center szukaj-space">
-                                        <?php
-                                            $attrib = [
-                                                'class'     => 'btn btn-seccond',
-                                                'value'     => 'Wstecz',
-                                                'onclick'   => "window.location='" . base_url('active') . "'",
-                                                'content'   => 'Wstecz'
-                                            ];
-                                            echo form_button($attrib);
-                                        ?>   
+                                        <button type="button" class="btn btn-secondary" 
+                                        onclick="window.location='<?php echo base_url()?>/'">
+                                            Wstecz
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <?php echo form_close(); ?>
                 </div>
            </div>
         </div>

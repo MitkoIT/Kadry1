@@ -1,7 +1,7 @@
 <!--Main Component-->
 <div class="main">
     <main class="p-3">
-        <div class="container-fluid">
+        <div class="container-flex">
             <div class="mb-3 text-center">
                 <h1>
                     <?php echo $header; ?>
@@ -13,65 +13,65 @@
                 </div>
             <?php } ?>
             <div class="container d-flex mt-5">
-                <?php echo form_open('add')?>
+                <?php echo form_open('user-add-save')?>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-3 border bg-light h-100">
                                 <div class="d-grid justify-content-center">
-                                        <div class="row g-3 align-items-center szukaj-space">  
-                                            <div class="col-auto">
-                                                <?php 
-                                                    echo form_label("Imie i Nazwisko","nameid"); 
-                                                ?>
-                                            </div>
-                                            <div class="col-auto">
-                                                <?php 
-                                                    $attribs = [
-                                                        'name'          => 'name',
-                                                        'type'          => 'text', 
-                                                        'placeholder'   => 'Imię i Nazwisko',
-                                                        'class'         => 'form-control'
-                                                    ];
-                                                    echo form_input($attribs); 
-                                                ?>
-                                            </div>  
+                                    <div class="row g-1 align-items-center szukaj-space">  
+                                        <div class="col-auto">
+                                            <?php 
+                                                echo form_label("Imie i Nazwisko","nameid"); 
+                                            ?>
                                         </div>
-                                        <div class="row g-3 align-items-center szukaj-space">
-                                            <div class="col-auto">
-                                                <?php 
-                                                    echo form_label("Tel.","phoneid"); 
-                                                ?>
-                                            </div>
-                                            <div class="col-auto">
-                                                <?php 
-                                                    $attribs = [
-                                                        'name'          => 'phone',
-                                                        'type'          => 'text', 
-                                                        'placeholder'   => 'Numer Telefonu',
-                                                        'class'         => 'form-control'
-                                                    ];
-                                                    echo form_input($attribs); 
-                                                ?>
-                                            </div>
+                                        <div class="col-auto">
+                                            <?php 
+                                                $attribs = [
+                                                    'name'          => 'name',
+                                                    'type'          => 'text', 
+                                                    'placeholder'   => 'Imię i Nazwisko',
+                                                    'class'         => 'form-control'
+                                                ];
+                                                echo form_input($attribs); 
+                                            ?>
+                                        </div>  
+                                    </div>
+                                    <div class="row g-1 align-items-center szukaj-space">
+                                        <div class="col-auto">
+                                            <?php 
+                                                echo form_label("Tel.","phoneid"); 
+                                            ?>
                                         </div>
-                                        <div class="row g-3 align-items-center szukaj-space">
-                                            <div class="col-auto">
-                                                <?php 
-                                                    echo form_label("Email@","emailid"); 
-                                                ?>
-                                            </div>
-                                            <div class="col-auto">
-                                                <?php 
-                                                    $attribs = [
-                                                        'name'          => 'email',
-                                                        'type'          => 'email', 
-                                                        'placeholder'   => 'example@example.pl',
-                                                        'class'         => 'form-control'
-                                                    ];
-                                                    echo form_input($attribs); 
-                                                ?>
-                                            </div>
+                                        <div class="col-auto">
+                                            <?php 
+                                                $attribs = [
+                                                    'name'          => 'phone',
+                                                    'type'          => 'text', 
+                                                    'placeholder'   => 'Numer Telefonu',
+                                                    'class'         => 'form-control'
+                                                ];
+                                                echo form_input($attribs); 
+                                            ?>
                                         </div>
+                                    </div>
+                                    <div class="row g-1 align-items-center szukaj-space">
+                                        <div class="col-auto">
+                                            <?php 
+                                                echo form_label("Email@","emailid"); 
+                                            ?>
+                                        </div>
+                                        <div class="col-auto">
+                                            <?php 
+                                                $attribs = [
+                                                    'name'          => 'email',
+                                                    'type'          => 'email', 
+                                                    'placeholder'   => 'example@example.pl',
+                                                    'class'         => 'form-control'
+                                                ];
+                                                echo form_input($attribs); 
+                                            ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

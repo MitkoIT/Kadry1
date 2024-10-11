@@ -8,6 +8,158 @@ use App\Models\UserCompanyModel;
 
 class UserController extends BaseController
 {
+    public function getAllUsersWithCompanys(): string
+    {
+        helper(['form']);
+
+        $userModel = new UserModel();
+        $perPage = 100;
+        //jezeli nic tu nie ma to wstaw 1 strone
+        $page = $this->request->getVar('page') ?: 1;
+
+        $data = [
+            'user_data' => $userModel
+                ->getPaginatedAllUsersWithCompanys(
+                    $perPage, $page
+                ),
+            'pager'     => $userModel->pager,
+            'header'    => 'Wszyscy Użytkownicy'
+        ];
+
+        return view('Base/header', [
+                'title' => 'Panel Administracyjny'
+            ]).
+            //view('Panels/side-bar').
+            view('Panels/main-user', $data).
+            view('Base/footer');
+    }
+
+    public function getAllUsers()
+    {
+        helper(['form']);
+
+        $userModel = new UserModel();
+        $companyModel = new UserCompanyModel();
+        $perPage = 100;
+        //jezeli nic tu nie ma to wstaw 1 strone
+        $page = $this->request->getVar('page') ?: 1;
+
+        $users_data =  $userModel
+            ->getPaginatedAllUsers(
+            $perPage, $page
+        );
+
+
+        $user_company = array(array(), array());
+
+        foreach ($users_data as $user) {
+            $user_company['user'] = $user;
+            $user_company['company'] = $companyModel->getUserCompanyByUserId($user['idusers']);
+        }
+
+        $data = [
+            'user_data' => $user_company,
+            'pager'     => $userModel->pager,
+            'header'    => 'Wszyscy Użytkownicy'
+        ];
+
+        
+        //echo var_dump($data['user_data']);
+    }
+
+    public function passSetSuccess()
+    {
+        $data = [
+            'header' => ''
+        ];
+
+        return view('Base/header', [
+            'title' => 'Password Successfull'
+        ]).
+        view('Base/pass-success', $data).
+        view('Base/footer'); 
+    }
+
+    public function getActiveUsers(): string
+    {
+        helper(['form']);
+        $userModel = new UserModel();
+        $perPage = 100;
+        $page = $this->request->getVar('page') ?: 1;
+       
+        $data = [
+            'user_data' => $userModel
+                ->getPaginatedANUsersWithCompanys(
+                    $perPage, $page, 'y'
+                ),
+            'pager'     => $userModel->pager,
+            'header'    => 'Aktywni Użytkownicy'
+        ];
+
+        return view('Base/header', [
+                'title' => 'Panel Administracyjny'
+            ]).
+           // view('Panels/side-bar').
+            view('Panels/main-user', $data).
+            view('Base/footer');
+    }
+
+    public function getUnactiveUsers(): string
+    {
+        helper(['form']);
+        $userModel = new UserModel();
+        $perPage = 100;
+        $page = $this->request->getVar('page') ?: 1;
+
+        $data = [
+            'user_data' => $userModel
+                ->getPaginatedANUsersWithCompanys(
+                    $perPage, $page, 'n'
+                ),
+            'pager'     => $userModel->pager,
+            'header'    => 'Nieaktywni Użytkownicy'
+        ];
+
+        return view('Base/header', [
+                'title' => 'Panel Administracyjny'
+            ]).
+           // view('Panels/side-bar').
+            view('Panels/main-user', $data).
+            view('Base/footer');
+    }
+
+    public function getUserByName()
+    {
+
+        helper(['form']);
+        $rules = [
+            'name'  => 'required|min_length[2]|max_length[128]'
+        ]; 
+
+        if ($this->validate($rules)) { 
+            $userModel = new UserModel();
+            $perPage = 100;
+            $page = $this->request->getVar('page') ?: 1;
+            $data['user_data'] = $userModel
+                ->getUsersByFirstLetterWithCompanys(
+                $this->request->getVar('name'),
+                $perPage,
+                $page
+            );
+            $data['pager'] = $userModel->pager;
+            $data['header'] = 'Wyniki Wyszukiwania';
+
+            return view('Base/header', [
+                'title' => 'Panel Administracyjny'
+            ]).
+           // view('Panels/side-bar').
+            view('Panels/main-user', $data).
+            view('Base/footer');            
+
+        } else {
+            return redirect()->to('/');
+        }
+    }
 
     public function deleteUserCompanyElement(int $userId, int $companyId)
     {
@@ -17,7 +169,7 @@ class UserController extends BaseController
         $userCompanyModel->deleteById($idToDelete);
 
        
-        return redirect()->to('edit/'. $userId);
+        return redirect()->to('user-edit/'. $userId);
     }
 
     public function addUserCompanyElement(int $userId)
@@ -31,7 +183,7 @@ class UserController extends BaseController
 
         $userCompanyModel->insert($data);
 
-        return redirect()->to('edit/'. $userId);
+        return redirect()->to('user-edit/'. $userId);
     }
 
     public function editUserDataForAdd()
@@ -50,7 +202,7 @@ class UserController extends BaseController
                 'title' => 'Panel Administracyjny'
             ]).
            // view('Panels/side-bar').
-            view('Panels/main-add', $data).
+            view('Panels/main-user-add', $data).
             view('Base/footer');
     }
 
@@ -269,7 +421,7 @@ class UserController extends BaseController
                 'title' => 'Edytu Użytkownika'
             ]).
            // view('Panels/side-bar').
-            view('Panels/main-edit-new', $data).
+            view('Panels/main-user-edit', $data).
             view('Base/footer');
     }
 
@@ -317,7 +469,7 @@ class UserController extends BaseController
              'success', 
             'Dane Użytkownika zostały zapisane poprawnie.'
                 );
-               return redirect()->to('edit/'. $userId);
+               return redirect()->to('user-edit/'. $userId);
                //$lastQuery = $userCompanyModel->getLastQuery();
                 //echo $lastQuery; // wyswietl ostatnia kwerende     
             } 
@@ -365,7 +517,7 @@ class UserController extends BaseController
                     'error', 
                    'Dane Użytkownika nie zostały zapisane poprawnie.'
                     );
-                    //return redirect()->to('edit/'. $id . '/' . $idcompany);
+                    //return redirect()->to('user-edit/'. $id . '/' . $idcompany);
                     return $this->editUserDataForEdit($userId);
                 }  
             }
@@ -375,7 +527,7 @@ class UserController extends BaseController
         'success', 
         'Firmy zostały przypisane poprawnie'
             );
-            return redirect()->to('edit/'. $userId);
+            return redirect()->to('user-edit/'. $userId);
         }
     }
 }

@@ -1,7 +1,7 @@
 <!--Main Component-->
 <div class="main">
     <div class="d-flex justify-content-end mt-3">
-        <div class="border border-primary border-3 rounded-pill mx-4 p-2">
+        <div class="border border-secondary border-3 rounded-pill mx-4 p-2">
             <span class="mt-3"> 
                 <span class="logged-user">  
                     Imię Nazwisko
@@ -47,7 +47,7 @@
                         </button>
                     </div>
                     <div class="col-auto">
-                        <?php echo form_open('search') ?>
+                        <?php echo form_open('user-search') ?>
                             <?php 
                                 $attribs = [
                                     'name'          => 'name',
@@ -64,7 +64,7 @@
                         <div class="col-auto">
                             <?php
                                 $attrib = [
-                                    'class'     => 'btn btn-success',
+                                    'class'     => 'btn btn-secondary',
                                     'type'      => 'submit', 
                                     'value'     => 'Szukaj',
                                     'content' => '<i class="lni lni-search"></i> Szukaj'
@@ -75,8 +75,8 @@
                     </div>
                     <?php echo form_close(); ?>
                     <div class="col-auto ms-auto"> <!-- ms-auto pushes this button to the end -->
-                        <button type="button" class="btn btn-primary" 
-                            onclick="window.location='<?php echo base_url()?>paste'">
+                        <button type="button" class="btn btn-secondary" 
+                            onclick="window.location='<?php echo base_url()?>user-add'">
                             Dodaj Użytkownika
                             </button>
                     </div>
@@ -130,7 +130,7 @@
                                             <?php } ?>
                                             <td class="text-center align-middle justify-content-center">
                                                 <button type="button" class="btn btn-seccond rounded-start" 
-                                                    onclick="window.location='<?php echo base_url()?>edit/<?php echo $user['idusers'] ?>'">
+                                                    onclick="window.location='<?php echo base_url()?>user-edit/<?php echo $user['idusers'] ?>'">
                                                     <span class="badge bg-secondary">
                                                         Edytuj
                                                     </span>
@@ -189,4 +189,4 @@
 </div>
 <!--Main Component Ends-->
 <script src="<?php echo base_url()?>script/Modalscript.js"></script>
-<script src="<?php echo base_url()?>script/Search.js"></script>
+<script src="<?php echo base_url()?>script/UserSearch.js"></script>
