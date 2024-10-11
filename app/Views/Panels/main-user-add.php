@@ -19,12 +19,12 @@
                             <div class="p-3 border bg-light h-100">
                                 <div class="d-grid justify-content-center">
                                     <div class="row g-1 align-items-center szukaj-space">  
-                                        <div class="col-auto">
+                                        <div class="col">
                                             <?php 
                                                 echo form_label("Imie i Nazwisko","nameid"); 
                                             ?>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col">
                                             <?php 
                                                 $attribs = [
                                                     'name'          => 'name',
@@ -37,12 +37,12 @@
                                         </div>  
                                     </div>
                                     <div class="row g-1 align-items-center szukaj-space">
-                                        <div class="col-auto">
+                                        <div class="col">
                                             <?php 
                                                 echo form_label("Tel.","phoneid"); 
                                             ?>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col">
                                             <?php 
                                                 $attribs = [
                                                     'name'          => 'phone',
@@ -55,12 +55,12 @@
                                         </div>
                                     </div>
                                     <div class="row g-1 align-items-center szukaj-space">
-                                        <div class="col-auto">
+                                        <div class="col">
                                             <?php 
                                                 echo form_label("Email@","emailid"); 
                                             ?>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col">
                                             <?php 
                                                 $attribs = [
                                                     'name'          => 'email',
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="row g-3 align-items-center szukaj-space">
                                     <div class="col-auto">
-                                        <button type="button" id='addCompany' class="btn btn-seccond border border-dark">
+                                        <button type="button" id='addCompany' class="btn btn-secondary border border-dark">
                                             Dodaj
                                         </button>
                                     </div>
@@ -141,7 +141,7 @@
                                 <div class="row g-3 align-items-center szukaj-space">
                                     <?php
                                         $attrib = [
-                                            'class'     => 'btn btn-seccond border border-dark',
+                                            'class'     => 'btn btn-secondary border border-dark',
                                             'type'      => 'submit', 
                                             'value'     => 'Dodaj Użytkownika',
                                             'content'   => 'Dodaj Użytkownika'
@@ -150,7 +150,7 @@
                                     ?>
                                     <?php
                                         $attrib = [
-                                            'class'     => 'btn btn-seccond border border-dark',
+                                            'class'     => 'btn btn-secondary border border-dark',
                                             'value'     => 'Wstecz',
                                             'onclick'   => "window.location='" . base_url('active') . "'",
                                             'content'   => 'Wstecz'

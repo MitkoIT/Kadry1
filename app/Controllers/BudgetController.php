@@ -21,7 +21,7 @@ class BudgetController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            //view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-budget', $data).
             view('Base/footer');
     }
@@ -45,13 +45,33 @@ class BudgetController extends BaseController
             return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-           // view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-budget', $data).
             view('Base/footer');            
 
         } else {
-            return redirect()->to('budget');
+            return redirect()->to('budget-allbudgets');
         }
+    }
+
+    public function getBudgetForEdit(int $budgetId)
+    {
+        helper(['form']);
+        $budgetModel = new BudgetModel();
+
+        $data = [
+            'budget_data' => $budgetModel->getBudgetById($budgetId),
+        ];
+
+        //tutaj pobrac pracownikow i wlasciciela i zastepce budzetu
+
+
+        return view('Base/header', [
+            'title' => 'Budżet - Zarządzanie'
+        ]).
+       // view('Panels/side-bar').
+        view('Panels/main-budget-edit', $data).
+        view('Base/footer');       
     }
 
 }

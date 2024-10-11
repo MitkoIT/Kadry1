@@ -11,13 +11,10 @@
                     Zarządzaj
                 </li>
                 <li class="sidebar-items">
-                   
+                    <a href="<?php echo base_url() ?>">Użytkownicy</a>
                 </li>
-                <li class="sidebar-header">
-                    Statystyki
-                </li>
-                <li class="sidebar-item">
-                   
+                <li class="sidebar-items">
+                    <a href="<?php echo base_url()?>budget-allbudgets">Budżety</a>
                 </li>
             </ul>
             <!--Sidebar Navigation Ends-->

@@ -29,7 +29,7 @@ class UserController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            //view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-user', $data).
             view('Base/footer');
     }
@@ -99,7 +99,7 @@ class UserController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-           // view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-user', $data).
             view('Base/footer');
     }
@@ -123,7 +123,7 @@ class UserController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-           // view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-user', $data).
             view('Base/footer');
     }
@@ -152,7 +152,7 @@ class UserController extends BaseController
             return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-           // view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-user', $data).
             view('Base/footer');            
 
@@ -503,7 +503,7 @@ class UserController extends BaseController
             $amount = $userCompanyModel->getNumOfCompaniesForUserId($userId);
 
             //wypelnij wpisy w user_company nowymi danymi
-            for($i=0; $i<$amount;$i++) {
+            for ($i=0; $i<$amount;$i++) {
 
                 $companyData = [
                     'id_user'       => $userId,

@@ -32,4 +32,6 @@ $routes->post('user-add-save', 'UserController::setUserDataForAdd');
 //budget
 $routes->add('budget-allbudgets','BudgetController::getBudgets');
 $routes->post('budget-search', 'BudgetController::getBudgetByName');
+
+$routes->get('budget-edit/(:num)', 'BudgetController::getBudgetForEdit/$1');
 $routes->add('budget-addbudget', 'BudgetConstroller::addBudget');

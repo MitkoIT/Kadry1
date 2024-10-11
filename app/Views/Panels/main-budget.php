@@ -55,8 +55,8 @@
                     <?php echo form_close(); ?>
                     <div class="col-auto ms-auto"> <!-- ms-auto pushes this button to the end -->
                         <button type="button" class="btn btn-secondary" 
-                            onclick="window.location='<?php echo base_url()?>addbudget'">
-                            Dodaj
+                            onclick="window.location='<?php echo base_url()?>budget-addbudget'">
+                            Nowy
                         </button>
                     </div>
                 </div> <!-- button section end -->
@@ -66,6 +66,7 @@
                             <tr>
                                 <th class="text-center">ID</th>
                                 <th class="text-center">Nazwa</th>
+                                <th class="text-center">Data Dodania</th>
                                 <th class="text-center">Akcja</th>
                             </tr>
                         </thead>
@@ -80,12 +81,16 @@
                                         <td class="text-center align-middle">
                                             <?php echo $budget['budzet_nazwa']; ?>
                                         </td>
+                                        <td class="text-center align-middle">
+                                            <?php echo $budget['budzet_data_dodania']; ?>
+                                        </td>
                                         <td class="text-center align-middle justify-content-center">
                                             <button type="button" class="btn btn-seccond rounded-start" 
-                                                onclick="window.location='#'">
+                                                onclick="window.location='budget-edit/<?php echo $budget['id_budzet'] ?>'">
                                                 <span class="badge bg-secondary">
-                                                    Edytuj
+                                                    Zarządzaj
                                                 </span>
+                                            </button>
                                         </td>
                                     </tr>
                             <?php }
@@ -99,4 +104,4 @@
 </div>
 <!--Main Component Ends-->
 
-<script src="<?php echo base_url()?>script/Search.js"></script>
+<script src="<?php echo base_url()?>script/BudgetSearch.js"></script>

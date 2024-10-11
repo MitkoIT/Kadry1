@@ -31,4 +31,9 @@ class BudgetModel extends Model
         ->like('budzet_nazwa', $name)
         ->findAll();
     }
+
+    public function getBudgetById(int $id)
+    {
+        return $this->where('id_budzet', $id)->first();
+    }
 }
