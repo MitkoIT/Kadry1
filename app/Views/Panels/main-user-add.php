@@ -1,5 +1,18 @@
 <!--Main Component-->
 <div class="main">
+<div class="d-flex justify-content-end mt-3">
+        <div class="border border-secondary border-3 rounded-pill mx-4 p-2">
+            <span class="mt-3"> 
+                <span class="logged-user">  
+                    Imię Nazwisko
+                </span> 
+            </span>
+            <button class="btn btn-danger mx-4">
+                <i class="lni lni-exit"></i>
+                Wyloguj
+            </button>
+        </div>
+    </div>
     <main class="p-3">
         <div class="container-flex">
             <div class="mb-3 text-center">

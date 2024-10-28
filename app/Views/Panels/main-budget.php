@@ -55,7 +55,7 @@
                     <?php echo form_close(); ?>
                     <div class="col-auto ms-auto"> <!-- ms-auto pushes this button to the end -->
                         <button type="button" class="btn btn-secondary" 
-                            onclick="window.location='<?php echo base_url()?>budget-addbudget'">
+                            onclick="window.location='<?php echo base_url()?>budget-add'">
                             Nowy
                         </button>
                     </div>
@@ -66,6 +66,7 @@
                             <tr>
                                 <th class="text-center">ID</th>
                                 <th class="text-center">Nazwa</th>
+                                <th class="text-center">Firma</th>
                                 <th class="text-center">Data Dodania</th>
                                 <th class="text-center">Akcja</th>
                             </tr>
@@ -80,6 +81,11 @@
                                         </td>
                                         <td class="text-center align-middle">
                                             <?php echo $budget['budzet_nazwa']; ?>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">
+                                                <?php echo $budget['firma_nazwa']; ?>
+                                            </span>
                                         </td>
                                         <td class="text-center align-middle">
                                             <?php echo $budget['budzet_data_dodania']; ?>

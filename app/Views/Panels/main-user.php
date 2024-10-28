@@ -107,13 +107,25 @@
                                             <td class="text-center align-middle">
                                                 <?php echo $user['user_name']; ?>
                                                 <br>
-                                                <span class="mail-span"> 
+                                                <span class="mail-span">
+
                                                     <?php echo $user['user_email']; ?>
                                                 </span>
                                             </td>
-                                            <td class="text-center align-middle"><?php echo $user['phone_shop_mitko']; ?></td>
                                             <td class="text-center align-middle">
-                                                <span class="badge bg-secondary"><?php echo $user['company_name']; ?> </span>
+                                                <?php echo $user['phone_shop_mitko']; ?>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <?php 
+                                                    $parts = explode(',', $user['company_name']);
+                                                    $parts = array_map('trim', $parts);
+
+                                                    foreach ($parts as $part) { ?>
+                                                        <span class="badge bg-secondary">
+                                                            <?php echo $part; ?>
+                                                        </span>
+                                                   <?php }
+                                                ?> 
                                             </td>
                                             <?php if ($header == 'Wszyscy Użytkownicy') { ?>
                                                 <td class="text-center align-middle">

@@ -18,6 +18,11 @@ class UserModel extends Model
         'password'
     ]; 
 
+    public function getAllUsers()
+    {
+        return $this->findAll();
+    }
+
     public function getPaginatedAllUsersWithCompanys(int $perPage, $page)
     {
         return $this

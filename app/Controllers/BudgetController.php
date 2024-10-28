@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\BudgetModel;
+use App\Models\UserModel;
 
 
 class BudgetController extends BaseController
@@ -14,7 +15,7 @@ class BudgetController extends BaseController
         $budgetModel = new BudgetModel();
         $data = [
             'budget_data' => $budgetModel
-                ->getAllBudgets(),
+                ->getAllBudgetsWithCompany(),
             'header'    => 'Budżety'
         ];
 
@@ -37,7 +38,7 @@ class BudgetController extends BaseController
         if ($this->validate($rules)) { 
             $budgetModel = new BudgetModel();
             $data['budget_data'] = $budgetModel
-                ->getBudgetByFirstLetter(
+                ->getBudgetByFirstLetterWithCompany(
                 $this->request->getVar('budzet')
             );
             $data['header'] = 'Wyniki Wyszukiwania';
@@ -50,17 +51,17 @@ class BudgetController extends BaseController
             view('Base/footer');            
 
         } else {
-            return redirect()->to('budget-allbudgets');
+            return redirect()->to('budget');
         }
     }
 
-    public function getBudgetForEdit(int $budgetId)
+    public function editBudgetDataForEdit(int $budgetId)
     {
         helper(['form']);
         $budgetModel = new BudgetModel();
 
         $data = [
-            'budget_data' => $budgetModel->getBudgetById($budgetId),
+            'budget_data' => $budgetModel->getBudgetByIdWithCompany($budgetId),
         ];
 
         //tutaj pobrac pracownikow i wlasciciela i zastepce budzetu
@@ -69,8 +70,30 @@ class BudgetController extends BaseController
         return view('Base/header', [
             'title' => 'Budżet - Zarządzanie'
         ]).
-       // view('Panels/side-bar').
+        view('Panels/side-bar').
         view('Panels/main-budget-edit', $data).
+        view('Base/footer');       
+    }
+
+    public function editBudgetDataForAdd()
+    {
+        helper(['form']);
+        $budgetModel = new BudgetModel();
+        $userModel = new UserModel();
+
+        $data = [
+            'header'         => 'Dodaj Budżet',
+            'company_list'   => $budgetModel->getAllBudgetCompanys(),
+            'target_list'    => $budgetModel->getAllBudgetTargets(),
+            'user_data'      => $userModel->getAllUsers()
+        ];
+
+        
+        return view('Base/header', [
+            'title' => 'Budżet - Dodaj'
+        ]).
+        view('Panels/side-bar').
+        view('Panels/main-budget-add', $data).
         view('Base/footer');       
     }
 

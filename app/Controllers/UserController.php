@@ -201,7 +201,7 @@ class UserController extends BaseController
         return view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-           // view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-user-add', $data).
             view('Base/footer');
     }
@@ -420,7 +420,7 @@ class UserController extends BaseController
         return view('Base/header', [
                 'title' => 'Edytu Użytkownika'
             ]).
-           // view('Panels/side-bar').
+            view('Panels/side-bar').
             view('Panels/main-user-edit', $data).
             view('Base/footer');
     }
@@ -464,9 +464,9 @@ class UserController extends BaseController
 
             if ($userModel->update($userId, $data)) {
 
-                session()->remove('error');
+                session()->remove('error-user-data');
                 session()->setFlashdata(
-             'success', 
+             'success-user-data', 
             'Dane Użytkownika zostały zapisane poprawnie.'
                 );
                return redirect()->to('user-edit/'. $userId);
@@ -474,9 +474,9 @@ class UserController extends BaseController
                 //echo $lastQuery; // wyswietl ostatnia kwerende     
             } 
         } else {
-            session()->remove('success');
+            session()->remove('success-user-data');
             session()->setFlashdata(
-            'error', 
+            'error-user-data', 
            'Dane Użytkownika nie zostały zapisane poprawnie.'
             );
             //return redirect()->to('edit/'. $id . '/' . $idcompany);
@@ -512,9 +512,9 @@ class UserController extends BaseController
                 if (!$userCompanyModel
                     ->update($entries[$i],$companyData)) {
                         
-                    session()->remove('success');
+                    session()->remove('success-user-company');
                     session()->setFlashdata(
-                    'error', 
+                    'error-user-company', 
                    'Dane Użytkownika nie zostały zapisane poprawnie.'
                     );
                     //return redirect()->to('user-edit/'. $id . '/' . $idcompany);
@@ -522,9 +522,9 @@ class UserController extends BaseController
                 }  
             }
 
-            session()->remove('error');
+            session()->remove('error-user-company');
             session()->setFlashdata(
-        'success', 
+        'success-user-company', 
         'Firmy zostały przypisane poprawnie'
             );
             return redirect()->to('user-edit/'. $userId);
