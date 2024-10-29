@@ -23,6 +23,7 @@ $routes->post('firstpasswd/(:num)', 'UserController::setUserPassword/$1');
 $routes->get('user-edit/(:num)', 'UserController::editUserDataForEdit/$1');
 $routes->post('user-edit-save/(:num)', 'UserController::setUserDataForEdit/$1');
 $routes->post('user-edit-save-company/(:num)', 'UserController::setUserCompanyForEdit/$1');
+$routes->post('user-edit-save-note/(:num)', 'UserController::updateUserNote/$1');
 $routes->get('user-edit-delete-company/(:num)/(:num)','UserController::deleteUserCompanyElement/$1/$2');
 $routes->get('user-edit-add-company/(:num)', 'UserController::addUserCompanyElement/$1');
 

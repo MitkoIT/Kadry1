@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\CompanyModel;
 use App\Models\UserCompanyModel;
+use App\Models\UserNoteModel;
 
 class UserController extends BaseController
 {
@@ -235,13 +236,14 @@ class UserController extends BaseController
         if ($this->validate($rules)) { 
             $userModel = new UserModel();
             $userCompanyModel = new UserCompanyModel();
+            $userNoteModel = new UserNoteModel();
             
             $data = [ 
                 'idusers'               => $userModel->getNextId(),
                 'name'                  => $this->request->getPost('name'),
                 'email'                 => $this->request->getPost('email'),
                 'phone_shop_mitko'      => $this->request->getPost('phone'),
-                'active'                => 'n'
+                'active'                => 'n',
             ]; 
 
             //In Insert:
@@ -259,6 +261,13 @@ class UserController extends BaseController
                 ];
                 $userCompanyModel->insert($companyData);
             }
+
+            $noteData = [
+                'user_id'   => $data['idusers'],
+                'note'      => $this->request->getPost('notatka')
+            ];
+
+            $userNoteModel->insert($noteData);
 
             $this->sendEmailSetPassword($data['idusers']['next_id'], $data['email']);
 
@@ -398,6 +407,7 @@ class UserController extends BaseController
         $userModel = new UserModel();
         $companyModel = new CompanyModel();
         $userCompanyModel = new UserCompanyModel();
+        $userNoteModel = new UserNoteModel();
 
         $companysData = [];
 
@@ -414,7 +424,8 @@ class UserController extends BaseController
             'company_num'   => $userCompanyModel->getNumOfCompaniesForUserId($id),
             'company_data'  => $companysData,
             'header'        => 'Edytuj Użytkownika',
-            'validation'    => $this->validator    
+            'validation'    => $this->validator,
+            'note'          => $userNoteModel->GetUserNote($id)  
         ];
       
         return view('Base/header', [
@@ -482,6 +493,35 @@ class UserController extends BaseController
             //return redirect()->to('edit/'. $id . '/' . $idcompany);
             return $this->editUserDataForEdit($userId);
         }
+    }
+
+    public function updateUserNote(int $userId)
+    {
+        helper(['form']);
+
+        $userNoteModel = new UserNoteModel();
+
+        $data = [
+            'note'  => $this->request->getPost('notatka')
+        ];
+
+        if (!$userNoteModel->where('user_id', $userId)->set($data)->update()) {
+            session()->remove('success-user-company');
+            session()->setFlashdata(
+                'error-user-note', 
+                'Notatka Użytkownika nie została zapisana poprawnie.'
+            );
+            //return redirect()->to('user-edit/'. $id . '/' . $idcompany);
+            return $this->editUserDataForEdit($userId);
+        }
+
+        session()->remove('error-user-company');
+        session()->setFlashdata(
+            'success-user-note', 
+            'Notatka została zapisana poprawnie'
+        );
+        return redirect()->to('user-edit/'. $userId);
+
     }
 
     public function setUserCompanyForEdit(int $userId)

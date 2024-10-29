@@ -194,7 +194,24 @@
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 h-100 border bg-light">
-                            <?php echo form_open('#'.$user_data['idusers']) ?>
+                        <?php if (session()->getFlashdata('success-user-note')) { ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('success-user-note') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php } ?>
+                        <?php if (session()->getFlashdata('error-user-note')) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('error-user-note') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php } ?>
+                        <?php if (isset($validation)) { ?>
+                            <div class="alert alert-warning">
+                                <?= $validation->listErrors() ?>
+                            </div>
+                        <?php } ?>
+                            <?php echo form_open('user-edit-save-note/'.$user_data['idusers']) ?>
                             <div class="g-3 align-items-center szukaj-space">
                                 <div class="col-auto">
                                     <?php 
@@ -205,9 +222,9 @@
                                     <?php 
                                         $attribs = [
                                             'name'          => 'notatka',
-                                            'placeholder'   => 'Notatka',
                                             'class'         => 'form-control',
-                                            'rows'          => '5'
+                                            'rows'          => '5',
+                                            'value'         => set_value('notatka', htmlspecialchars($note['note'])) // Load $note into the textarea
                                         ];
                                         echo form_textarea($attribs); 
                                     ?>
