@@ -22,6 +22,12 @@
                     </h1>
                 </div>
                 <!--flash info section start-->
+                <?php if (session()->getFlashdata('success')) { ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('success') ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php } ?>
                 <!--flash info section end -->
                 <!-- button section start -->
                 <div class="d-flex row g-3 szukaj-space justify-content-between">

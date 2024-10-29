@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\BudgetModel;
 use App\Models\UserModel;
+use App\Models\BudgetOwnerModel;
+use App\Models\BudgetSemiownerModel;
 
 
 class BudgetController extends BaseController
@@ -85,7 +87,8 @@ class BudgetController extends BaseController
             'header'         => 'Dodaj Budżet',
             'company_list'   => $budgetModel->getAllBudgetCompanys(),
             'target_list'    => $budgetModel->getAllBudgetTargets(),
-            'user_data'      => $userModel->getAllUsers()
+            'user_data'      => $userModel->getAllUsers(),
+            'validation'     =>  $this->validator
         ];
 
         
@@ -97,4 +100,57 @@ class BudgetController extends BaseController
         view('Base/footer');       
     }
 
+    public function setBudgetDataForAdd()
+    {
+        helper(['form']);
+
+        $rules = [
+            'cel'   => 'required',
+            'owner' => 'required',
+            'semiowner' => 'required',
+            'name'  => [
+                'rules' => 'required|min_length[2]|Max_length[128]',
+                'label' => 'Name',
+                'errors' => [
+                    'required' => 'Musisz wprowadzić nazwę nowego budżetu.',
+                    'min_length' => 'Minimum 2 znaki w Nazwie',
+                    'max_length' => 'Maksimum 255 znaków w Imię i Nazwisko.'
+                ]
+            ], 
+        ]; 
+          
+        if ($this->validate($rules)) {
+            $budgetModel = new BudgetModel();
+            $budgetOwnerModel = new BudgetOwnerModel();
+            $budgetSemiownerModel = new BudgetSemiownerModel();
+            $data = [
+                'budzet_nazwa'  => $this->request->getPost('name'),
+                'id_cel'        => $this->request->getPost('cel'),
+                'id_firma'      => $this->request->getPost('firma')
+            ];
+
+            $budgetId = $budgetModel->getNextId();
+
+            $budgetModel->insert($data);
+            $budgetOwnerModel->insert(
+                $ownerData = [
+                    'id_budzet' => $budgetId,
+                    'id_wlasciciel' => $this->request->getPost('owner')
+                ]
+            );
+
+            $budgetSemiownerModel->insert(
+                $semiownerData = [
+                    'id_budzet' => $budgetId,
+                    'id_zastepca' => $this->request->getPost('semiowner')
+                ]
+            );
+
+
+            session()->setFlashdata('success', 'Budżet został dodany poprawnie.');
+            return redirect()->to('budget-allbudgets');
+        } else {
+            return $this->editBudgetDataForAdd();
+        }
+    }
 }

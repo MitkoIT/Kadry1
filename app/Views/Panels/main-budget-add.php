@@ -26,7 +26,7 @@
                 </div>
             <?php } ?>
             <div class="container mt-5">
-                <?php echo form_open('user-add-save')?>
+                <?php echo form_open('budget-add-save')?>
                     <div class="row">
                         <div class="col-md-6">
                             <h3>Informacje</h3>
@@ -147,40 +147,6 @@
                                             ?>
                                         </div>  
                                     </div>
-                                    <div id="elementContainer"> 
-                                        <div id="userListTemplate">
-                                            <div class="row g-3 align-items-center szukaj-space">
-                                                <div class="col-auto">
-                                                    <?php 
-                                                        echo form_label("Pracownik","emplayeid"); 
-                                                    ?>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <?php 
-                                                        $data = [];
-                                                        if ($user_data) {
-                                                            foreach ($user_data as $user) {
-                                                                $data[$user['idusers']] = $user['name'];
-                                                            }
-                                                        }
-                                                        $options = $data;
-                                                        $attributes = [
-                                                            'class' => 'selectpicker',
-                                                            'data-live-search' => 'true',
-                                                        ];
-                                                        echo form_dropdown('employes[]', $options, null, $attributes); 
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-3 align-items-center szukaj-space">
-                                        <div class="col-auto">
-                                            <button type="button" id='addCompany' class="btn btn-secondary border border-dark">
-                                                Dodaj
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +184,6 @@
 </div>
 
 <!--Main Component Ends-->
-    <script src="<?php echo base_url()?>script/AddBudgetCompanyButton.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 

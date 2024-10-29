@@ -14,7 +14,7 @@ class BudgetModel extends Model
     protected $allowedFields = [ 
         'budzet_nazwa',
         'id_cel',
-        'id_firma'
+        'id_firma',
     ]; 
 
 
@@ -75,5 +75,12 @@ class BudgetModel extends Model
         return $this
         ->db->table($this->tabled_cel)
         ->get()->getResultArray();
+    }
+
+    public function getNextId()
+    {
+        return $this
+        ->select('COALESCE(MAX(id_budzet), 0) + 1 AS next_id')
+        ->first();
     }
 }
