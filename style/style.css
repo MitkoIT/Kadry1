@@ -11,19 +11,18 @@ li {
 .link-button {
     display: inline-block;
     padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
+    background-color: #5d6d7e;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
 
 .link-button:hover {
-    background-color: #0056b3;
+    background-color: #6785a3;
 }
 
 .link-basic {
-    color: black; /* Changed to black */
+    color: rgb(110, 96, 96); /* Changed to black */
     text-decoration: none;
 }
 
@@ -33,11 +32,12 @@ li {
 
 a {
     text-decoration: none;
-    color: black; /* Changed to black */
+    color: rgb(51, 63, 68); /* Changed to black */
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    color: white;
 }
 
 h1{

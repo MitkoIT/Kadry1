@@ -15,10 +15,19 @@
                     </div>
                 <?php } ?>
                 <div class="row g-3 align-items-center szukaj-space">
-                    tu nastąpi przekierowanie do panelu logowania
+                    <script type="text/javascript">
+                        // Redirect after 10 seconds (10000 milliseconds)
+                        setTimeout(function() {
+                            window.location.href = '<?php echo site_url("/"); ?>';
+                            }, 5000);
+                    </script>
+                    <h1>You will be redirected in 5 seconds...</h1>
+                    <p>If you are not redirected, <a href="<?php echo site_url("target_controller/target_method"); ?>">click here</a>.</p>
                 </div>
             </div>
         </div>
     </main>
 </div>
 <!--Main Component Ends-->
+
+

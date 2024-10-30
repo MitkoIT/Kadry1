@@ -10,20 +10,25 @@
                 <li class="sidebar-header">
                     Zarządzaj
                 </li>
-                <li class="sidebar-items">
-                    <a href="<?php echo base_url()?>active">Użytkownicy</a>
+                <li class="sidebar-items link-button">
+                    <a href="<?php echo base_url()?>active">
+                        <strong>Użytkownicy</strong>
+                    </a>
                 </li>
-                <li class="sidebar-items">
-                    <a href="<?php echo base_url()?>budget-allbudgets">Budżety</a>
+                <li class="sidebar-items link-button">
+                    <a href="<?php echo base_url()?>budget-allbudgets">
+                        <b>Budżety</b>
+                    </a>
                 </li>
             </ul>
             <!--Sidebar Navigation Ends-->
-            <div class="sidebat-footer">
+            <div class="sidebar-footer">
                 
             </div>
         </aside>
         <!--Sidebar Ends-->
-        <div class="main">
+<!-- Name and Logout Panel Starts -->
+<div class="main">
 <div class="d-flex justify-content-end mt-3">
     <span class="mt-3">
         <span class="logged-user">
