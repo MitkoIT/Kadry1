@@ -4,3 +4,20 @@
   
 </body>
 </html>
+
+<div class="main">
+    <div class="d-flex justify-content-end mt-3">
+        <div>
+            <span class="mt-3">
+                <span class="logged-user">
+                    Imię Nazwisko
+                </span>
+            </span>
+            <button type="button" class="btn btn-seccond rounded-start"
+                onclick="window.location='#'">
+                <span class="badge bg-danger">
+                    Wyloguj
+                </span>
+            </button>
+        </div>
+    </div>
