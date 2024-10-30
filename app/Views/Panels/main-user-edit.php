@@ -220,13 +220,23 @@
                                 </div>
                                 <div class="col-auto">
                                     <?php 
-                                        $attribs = [
-                                            'name'          => 'notatka',
-                                            'class'         => 'form-control',
-                                            'rows'          => '5',
-                                            'value'         => set_value('notatka', htmlspecialchars($note['note'])) // Load $note into the textarea
-                                        ];
-                                        echo form_textarea($attribs); 
+                                        if ($note) {
+                                            $attribs = [
+                                                'name'          => 'notatka',
+                                                'class'         => 'form-control',
+                                                'rows'          => '5',
+                                                'value'         => set_value('notatka', htmlspecialchars($note['note'])) // Load $note into the textarea
+                                            ];
+                                            echo form_textarea($attribs);
+                                        } else {
+                                                $attribs = [
+                                                    'name'          => 'notatka',
+                                                    'class'         => 'form-control',
+                                                    'rows'          => '5',
+                                                    'value'         => set_value('notatka','Ten Użytkownik nie posiada jeszcze notatki.') // Load $note into the textarea
+                                                ];
+                                                echo form_textarea($attribs);
+                                        } 
                                     ?>
                                 </div>
                             </div>

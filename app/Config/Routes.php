@@ -30,10 +30,10 @@ $routes->get('user-edit-add-company/(:num)', 'UserController::addUserCompanyElem
 $routes->add('user-add', 'UserController::editUserDataForAdd');
 $routes->post('user-add-save', 'UserController::setUserDataForAdd');
 
-//budget
+/*budget
 $routes->add('budget-allbudgets','BudgetController::getBudgets');
 $routes->post('budget-search', 'BudgetController::getBudgetByName');
 
 $routes->get('budget-edit/(:num)', 'BudgetController::editBudgetDataForEdit/$1');
 $routes->add('budget-add', 'BudgetController::editBudgetDataForAdd');
-$routes->add('budget-add-save', 'BudgetController::setBudgetDataForAdd');
+$routes->add('budget-add-save', 'BudgetController::setBudgetDataForAdd');*/

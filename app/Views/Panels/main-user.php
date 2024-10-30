@@ -168,8 +168,10 @@
                         </table>
                     </div>
                 </div>
-                 <!-- Pagination Links -->
-                    <?= $pager->links(); ?>
+                 <!-- Display pagination links only if there are multiple pages -->
+		<?php if ($pager) {?>
+    			<?= $pager->links(); ?>
+		<?php }; ?>
             </div>
         </div>
     </main>

@@ -14,7 +14,7 @@ class UserController extends BaseController
         helper(['form']);
 
         $userModel = new UserModel();
-        $perPage = 100;
+        $perPage = 1000;
         //jezeli nic tu nie ma to wstaw 1 strone
         $page = $this->request->getVar('page') ?: 1;
 
@@ -41,7 +41,7 @@ class UserController extends BaseController
 
         $userModel = new UserModel();
         $companyModel = new UserCompanyModel();
-        $perPage = 100;
+        $perPage = 1000;
         //jezeli nic tu nie ma to wstaw 1 strone
         $page = $this->request->getVar('page') ?: 1;
 
@@ -85,7 +85,7 @@ class UserController extends BaseController
     {
         helper(['form']);
         $userModel = new UserModel();
-        $perPage = 100;
+        $perPage = 1000;
         $page = $this->request->getVar('page') ?: 1;
        
         $data = [
@@ -139,15 +139,21 @@ class UserController extends BaseController
 
         if ($this->validate($rules)) { 
             $userModel = new UserModel();
-            $perPage = 100;
+            $perPage = 1000;
             $page = $this->request->getVar('page') ?: 1;
+		    $total = $userModel->countAll();
             $data['user_data'] = $userModel
                 ->getUsersByFirstLetterWithCompanys(
                 $this->request->getVar('name'),
                 $perPage,
                 $page
             );
+            if ($total > $perPage) {
             $data['pager'] = $userModel->pager;
+            } else {
+                $data['pager'] = null; // No pager needed
+            }
+            //$data['pager'] = $userModel->pager;
             $data['header'] = 'Wyniki Wyszukiwania';
 
             return view('Base/header', [
@@ -502,26 +508,48 @@ class UserController extends BaseController
         $userNoteModel = new UserNoteModel();
 
         $data = [
-            'note'  => $this->request->getPost('notatka')
+            'note' => $this->request->getPost('notatka'),
+            'user_id' => $userId // Ensure the user_id is included in the data
         ];
 
-        if (!$userNoteModel->where('user_id', $userId)->set($data)->update()) {
-            session()->remove('success-user-company');
+        // Check if a record exists for the given user_id
+        $existingNote = $userNoteModel->where('user_id', $userId)->first();
+
+        if ($existingNote) {
+            // If the record exists, update it
+            if (!$userNoteModel->where('user_id', $userId)->set($data)->update()) {
+                session()->remove('success-user-company');
+                session()->setFlashdata(
+                    'error-user-note', 
+                    'Notatka Użytkownika nie została zapisana poprawnie.'
+                );
+                return $this->editUserDataForEdit($userId);
+            }
+
+            session()->remove('error-user-company');
             session()->setFlashdata(
-                'error-user-note', 
-                'Notatka Użytkownika nie została zapisana poprawnie.'
+                'success-user-note', 
+                'Notatka została zaktualizowana poprawnie.'
             );
-            //return redirect()->to('user-edit/'. $id . '/' . $idcompany);
-            return $this->editUserDataForEdit($userId);
+        } else {
+            // If the record does not exist, create a new one
+            if (!$userNoteModel->insert($data)) {
+                session()->remove('success-user-company');
+                session()->setFlashdata(
+                    'error-user-note', 
+                    'Notatka Użytkownika nie została zapisana poprawnie.'
+                );
+                return $this->editUserDataForEdit($userId);
+            }
+
+            session()->remove('error-user-company');
+            session()->setFlashdata(
+                'success-user-note', 
+                'Notatka została zapisana poprawnie.'
+            );
         }
 
-        session()->remove('error-user-company');
-        session()->setFlashdata(
-            'success-user-note', 
-            'Notatka została zapisana poprawnie'
-        );
-        return redirect()->to('user-edit/'. $userId);
-
+        return redirect()->to('user-edit/' . $userId);
     }
 
     public function setUserCompanyForEdit(int $userId)

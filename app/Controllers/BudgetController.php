@@ -61,13 +61,19 @@ class BudgetController extends BaseController
     {
         helper(['form']);
         $budgetModel = new BudgetModel();
+        $userModel = new UserModel();
+        $budgetOwnerModel = new BudgetOwnerModel();
+        $budgetSemiownerModel = new BudgetSemiownerModel();
 
         $data = [
             'budget_data' => $budgetModel->getBudgetByIdWithCompany($budgetId),
+            'company_list'   => $budgetModel->getAllBudgetCompanys(),
+            'target_list'    => $budgetModel->getAllBudgetTargets(),
+            'user_data'      => $userModel->getAllUsers(),
+            'owner_id'       => $budgetOwnerModel->getBudgetOwnerByBudgetId($budgetId),
+            'semiowner_id'   => $budgetSemiownerModel->getBudgetSemiownerByBudgetId($budgetId),
+            'validation'     =>  $this->validator
         ];
-
-        //tutaj pobrac pracownikow i wlasciciela i zastepce budzetu
-
 
         return view('Base/header', [
             'title' => 'Budżet - Zarządzanie'
