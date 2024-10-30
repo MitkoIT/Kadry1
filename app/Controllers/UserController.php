@@ -9,7 +9,7 @@ use App\Models\UserNoteModel;
 
 class UserController extends BaseController
 {
-    public function getAllUsersWithCompanys(): string
+    public function getAllUsersWithCompanys()
     {
         helper(['form']);
 

@@ -1,0 +1,1 @@
+<p>Nie jesteś zalogowany. W celu logowania, przejdź przez aplikację <a href="http://firma.mitko.pl">firma.mitko.pl</a></p>
