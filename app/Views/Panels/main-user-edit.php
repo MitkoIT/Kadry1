@@ -78,7 +78,7 @@
                                             'type' => 'text',
                                             'placeholder' => 'Numer Telefonu',
                                             'class' => 'form-control',
-                                            'value' => $user_data['phone_shop_mitko']
+                                            'value' => $user_data['phone']
                                         ];
                                         echo form_input($attribs);
                                         ?>

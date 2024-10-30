@@ -13,7 +13,7 @@ class UserModel extends Model
         'idusers',
         'name',
         'email',
-        'phone_shop_mitko',
+        'phone',
         'active', 
         'password'
     ]; 
@@ -29,7 +29,7 @@ class UserModel extends Model
         ->select(
             'users.idusers, 
             users.active, 
-            users.phone_shop_mitko, 
+            users.phone, 
             users.name AS user_name, 
             users.email AS user_email, 
             GROUP_CONCAT(DISTINCT company.name SEPARATOR ", ") AS company_name, 
@@ -56,7 +56,7 @@ class UserModel extends Model
             return $this
             ->select('users.idusers, 
             users.active, 
-            users.phone_shop_mitko, 
+            users.phone, 
             users.name AS user_name, 
             users.email AS user_email, 
             GROUP_CONCAT(DISTINCT company.name SEPARATOR ", ") AS company_name, 
@@ -83,7 +83,7 @@ class UserModel extends Model
         return $this
         ->select('users.idusers, 
         users.active, 
-        users.phone_shop_mitko, 
+        users.phone, 
         users.name AS user_name, 
         users.email AS user_email, 
         GROUP_CONCAT(DISTINCT company.name SEPARATOR ", ") AS company_name, 

@@ -248,7 +248,7 @@ class UserController extends BaseController
                 'idusers'               => $userModel->getNextId(),
                 'name'                  => $this->request->getPost('name'),
                 'email'                 => $this->request->getPost('email'),
-                'phone_shop_mitko'      => $this->request->getPost('phone'),
+                'phone'                 => $this->request->getPost('phone'),
                 'active'                => 'n',
             ]; 
 
@@ -476,7 +476,7 @@ class UserController extends BaseController
             $data = [ 
                 'name'                  => $this->request->getPost('name'),
                 'email'                 => $this->request->getPost('email'),
-                'phone_shop_mitko'      => $this->request->getPost('phone'),
+                'phone'      => $this->request->getPost('phone'),
             ]; 
 
             if ($userModel->update($userId, $data)) {

@@ -114,8 +114,8 @@
                                             </td>
                                             <td class="text-center align-middle">
                                                 <?php
-                                                    if ($user['phone_shop_mitko']) {
-                                                        echo $user['phone_shop_mitko'];
+                                                    if ($user['phone']) {
+                                                        echo $user['phone'];
                                                     } else { ?>
                                                         <span class="badge bg-danger">
                                                             <?php echo 'Ten Użytkownik nie posiada przypisanego telefonu' ?>
