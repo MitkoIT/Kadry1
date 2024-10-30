@@ -2,10 +2,10 @@
 <div class="main">
     <div class="d-flex justify-content-end mt-3">
         <div class="border border-secondary border-3 rounded-pill mx-4 p-2">
-            <span class="mt-3"> 
-                <span class="logged-user">  
+            <span class="mt-3">
+                <span class="logged-user">
                     Imię Nazwisko
-                </span> 
+                </span>
             </span>
             <button class="btn btn-danger mx-4">
                 <i class="lni lni-exit"></i>
@@ -20,7 +20,7 @@
                     <h1 class="title-space">
                         <b><?php echo $header; ?></b>
                     </h1>
-                 </div>
+                </div>
                 <?php if (session()->getFlashdata('success')) { ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('success') ?>
@@ -29,56 +29,56 @@
                 <?php } ?>
                 <div class="d-flex row g-3 szukaj-space">
                     <div class="col-auto">
-                        <button type="button" class="btn btn-secondary" 
-                            onclick="window.location='<?php echo base_url()?>all-users'">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="window.location='<?php echo base_url() ?>all-users'">
                             Wszyscy
                         </button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-secondary" 
-                            onclick="window.location='<?php echo base_url()?>active'">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="window.location='<?php echo base_url() ?>active'">
                             Aktywni
                         </button>
                     </div>
                     <div class="col-auto">
-                        <button type="button" class="btn btn-secondary" 
-                            onclick="window.location='<?php echo base_url()?>unactive'">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="window.location='<?php echo base_url() ?>unactive'">
                             Nieaktywni
                         </button>
                     </div>
                     <div class="col-auto">
                         <?php echo form_open('user-search') ?>
-                            <?php 
-                                $attribs = [
-                                    'name'          => 'name',
-                                    'type'          => 'text', 
-                                    'placeholder'   => 'Nazwisko i Imię',
-                                    'class'         => 'form-control',
-                                    'id'            => 'myInput',
-                                    'onkeyup'       => 'MySearchFunction()',
-                                ];
-                                echo form_input($attribs); 
-                            ?>
+                        <?php
+                        $attribs = [
+                            'name' => 'name',
+                            'type' => 'text',
+                            'placeholder' => 'Nazwisko i Imię',
+                            'class' => 'form-control',
+                            'id' => 'myInput',
+                            'onkeyup' => 'MySearchFunction()',
+                        ];
+                        echo form_input($attribs);
+                        ?>
                     </div>
                     <div class="col-auto">
                         <div class="col-auto">
                             <?php
-                                $attrib = [
-                                    'class'     => 'btn btn-secondary',
-                                    'type'      => 'submit', 
-                                    'value'     => 'Szukaj',
-                                    'content' => '<i class="lni lni-search"></i> Szukaj'
-                                ];
-                                echo form_button($attrib);
+                            $attrib = [
+                                'class' => 'btn btn-secondary',
+                                'type' => 'submit',
+                                'value' => 'Szukaj',
+                                'content' => '<i class="lni lni-search"></i> Szukaj'
+                            ];
+                            echo form_button($attrib);
                             ?>
                         </div>
                     </div>
                     <?php echo form_close(); ?>
                     <div class="col-auto ms-auto"> <!-- ms-auto pushes this button to the end -->
-                        <button type="button" class="btn btn-secondary" 
-                            onclick="window.location='<?php echo base_url()?>user-add'">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="window.location='<?php echo base_url() ?>user-add'">
                             Dodaj Użytkownika
-                            </button>
+                        </button>
                     </div>
                 </div>
                 <div>
@@ -113,10 +113,19 @@
                                                 </span>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <?php echo $user['phone_shop_mitko']; ?>
+                                                <?php
+                                                    if ($user['phone_shop_mitko']) {
+                                                        echo $user['phone_shop_mitko'];
+                                                    } else { ?>
+                                                        <span class="badge bg-danger">
+                                                            <?php echo 'Ten Użytkownik nie posiada przypisanego telefonu' ?>
+                                                        </span>
+                                                    <?php } 
+                                                ?>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <?php 
+                                                <?php
+                                                if ($user['company_name']) {
                                                     $parts = explode(',', $user['company_name']);
                                                     $parts = array_map('trim', $parts);
 
@@ -124,12 +133,17 @@
                                                         <span class="badge bg-secondary">
                                                             <?php echo $part; ?>
                                                         </span>
-                                                   <?php }
-                                                ?> 
+                                                    <?php }
+                                                } else { ?>
+                                                    <span class="badge bg-danger">
+                                                        <?php echo 'Ten Użytkownik nie posiada przypisanej firmy.' ?>
+                                                    </span>
+                                                <?php }
+                                                ?>
                                             </td>
                                             <?php if ($header == 'Wszyscy Użytkownicy') { ?>
                                                 <td class="text-center align-middle">
-                                                    <?php if ($user['active'] == 'n') { ?> 
+                                                    <?php if ($user['active'] == 'n') { ?>
                                                         <span class="badge bg-danger">
                                                             Nieaktywny
                                                         </span>
@@ -141,20 +155,18 @@
                                                 </td>
                                             <?php } ?>
                                             <td class="text-center align-middle justify-content-center">
-                                                <button type="button" class="btn btn-seccond rounded-start" 
-                                                    onclick="window.location='<?php echo base_url()?>user-edit/<?php echo $user['idusers'] ?>'">
+                                                <button type="button" class="btn btn-seccond rounded-start"
+                                                    onclick="window.location='<?php echo base_url() ?>user-edit/<?php echo $user['idusers'] ?>'">
                                                     <span class="badge bg-secondary">
                                                         Edytuj
                                                     </span>
                                                 </button>
-                                                    <br>
-                                                <?php if ($user['active'] == 'y') { ?> 
-                                                    <button type="button" class="btn btn-seccond rounded-end" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#deactiveModal"
-                                                        data-userid = "<?php echo $user['idusers'] ?>"
-                                                        data-username = "<?php echo $user['user_name'] ?>"
-                                                        data-path = "<?php echo base_url()?>setunactive/">
+                                                <br>
+                                                <?php if ($user['active'] == 'y') { ?>
+                                                    <button type="button" class="btn btn-seccond rounded-end" data-bs-toggle="modal"
+                                                        data-bs-target="#deactiveModal" data-userid="<?php echo $user['idusers'] ?>"
+                                                        data-username="<?php echo $user['user_name'] ?>"
+                                                        data-path="<?php echo base_url() ?>setunactive/">
                                                         <span class="badge bg-secondary">
                                                             Deaktywuj
                                                         </span>
@@ -162,16 +174,17 @@
                                                 <?php } ?>
                                             </td>
                                         </tr>
-                                <?php }
-                            } ?>
+                                    <?php }
+                                } ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                 <!-- Display pagination links only if there are multiple pages -->
-		<?php if ($pager) {?>
-    			<?= $pager->links(); ?>
-		<?php }; ?>
+                <!-- Display pagination links only if there are multiple pages -->
+                <?php if ($pager) { ?>
+                    <?= $pager->links(); ?>
+                <?php }
+                ; ?>
             </div>
         </div>
     </main>
@@ -202,5 +215,5 @@
     <!--Modal Ends-->
 </div>
 <!--Main Component Ends-->
-<script src="<?php echo base_url()?>script/Modalscript.js"></script>
-<script src="<?php echo base_url()?>script/UserSearch.js"></script>
+<script src="<?php echo base_url() ?>script/Modalscript.js"></script>
+<script src="<?php echo base_url() ?>script/UserSearch.js"></script>
