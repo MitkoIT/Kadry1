@@ -9,20 +9,24 @@ li {
 }
 
 .link-button {
-    display: inline-block;
+    width: 200px;
+}
+
+.link-button a {
     padding: 10px 15px;
-    background-color: #5d6d7e;
+    background-color: #1c2733;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
+    display: block;
 }
 
-.link-button:hover {
+.link-button a:hover {
     background-color: #6785a3;
 }
 
 .link-basic {
-    color: rgb(110, 96, 96); /* Changed to black */
+    color: rgb(255, 255, 255); /* Changed to black */
     text-decoration: none;
 }
 
@@ -32,7 +36,7 @@ li {
 
 a {
     text-decoration: none;
-    color: rgb(51, 63, 68); /* Changed to black */
+    color: rgb(86, 132, 151);
 }
 
 a:hover {
@@ -51,11 +55,11 @@ h1{
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
-thead th {
+.custom-thead th {
     position: sticky; /* Make the header sticky */
     top: 0; /* Stick to the top */
     z-index: 1; /* Ensure it stays above the table body */
-    background-color: white; /* Set background color */
+    background-color: #5d6d7e; /* Set background color */
     /*font-size: 1.25rem; /* Increase font size for headers */
     /*font-weight: bold; /* Make the font bold */
     padding: 15px; /* Increase padding for headers */
@@ -76,7 +80,7 @@ thead th {
     max-width: 264px;
     min-width: 264px;
     transition: all 0.35s ease-in-out;
-    background-color:  #5d6d7e;
+    background-color:  #1c2733;
     display: flex;
     flex-direction: column;
 }
@@ -162,6 +166,7 @@ a.sidebar-link:hover {
     }
 }
 
+
 #auth li {
     padding: 0rem 2.5rem 0rem;
     font-size: 75%;
@@ -198,8 +203,8 @@ label {
 .pagination li.active a {
     z-index: 1;
     color: #fff;
-    background-color: #3d4042;
-    border-color: #292a2c;
+    background-color: #5d6d7e;
+    border-color: #5d6d7e;
 }
 
 .mail-span {
@@ -221,28 +226,6 @@ label {
     margin: 20px 20px;
 }
 
-.btn-edit-deactive {
-    height: 2vh; /* Fixed height */
-    width: 10vh; /* Fixed width */
-    color: black; /* Text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Optional: rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    text-align: center; /* Center text horizontally */
-    line-height: 1vh; /* Center text vertically */
-}
-
-.btn-edit {
-    height: 2vh; /* Fixed height */
-    width: 10vh; /* Fixed width */
-    color: black; /* Text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Optional: rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    text-align: center; /* Center text horizontally */
-    line-height: 1vh; /* Center text vertically */
-}
-
 .scrollable-div {
     height: 20px;
     overflow-y: auto;
@@ -255,5 +238,20 @@ label {
 
 .logged-user {
     font-family: 'Lexend', sans-serif;
-    color: rgb(97, 100, 124);
+    color: white;
+}
+
+.date-logo {
+    color: white;
+    font-weight: 800;
+    font-size: 1.25rem;
+    font-family: 'M PLUS 1p', sans-serif;
+}
+
+.welcome-bar {
+    background-color: #5d6d7e;/*#6c757d;*/
+    /* background-image: url('your-image-url.jpg'); */
+    /*background-size: cover; /* Uncomment if you use a background image */
+    /*background-repeat: no-repeat; /* Uncomment if you use a background image */
+    margin: 0;
 }

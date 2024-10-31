@@ -4,9 +4,9 @@
         <div class="container-fluid">
             <div class="mb-1">
                 <div class="d-flex justify-content-betwean">
-                    <h1 class="title-space">
+                    <h3 class="title-space">
                         <b><?php echo $header; ?></b>
-                    </h1>
+                    </h3>
                 </div>
                 <?php if (session()->getFlashdata('success')) { ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -70,17 +70,34 @@
                 </div>
                 <div>
                     <div class="table-responsive border border-3 rounded">
-                        <table id="myTable" class="table table-striped">
-                            <thead>
+                        <table id="myTable" class="table table-hover table-sm">
+                            <thead class="custom-thead">
                                 <tr>
-                                    <th class="text-center">ID</th>
-                                    <th class="text-center">Imię i nazwisko</th>
-                                    <th class="text-center">Tel.</th>
-                                    <th class="text-center">Firma</th>
+                                    <th class="text-center">
+                                        #ID
+                                    </th>
+                                    <th class="text-center">
+                                        Imię i nazwisko
+                                        <i class="lni lni-user"></i>
+                                    </th>
+                                    <th class="text-center">
+                                        Tel.
+                                        <i class="lni lni-phone"></i>
+                                    </th>
+                                    <th class="text-center">
+                                        Firma
+                                        <i class="lni lni-stamp"></i>
+                                    </th>
                                     <?php if ($header == 'Wszyscy Użytkownicy') { ?>
-                                        <th class="text-center">Status</th>
+                                        <th class="text-center">
+                                            Status
+                                            <i class="lni lni-bulb"></i>
+                                        </th>
                                     <?php } ?>
-                                    <th class="text-center">Akcja</th>
+                                    <th class="text-center">
+                                        Akcja
+                                        <i class="lni lni-agenda"></i>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,7 +106,9 @@
                                     foreach ($user_data as $user) { ?>
                                         <tr>
                                             <td class="text-center align-middle">
-                                                <?php echo $user['idusers']; ?>
+                                                <strong>
+                                                    #<?php echo $user['idusers']; ?>
+                                                </strong>
                                             </td>
                                             <td class="text-center align-middle">
                                                 <?php echo $user['user_name']; ?>
@@ -167,11 +186,13 @@
                         </table>
                     </div>
                 </div>
-                <!-- Display pagination links only if there are multiple pages -->
-                <?php if ($pager) { ?>
-                    <?= $pager->links(); ?>
-                <?php }
-                ; ?>
+                <div class="mt-1">
+                     <!-- Display pagination links only if there are multiple pages -->
+                    <?php if ($pager) { ?>
+                        <?= $pager->links(); ?>
+                    <?php }
+                    ?>
+                </div>
             </div>
         </div>
     </main>

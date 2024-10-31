@@ -254,7 +254,7 @@
                             <div class="p-3">
                                 <div class="row g-3 align-items-center szukaj-space">
                                     <button type="button" class="btn btn-secondary"
-                                        onclick="window.location='<?php echo base_url() ?>/'">
+                                        onclick="window.location='<?php echo base_url() ?>active'">
                                         Wstecz
                                     </button>
                                 </div>

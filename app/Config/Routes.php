@@ -10,10 +10,10 @@ use CodeIgniter\Router\RouteCollection;
  //users
 $routes->setDefaultController('LoginController');
 $routes->setDefaultMethod('index');
-//$routes->get('/', 'LoginController::index', ['filter' => 'NoAuth']);
-//$routes->get('logout', 'LoginController::logout', ['filter' => 'NoAuth']);
+$routes->get('/', 'LoginController::index', ['filter' => 'NoAuth']);
+$routes->get('logout', 'LoginController::logout', ['filter' => 'NoAuth']);
 
-$routes->add('index', 'UserController::getActiveUsers');
+$routes->add('index', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
 $routes->add('active', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
 $routes->add('all-users', 'UserController::getAllUsersWithCompanys', ['filter' => 'NoAuth']);
 $routes->add('unactive', 'UserController::getUnactiveUsers', ['filter' => 'NoAuth']);

@@ -15,6 +15,7 @@
                 <?php echo form_open('user-add-save')?>
                     <div class="row">
                         <div class="col-md-4">
+                        <h3>Dane Osobowe</h3>
                             <div class="p-3 border bg-light h-100">
                                 <div class="d-grid justify-content-center">
                                     <div class="row g-1 align-items-center szukaj-space">  
@@ -75,6 +76,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                        <h3>Firma</h3>
                             <div class="p-3 border bg-light h-100">
                                 <!--container for javascript -->
                                 <div id="elementContainer"> 
@@ -112,6 +114,7 @@
                                         <!--tutaj dodac trzeba nastepny przycisk dodaj forme -->
                         </div>
                         <div class="col-md-4">
+                        <h3>Notatka</h3>
                             <div class="p-3 border bg-light h-100">
                                 <div class="g-3 align-items-center szukaj-space">
                                     <div class="col-auto">

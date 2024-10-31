@@ -17,7 +17,7 @@
                 </li>
                 <li class="sidebar-items link-button">
                     <a href="<?php echo base_url()?>budget-allbudgets">
-                        <b>Budżety</b>
+                        <strong>Budżety</strong>
                     </a>
                 </li>
             </ul>
@@ -29,19 +29,24 @@
         <!--Sidebar Ends-->
 <!-- Name and Logout Panel Starts -->
 <div class="main">
-<div class="d-flex justify-content-end mt-3">
-    <span class="mt-3">
+<div class="d-flex justify-content-between mt-0 welcome-bar rounded-bottom">
+    <div class="date-logo m-3 mt-3">
+        <p id="date"></p>
+    </div>
+    <div class="mt-3">
         <span class="logged-user">
             <?php
                 $session = session(); 
                 echo 'Witaj '.$session->get('name');
             ?>
         </span>
-    </span>
-    <button type="button" class="btn btn-seccond rounded-start"
-        onclick="window.location='<?php echo base_url()?>/logout'">
-        <span class="badge bg-danger">
-            Wyloguj
-        </span>
-    </button>
+        <button type="button" class="btn btn-seccond rounded-start"
+            onclick="window.location='<?php echo base_url()?>/logout'">
+            <span class="badge bg-danger">
+                Wyloguj
+            </span>
+        </button>
+    </div>
 </div>
+
+<script src="<?php echo base_url() ?>script/CurrentDate.js"></script>

@@ -149,11 +149,11 @@ class UserController extends BaseController
                 $page
             );
             if ($total > $perPage) {
-            $data['pager'] = $userModel->pager;
+                $data['pager'] = $userModel->pager;
             } else {
                 $data['pager'] = null; // No pager needed
             }
-            //$data['pager'] = $userModel->pager;
+            
             $data['header'] = 'Wyniki Wyszukiwania';
 
             return view('Base/header', [
