@@ -51,8 +51,13 @@ h1{
 }
 
 .table-responsive {
-    height: calc(100vh - 320px); /*610px; /* Set the desired height */
+    height: calc(100vh - 280px); /*610px; /* Set the desired height */
     overflow-y: auto; /* Enable vertical scrolling */
+    scrollbar-width: none; /* For Firefox */
+}
+
+.table-responsive::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
 }
 
 .custom-thead th {
@@ -65,6 +70,7 @@ h1{
     padding: 15px; /* Increase padding for headers */
     /*width: 150px; /* Set a specific width for header cells */
     /*height: 95px;*/
+    color:  white;
 }
 
 .main {
@@ -195,7 +201,7 @@ label {
     padding: .5rem .75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: #007bff;
+    color: white;
     background-color: #fff;
     border: 1px solid #dee2e6;
 }
@@ -205,6 +211,7 @@ label {
     color: #fff;
     background-color: #5d6d7e;
     border-color: #5d6d7e;
+    border-radius: 25%;
 }
 
 .mail-span {

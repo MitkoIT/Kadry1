@@ -2,9 +2,9 @@
     <main class="p-3">
         <div class="container-flex">
             <div class="mb-3 text-center">
-                <h1>
+                <h3>
                     <?php echo $header; ?>
-                </h1>
+                </h3>
             </div>
             <div class="container d-flex mt-5">
                 <?php echo form_open('user-edit-save/' . $user_data['idusers']) ?>
@@ -219,7 +219,7 @@
                                         $attribs = [
                                             'name' => 'notatka',
                                             'class' => 'form-control',
-                                            'rows' => '5',
+                                            'rows' => '12',
                                             'value' => set_value('notatka', htmlspecialchars($note['note'])) // Load $note into the textarea
                                         ];
                                         echo form_textarea($attribs);
@@ -227,7 +227,7 @@
                                         $attribs = [
                                             'name' => 'notatka',
                                             'class' => 'form-control',
-                                            'rows' => '5',
+                                            'rows' => '12',
                                             'value' => set_value('notatka', 'Ten Użytkownik nie posiada jeszcze notatki.') // Load $note into the textarea
                                         ];
                                         echo form_textarea($attribs);

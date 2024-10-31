@@ -2,9 +2,9 @@
     <main class="p-3">
         <div class="container-flex">
             <div class="mb-3 text-center">
-                <h1>
+                <h3>
                     <?php echo $header; ?>
-                </h1>
+                </h3>
             </div>
             <?php if (isset($validation)) { ?>
                 <div class="alert alert-warning">
@@ -128,7 +128,7 @@
                                                 'name'          => 'notatka',
                                                 'placeholder'   => 'Notatka',
                                                 'class'         => 'form-control',
-                                                'rows'          => '3'
+                                                'rows'          => '12'
                                             ];
                                             echo form_textarea($attribs); 
                                         ?>

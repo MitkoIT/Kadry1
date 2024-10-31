@@ -74,29 +74,29 @@
                             <thead class="custom-thead">
                                 <tr>
                                     <th class="text-center">
-                                        #ID
+                                        #Id
                                     </th>
                                     <th class="text-center">
-                                        Imię i nazwisko
                                         <i class="lni lni-user"></i>
+                                        Imię i nazwisko
                                     </th>
                                     <th class="text-center">
-                                        Tel.
                                         <i class="lni lni-phone"></i>
+                                        Tel.
                                     </th>
                                     <th class="text-center">
-                                        Firma
                                         <i class="lni lni-stamp"></i>
+                                        Firma
                                     </th>
-                                    <?php if ($header == 'Wszyscy Użytkownicy') { ?>
+                                    <?php if ($header == 'Wszyscy Użytkownicy' || $header == 'Wyniki Wyszukiwania') { ?>
                                         <th class="text-center">
-                                            Status
                                             <i class="lni lni-bulb"></i>
+                                            Status
                                         </th>
                                     <?php } ?>
                                     <th class="text-center">
-                                        Akcja
                                         <i class="lni lni-agenda"></i>
+                                        Akcja
                                     </th>
                                 </tr>
                             </thead>
@@ -147,7 +147,7 @@
                                                 <?php }
                                                 ?>
                                             </td>
-                                            <?php if ($header == 'Wszyscy Użytkownicy') { ?>
+                                            <?php if ($header == 'Wszyscy Użytkownicy' || $header == 'Wyniki Wyszukiwania') { ?>
                                                 <td class="text-center align-middle">
                                                     <?php if ($user['active'] == 'n') { ?>
                                                         <span class="badge bg-danger">
