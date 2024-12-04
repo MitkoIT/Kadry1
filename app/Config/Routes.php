@@ -13,6 +13,8 @@ $routes->setDefaultMethod('index');
 $routes->get('/', 'LoginController::index', ['filter' => 'NoAuth']);
 $routes->get('logout', 'LoginController::logout', ['filter' => 'NoAuth']);
 
+$routes->get('uzytkownicy/aktywni', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
+
 $routes->add('index', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
 $routes->add('active', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
 $routes->add('all-users', 'UserController::getAllUsersWithCompanys', ['filter' => 'NoAuth']);

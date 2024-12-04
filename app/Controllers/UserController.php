@@ -7,6 +7,10 @@ use App\Models\CompanyModel;
 use App\Models\UserCompanyModel;
 use App\Models\UserNoteModel;
 
+use App\Libraries\FormatLibrary;
+use App\Libraries\BreadcrumbsLibrary;
+use App\Libraries\UserLibrary;
+
 class UserController extends BaseController
 {
     public function getAllUsersWithCompanys()
@@ -97,12 +101,23 @@ class UserController extends BaseController
             'header'    => 'Aktywni Użytkownicy'
         ];
 
-        return view('Base/header', [
+        return
+            /*view('Base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
+            view('base/body/begin').
             view('Panels/side-bar').
             view('Panels/main-user', $data).
-            view('Base/footer');
+            view('base/body/end').
+            view('Base/footer')*/
+            view('base/body/nav', [
+                'user' => (new UserLibrary())->getUserDetails($_SESSION),
+                'page' => (new FormatLibrary())->toObject([
+                    'title' => 'Aktywni użytkownicy',
+                    'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
+                ])
+            ])
+        ;
     }
 
     public function getUnactiveUsers(): string
