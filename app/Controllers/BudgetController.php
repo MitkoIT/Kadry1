@@ -14,7 +14,7 @@ class BudgetController extends BaseController
 
         return
             view('base/body/nav-begin', [
-                'user' => (new UserLibrary())->getUserDetails(
+                'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
                 'page' => (new FormatLibrary())->toObject([
