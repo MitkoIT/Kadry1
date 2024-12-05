@@ -22,7 +22,7 @@ class BreadcrumbsLibrary
         ;
     }
 
-    public function parse(): array
+    public function parse(array $type = []): array
     {
         $segments = service('uri')->getSegments();
         $response = [(new FormatLibrary())->toObject([
@@ -34,11 +34,21 @@ class BreadcrumbsLibrary
         foreach ($segments as $index => $segment) {
             $isLast = $index === count($segments) - 1 ? true : false; 
 
-            $response[] = (new FormatLibrary())->toObject([
-                'name' => $this->getSegmentDetails($segment)->name,
-                'path' => $segment,
-                'isLast' => $isLast
-            ]);
+            if (isset($type[$index])) {
+                if ($type[$index]['type'] === 'employee') {
+                    $response[] = (new FormatLibrary())->toObject([
+                        'name' => $type[$index]['user']->name,
+                        'path' => 'pracownik/'.$type[$index]['user']->id,
+                        'isLast' => $isLast
+                    ]);
+                }
+            } else {
+                $response[] = (new FormatLibrary())->toObject([
+                    'name' => $this->getSegmentDetails($segment)->name,
+                    'path' => $segment,
+                    'isLast' => $isLast
+                ]);
+            }
         }
 
         return $response;

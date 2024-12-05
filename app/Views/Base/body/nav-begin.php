@@ -7,7 +7,7 @@
     <meta name="keywords" content="admin, admin panel, admin template, admin dashboard, admin theme, bootstrap 4, responsive, sass support, ui kits, crm, ecommerce">
     <meta name="author" content="Themesbox17">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Kadry - <?= $page->title ?></title>
+    <title>Kadry | <?= $page->title ?></title>
     <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.ico') ?>">
     <link href="<?= base_url('public/assets/plugins/switchery/switchery.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('public/assets/css/bootstrap.min.css') ?>" rel="stylesheet" type="text/css">
@@ -19,10 +19,10 @@
 <body class="horizontal-layout">
     <div id="infobar-settings-sidebar" class="infobar-settings-sidebar">
         <div class="infobar-settings-sidebar-head d-flex w-100 justify-content-between">
-            <h4>Settings</h4><a href="javascript:void(0)" id="infobar-settings-close" class="infobar-settings-close"><span class="iconbar"><i class="ri-close-line menu-hamburger-close"></i></span></a>
+            <h4>Ustawienia</h4><a href="javascript:void(0)" id="infobar-settings-close" class="infobar-settings-close"><span class="iconbar"><i class="ri-close-line menu-hamburger-close"></i></span></a>
         </div>
         <div class="infobar-settings-sidebar-body">
-            <div class="custom-mode-setting">
+            <div class="custom-mode-setting" style="display: none">
                 <div class="row align-items-center pb-3">
                     <div class="col-8"><h6 class="mb-0">Popup Notification</h6></div>
                     <div class="col-4"><input type="checkbox" class="js-switch-setting-first" checked /></div>
@@ -124,19 +124,6 @@
                             <div class="infobar">
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
-                                        <div class="languagebar">
-                                            <div class="dropdown">
-                                                <a class="dropdown-toggle" href="#" role="button" id="languagelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="iconbar iconbar-md"><i class="flag flag-icon-us flag-icon-squared"></i></span></a>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languagelink">
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-us flag-icon-squared"></i>English</a>
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-de flag-icon-squared"></i>German</a>
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-bl flag-icon-squared"></i>France</a>
-                                                    <a class="dropdown-item" href="#"><i class="flag flag-icon-ru flag-icon-squared"></i>Russian</a>
-                                                </div>
-                                            </div>
-                                        </div>                                   
-                                    </li>
-                                    <li class="list-inline-item">
                                         <div class="settingbar">
                                             <a href="javascript:void(0)" id="infobar-settings-open" class="infobar-icon">
                                                 <span class="iconbar"><i class="ri-settings-3-line"></i></span>
@@ -147,14 +134,14 @@
                                         <div class="notifybar">
                                             <div class="dropdown">
                                                 <a class="dropdown-toggle infobar-icon" href="#" role="button" id="notoficationlink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="iconbar"><i class="ri-notification-3-line"></i><span class="live-icon"></span></span>
+                                                    <span class="iconbar"><i class="ri-notification-3-line"></i><!--<span class="live-icon"></span>--></span>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notoficationlink">
                                                     <div class="notification-dropdown-title">
-                                                        <h5>Notifications<a href="#">Clear all</a></h5>                            
+                                                        <h5>Powiadomienia<a href="#">Wyczyść</a></h5>                            
                                                     </div>
                                                     <ul class="list-unstyled">                                                    
-                                                        <li class="media dropdown-item">
+                                                        <!--<li class="media dropdown-item">
                                                             <span class="action-icon badge badge-primary"><i class="ri-archive-line"></i></span>
                                                             <div class="media-body">
                                                                 <h5 class="action-title">Product Added</h5>
@@ -181,10 +168,10 @@
                                                                 <h5 class="action-title">John Resigned</h5>
                                                                 <p><span class="timing">2 June 2020, 11:11 AM</span></p>
                                                             </div>
-                                                        </li>
+                                                        </li>-->
                                                     </ul>
                                                     <div class="notification-dropdown-footer">
-                                                        <h5><a href="#">See all</a></h5>                            
+                                                        <h5><a href="#">Zobacz wszystkie</a></h5>                            
                                                     </div>
                                                 </div>
                                             </div>
@@ -195,10 +182,10 @@
                                             <div class="dropdown">
                                               <a class="dropdown-toggle" href="#" role="button" id="profilelink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url('public/assets/images/users/profile.svg') ?>" class="img-fluid" alt="profile"><span class="live-icon"><?= $user->name ?></span></a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profilelink">
-                                                    <a class="dropdown-item" href="#"><i class="ri-user-6-line"></i>My Profile</a>
-                                                    <a class="dropdown-item" href="#"><i class="ri-mail-line"></i>Email</a>
-                                                    <a class="dropdown-item" href="#"><i class="ri-settings-3-line"></i>Settings</a>
-                                                    <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line"></i>Logout</a>
+                                                    <a class="dropdown-item text-danger" href="<?= base_url('wylogowywanie') ?>">
+                                                        <i class="ri-shut-down-line"></i>
+                                                        Wyloguj się
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>                                   
@@ -225,115 +212,23 @@
                         <div class="collapse navbar-collapse" id="navbar-menu">
                             <ul class="horizontal-menu">
                                 <li class="scroll">
-                                    <a href="widgets.html">
+                                    <a href="<?= base_url() ?>">
                                         <i class="ri-dashboard-line"></i>
                                         <span>Strona główna</span>
                                     </a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="javaScript:void();" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-apps-line"></i><span>Użytkownicy</span></a>
+                                    <a href="<?= base_url('pracownicy') ?>"><i class="ri-apps-line"></i><span>Pracownicy</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="apps-calender.html">Aktywni</a></li>
+                                        <li><a href="<?= base_url('pracownicy/aktywni') ?>">Aktywni</a></li>
+                                        <li><a href="<?= base_url('pracownicy/nieaktywni') ?>">Nieaktywni</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="javaScript:void();" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-book-read-line"></i><span>Budżet</span></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown">
-                                            <a href="javaScript:void();" class="dropdown-toggle" data-toggle="dropdown">Basic</a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="page-starter.html">Starter</a></li>
-                                                <li><a href="page-blog.html">Blog</a></li>
-                                                <li><a href="page-faq.html">FAQ</a></li>
-                                                <li><a href="page-gallery.html">Gallery</a></li>
-                                                <li><a href="page-invoice.html">Invoice</a></li>
-                                                <li><a href="page-pricing.html">Pricing</a></li>
-                                                <li><a href="page-timeline.html">Timeline</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="javaScript:void();" class="dropdown-toggle" data-toggle="dropdown" >Store</a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="ecommerce-product-list.html">Product List</a></li>
-                                                <li><a href="ecommerce-product-detail.html">Product Detail</a></li>
-                                                <li><a href="ecommerce-order-list.html">Order List</a></li>
-                                                <li><a href="ecommerce-order-detail.html">Order Detail</a></li> 
-                                                <li><a href="ecommerce-shop.html">Shop</a></li>
-                                                <li><a href="ecommerce-single-product.html">Single Product</a></li>
-                                                <li><a href="ecommerce-cart.html">Cart</a></li>
-                                                <li><a href="ecommerce-checkout.html">Checkout</a></li>
-                                                <li><a href="ecommerce-thankyou.html">Thank You</a></li>
-                                                <li><a href="ecommerce-myaccount.html">My Account</a></li>
-                                            </ul>
-                                        </li>                                    
-                                        <li class="dropdown">
-                                            <a href="javaScript:void();" class="dropdown-toggle" data-toggle="dropdown">Authentication</a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="user-login.html">Login</a></li>
-                                                <li><a href="user-register.html">Register</a></li>
-                                                <li><a href="user-forgotpsw.html">Forgot Password</a></li>
-                                                <li><a href="user-lock-screen.html">Lock Screen</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="javaScript:void();" class="dropdown-toggle" data-toggle="dropdown">Error</a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="error-comingsoon.html">Coming Soon</a></li>  
-                                                <li><a href="error-maintenance.html">Maintenance</a></li>
-                                                <li><a href="error-404.html">Error 404</a></li>
-                                                <li><a href="error-500.html">Error 500</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                    <a href="<?= base_url('budzet') ?>"><i class="ri-book-read-line"></i><span>Budżet</span></a>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                 </div>
             </div>
-            <div class="breadcrumbbar">
-                <div class="row align-items-center">
-                    <div class="col-md-8 col-lg-8">
-                        <h4 class="page-title"><?= $page->title ?></h4>
-                        <div class="breadcrumb-list">
-                            <ol class="breadcrumb">
-                                <?php
-                                    foreach ($page->breadcrumbs as $key => $breadcrumb) {
-                                        if ($breadcrumb->isLast == 1) {
-                                            ?>
-                                            <li class="breadcrumb-item active" aria-current="page">
-                                                <?= $breadcrumb->name ?>
-                                            </li>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <li class="breadcrumb-item">
-                                                <a href="<?= base_url($breadcrumb->path) ?>"><?= $breadcrumb->name ?></a>
-                                            </li>
-                                            <?php
-                                        }
-                                    }
-                                ?>
-                            </ol>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-4">
-                        <div class="widgetbar">
-                            <button class="btn btn-primary"><i class="ri-refresh-line mr-2"></i>Odśwież</button>
-                        </div>                        
-                    </div>
-                </div>          
-            </div>
-        </div>
-    </div>
-    <script src="<?= base_url('public/assets/js/jquery.min.js') ?>"></script>
-    <script src="<?= base_url('public/assets/js/popper.min.js') ?>"></script>
-    <script src="<?= base_url('public/assets/js/bootstrap.min.js') ?>"></script>
-    <script src="<?= base_url('public/assets/js/modernizr.min.js') ?>"></script>
-    <script src="<?= base_url('public/assets/js/detect.js') ?>"></script>
-    <script src="<?= base_url('public/assets/js/jquery.slimscroll.js') ?>"></script>
-    <script src="<?= base_url('public/assets/js/horizontal-menu.js') ?>"></script>
-    <script src="<?= base_url('public/assets/plugins/switchery/switchery.min.js') ?>"></script>    
-    <script src="<?= base_url('public/assets/js/core.js') ?>"></script>
-</body>
-</html>

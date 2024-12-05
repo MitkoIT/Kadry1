@@ -11,6 +11,29 @@ $(document).ready(function() {
     });
     $('#default-datatable').DataTable( {
         "order": [[ 3, "desc" ]],
+        language: {
+            processing: "Processing...",
+            search: "Wyszukaj:",
+            lengthMenu: "Wyświetl _MENU_ rekordów na stronie.",
+            info: "Pokazywanie od _START_ do _END_ rekordu.",
+            infoEmpty: "Brak rekordów.",
+            infoFiltered: "(wyszukano _MAX_ rekordów)",
+            loadingRecords: "Ładowanie...",
+            zeroRecords: "Nie znaleziono rekordów.",
+            emptyTable: "Brak rekordów w tabeli.",
+            paginate: {
+                first: "Pierwsza",
+                previous: "Poprzednia",
+                next: "Następna",
+                last: "Ostatnia"
+            },
+            aria: {
+                sortAscending: ": activate to sort column ascending",
+                sortDescending: ": activate to sort column descending"
+            }
+        },
+        pageLength: 100,
+        lengthMenu: [50, 100, 250],
         responsive: true
     } );    
     var table = $('#datatable-buttons').DataTable({

@@ -85,7 +85,82 @@ class UserController extends BaseController
         view('Base/footer'); 
     }
 
-    public function getActiveUsers(): string
+    public function users(): string
+    {
+        $title = 'Użytkownicy';
+
+        return
+            view('base/body/nav-begin', [
+                'user' => (new UserLibrary())->getSessionDetails(
+                    $_SESSION
+                ),
+                'page' => (new FormatLibrary())->toObject([
+                    'title' => $title
+                ])
+            ]).
+            view('base/body/breadcrumb', [
+                'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
+            ]).
+            view('base/body/nav-end').
+            view('content/table-users', [
+                'title' => $title,
+                'users' => (new UserLibrary())->getUsers()
+            ]).
+            view('base/body/end')
+        ;
+    }
+
+    public function activeUsers(): string
+    {
+        $title = 'Aktywni użytkownicy';
+
+        return
+            view('base/body/nav-begin', [
+                'user' => (new UserLibrary())->getSessionDetails(
+                    $_SESSION
+                ),
+                'page' => (new FormatLibrary())->toObject([
+                    'title' => $title
+                ])
+            ]).
+            view('base/body/breadcrumb', [
+                'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
+            ]).
+            view('base/body/nav-end').
+            view('content/table-users', [
+                'title' => $title,
+                'users' => (new UserLibrary())->getUsers('active')
+            ]).
+            view('base/body/end')
+        ;
+    }
+
+    public function unactiveUsers(): string
+    {
+        $title = 'Nieaktywni użytkownicy';
+
+        return
+            view('base/body/nav-begin', [
+                'user' => (new UserLibrary())->getSessionDetails(
+                    $_SESSION
+                ),
+                'page' => (new FormatLibrary())->toObject([
+                    'title' => $title
+                ])
+            ]).
+            view('base/body/breadcrumb', [
+                'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
+            ]).
+            view('base/body/nav-end').
+            view('content/table-users', [
+                'title' => $title,
+                'users' => (new UserLibrary())->getUsers('unactive')
+            ]).
+            view('base/body/end')
+        ;
+    }
+
+    public function getActiveUsers2(): string
     {
         helper(['form']);
         $userModel = new UserModel();
@@ -102,21 +177,12 @@ class UserController extends BaseController
         ];
 
         return
-            /*view('Base/header', [
+            view('base/header', [
                 'title' => 'Panel Administracyjny'
             ]).
-            view('base/body/begin').
             view('Panels/side-bar').
             view('Panels/main-user', $data).
-            view('base/body/end').
-            view('Base/footer')*/
-            view('base/body/nav', [
-                'user' => (new UserLibrary())->getUserDetails($_SESSION),
-                'page' => (new FormatLibrary())->toObject([
-                    'title' => 'Aktywni użytkownicy',
-                    'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
-                ])
-            ])
+            view('base/footer')
         ;
     }
 

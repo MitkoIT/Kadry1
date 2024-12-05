@@ -7,16 +7,30 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
- //users
 $routes->setDefaultController('LoginController');
-$routes->setDefaultMethod('index');
-$routes->get('/', 'LoginController::index', ['filter' => 'NoAuth']);
-$routes->get('logout', 'LoginController::logout', ['filter' => 'NoAuth']);
+$routes->get('logowanie', 'LoginController::login', ['filter' => 'NoAuth']);
+$routes->get('wylogowywanie', 'LoginController::logout', ['filter' => 'UserAuth']);
+$routes->get('nie-zalogowany', 'LoginController::noAuth', ['filter' => 'NoAuth']);
+$routes->get('/', 'HomeController::home', ['filter' => 'UserAuth']);
+$routes->group('pracownicy', ['filter' => 'UserAuth'], function($routes) {
+    $routes->get('', 'EmployeeController::employees');
+    $routes->get('aktywni', 'EmployeeController::activeEmployees');
+    $routes->get('nieaktywni', 'EmployeeController::unactiveEmployees');
+});
+$routes->group('pracownik', ['filter' => 'UserAuth'], function($routes) {
+    $routes->get('', 'EmployeeController::redirectToEmployees');
+    $routes->get('nowy', 'EmployeeController::addEmployee');
+    $routes->get('(:num)', 'EmployeeController::employee/$1');
+    $routes->get('(:num)/logi', 'EmployeeController::employeeLogs/$1');
+    $routes->get('(:num)/aplikacje', 'EmployeeController::employeeAplications/$1');
+});
+//$routes->get('pracownicy', 'EmployeeController::employees', ['filter' => 'UserAuth']);
+//$routes->get('pracownicy/aktywni', 'EmployeeController::activeEmployees', ['filter' => 'UserAuth']);
+//$routes->get('pracownicy/nieaktywni', 'EmployeeController::unactiveEmployees', ['filter' => 'UserAuth']);
+$routes->get('budzet', 'BudgetController::budgets', ['filter' => 'UserAuth']);
 
-$routes->get('uzytkownicy/aktywni', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
-
-$routes->add('index', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
-$routes->add('active', 'UserController::getActiveUsers', ['filter' => 'NoAuth']);
+$routes->add('index', 'UserController::getActiveUsers2', ['filter' => 'NoAuth']);
+$routes->add('active', 'UserController::getActiveUsers2', ['filter' => 'NoAuth']);
 $routes->add('all-users', 'UserController::getAllUsersWithCompanys', ['filter' => 'NoAuth']);
 $routes->add('unactive', 'UserController::getUnactiveUsers', ['filter' => 'NoAuth']);
 $routes->post('user-search', 'UserController::getUserByName', ['filter' => 'NoAuth']);

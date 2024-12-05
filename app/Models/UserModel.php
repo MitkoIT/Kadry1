@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Libraries\FormatLibrary;
 
 class UserModel extends Model
 {
     //protected $DBGroup = 'mitko';
     protected $table = 'users';
-    protected $primaryKey = 'idusers';    
+    protected $primaryKey = 'idusers';
+    protected $returnType = 'object';
     protected $allowedFields = [ 
         'idusers',
         'name',
@@ -17,6 +19,65 @@ class UserModel extends Model
         'active', 
         'password'
     ]; 
+
+    public function getUsers(string $type = null): array
+    {
+        if ($type === null) {
+            return $this
+                ->select('
+                    idusers AS id,
+                    name,
+                    email,
+                    active, 
+                    phone, 
+                    role
+                ')
+                ->findAll()
+            ;
+        } elseif ($type === 'active') {
+            return $this
+                ->select('
+                    idusers AS id,
+                    name,
+                    email,
+                    active, 
+                    phone, 
+                    role
+                ')
+                ->where('active', 'y')
+                ->findAll()
+            ;
+        } elseif ($type === 'unactive') {
+            return $this
+                ->select('
+                    idusers AS id,
+                    name,
+                    email,
+                    active, 
+                    phone, 
+                    role
+                ')
+                ->where('active', 'n')
+                ->findAll()
+            ;
+        }
+    }
+
+    public function getUserDetails(int $userId): \stdClass
+    {
+        return $this
+            ->select('
+                idusers AS id,
+                name,
+                email,
+                active, 
+                phone, 
+                role
+            ')
+            ->where('idusers', $userId)
+            ->first()
+        ;
+    }
 
     public function getAllUsers()
     {
