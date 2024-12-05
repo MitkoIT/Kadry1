@@ -28,6 +28,7 @@ class EmployeeController extends BaseController
             view('base/body/nav-end').
             view('content/table-employees', [
                 'title' => $title,
+                'selected' => null,
                 'employees' => (new EmployeeLibrary())->getEmployees()
             ]).
             view('base/body/end')
@@ -53,6 +54,7 @@ class EmployeeController extends BaseController
             view('base/body/nav-end').
             view('content/table-employees', [
                 'title' => $title,
+                'selected' => 'aktywni',
                 'employees' => (new EmployeeLibrary())->getEmployees('active')
             ]).
             view('base/body/end')
@@ -78,6 +80,7 @@ class EmployeeController extends BaseController
             view('base/body/nav-end').
             view('content/table-employees', [
                 'title' => $title,
+                'selected' => 'nieaktywni',
                 'employees' => (new EmployeeLibrary())->getEmployees('unactive')
             ]).
             view('base/body/end')
@@ -184,6 +187,18 @@ class EmployeeController extends BaseController
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
             view('base/body/end')
+        ;
+    }
+
+    public function deactivateEmployee(int $userId): \CodeIgniter\HTTP\Response
+    {
+        return $this->response
+            ->setJSON([
+                'success' => (new EmployeeLibrary())
+                    ->deactivateEmployee($userId)
+                ,
+            ])
+            ->setStatusCode(200)
         ;
     }
 }

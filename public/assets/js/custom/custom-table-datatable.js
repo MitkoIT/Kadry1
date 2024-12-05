@@ -10,7 +10,7 @@ $(document).ready(function() {
         responsive: true
     });
     $('#default-datatable').DataTable( {
-        "order": [[ 3, "desc" ]],
+        "order": [[ 0, "asc" ]],
         language: {
             processing: "Processing...",
             search: "Wyszukaj:",

@@ -79,6 +79,15 @@ class UserModel extends Model
         ;
     }
 
+    public function deactivateUser(int $userId): bool
+    {
+        return $this
+            ->set(['active' => 'n'])
+            ->where('idusers', $userId)
+            ->update()
+        ;
+    }
+
     public function getAllUsers()
     {
         return $this->findAll();

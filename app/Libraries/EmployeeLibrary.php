@@ -27,4 +27,9 @@ class EmployeeLibrary
             'logins' => $this->userLoginModel->getUsersLogin()
         ];
     }
+
+    public function deactivateEmployee(int $userId): bool
+    {
+        return $this->userModel->deactivateUser($userId);
+    }
 }

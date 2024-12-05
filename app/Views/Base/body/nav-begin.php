@@ -105,20 +105,6 @@
                                             <a href="index.html" class="appTitle">KADRY</a>
                                         </div>
                                     </li>
-                                    <li class="list-inline-item list-inline-item-center">
-                                        <div>
-                                        <div class="searchbar">
-                                            <form>
-                                                <div class="input-group">
-                                                  <input type="search" class="form-control" placeholder="Wyszukaj" aria-label="Search" aria-describedby="button-addon2">
-                                                  <div class="input-group-append">
-                                                    <button class="btn" type="submit" id="button-addon2"><i class="ri-search-2-line"></i></button>
-                                                  </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        </div>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="infobar">
@@ -218,14 +204,11 @@
                                     </a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="<?= base_url('pracownicy') ?>"><i class="ri-apps-line"></i><span>Pracownicy</span></a>
+                                    <a href="<?= base_url('pracownicy') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-apps-line"></i><span>Pracownicy</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?= base_url('pracownicy/aktywni') ?>">Aktywni</a></li>
-                                        <li><a href="<?= base_url('pracownicy/nieaktywni') ?>">Nieaktywni</a></li>
+                                        <li><a href="<?= base_url('pracownicy') ?>">Wszyscy</a></li>
+                                        <li><a href="<?= base_url('pracownik/nowy') ?>">Dodaj nowego pracownika</a></li>
                                     </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="<?= base_url('budzet') ?>"><i class="ri-book-read-line"></i><span>Budżet</span></a>
                                 </li>
                             </ul>
                         </div>

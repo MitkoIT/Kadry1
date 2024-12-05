@@ -23,6 +23,7 @@ $routes->group('pracownik', ['filter' => 'UserAuth'], function($routes) {
     $routes->get('(:num)', 'EmployeeController::employee/$1');
     $routes->get('(:num)/logi', 'EmployeeController::employeeLogs/$1');
     $routes->get('(:num)/aplikacje', 'EmployeeController::employeeAplications/$1');
+    $routes->put('(:num)/zdezaktywuj', 'EmployeeController::deactivateEmployee/$1');
 });
 //$routes->get('pracownicy', 'EmployeeController::employees', ['filter' => 'UserAuth']);
 //$routes->get('pracownicy/aktywni', 'EmployeeController::activeEmployees', ['filter' => 'UserAuth']);

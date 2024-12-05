@@ -19,9 +19,9 @@ class NoAuth implements FilterInterface
             $data = array(
                 'id_user' => $_GET['idu'],
                 'id_apps' => $_GET['idapps'],
-                'name' => $user['name'],
-                'email' => $user['email'],
-                'role' => explode(',', $user['role']),
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => explode(',', $user->role),
             );
             session()->set($data);
 
