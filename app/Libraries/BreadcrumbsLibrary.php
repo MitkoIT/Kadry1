@@ -41,6 +41,12 @@ class BreadcrumbsLibrary
                         'path' => 'pracownik/'.$type[$index]['user']->id,
                         'isLast' => $isLast
                     ]);
+                } elseif ($type[$index]['type'] === 'company') {
+                    $response[] = (new FormatLibrary())->toObject([
+                        'name' => $type[$index]['company']->name,
+                        'path' => 'pracownicy/'.$type[$index]['company']->id,
+                        'isLast' => $isLast
+                    ]);
                 }
             } else {
                 $response[] = (new FormatLibrary())->toObject([

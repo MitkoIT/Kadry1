@@ -25,11 +25,6 @@
                 </ol>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
-            <div class="widgetbar">
-                <button class="btn btn-primary"><i class="ri-refresh-line mr-2"></i>Odśwież</button>
-            </div>                        
-        </div>
     </div>          
 </div>
         

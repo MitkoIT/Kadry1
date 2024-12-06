@@ -16,6 +16,9 @@ $routes->group('pracownicy', ['filter' => 'UserAuth'], function($routes) {
     $routes->get('', 'EmployeeController::employees');
     $routes->get('aktywni', 'EmployeeController::activeEmployees');
     $routes->get('nieaktywni', 'EmployeeController::unactiveEmployees');
+    $routes->get('(:num)', 'EmployeeController::companyEmployees/$1');
+    $routes->get('(:num)/aktywni', 'EmployeeController::companyActiveEmployees/$1');
+    $routes->get('(:num)/nieaktywni', 'EmployeeController::companyUnactiveEmployees/$1');
 });
 $routes->group('pracownik', ['filter' => 'UserAuth'], function($routes) {
     $routes->get('', 'EmployeeController::redirectToEmployees');

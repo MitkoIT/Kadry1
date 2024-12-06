@@ -206,8 +206,20 @@
                                 <li class="dropdown">
                                     <a href="<?= base_url('pracownicy') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-apps-line"></i><span>Pracownicy</span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?= base_url('pracownicy') ?>">Wszyscy</a></li>
+                                        <li><a href="<?= base_url('pracownicy') ?>">Lista pracowników</a></li>
                                         <li><a href="<?= base_url('pracownik/nowy') ?>">Dodaj nowego pracownika</a></li>
+                                        <?php
+                                            foreach ($page->companies as $company) {
+                                                ?>
+                                                <li>
+                                                    <a
+                                                        href="<?= base_url('pracownicy/'.$company->id) ?>"
+                                                        >Pracownicy <span style="text-transform: capitalize"><?= strtolower($company->name) ?></span>
+                                                    </a>
+                                                </li>
+                                                <?php
+                                            }
+                                        ?>
                                     </ul>
                                 </li>
                             </ul>

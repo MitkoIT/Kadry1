@@ -19,13 +19,38 @@ class EmployeeLibrary
         $this->userLoginModel = new UserLoginModel();
     }
 
-    public function getEmployees(string $type = null): array
+    public function getEmployees(
+        string $type = null,
+        \stdClass $company = null
+    ): array
     {
-        return [
-            'users' => $this->userModel->getUsers($type),
-            'companies' => $this->userCompanyModel->getUsersCompany(),
-            'logins' => $this->userLoginModel->getUsersLogin()
-        ];
+        $users = $this->userModel->getUsers($type);
+        $companies = $this->userCompanyModel->getUsersCompany();
+        $logins = $this->userLoginModel->getUsersLogin();
+
+        if (empty($company)) {
+            return [
+                'users' => $users,
+                'companies' => $companies,
+                'logins' => $logins
+            ];
+        } else {
+            foreach ($users as $index => $user) {
+                if (!isset($companies[$user->id])) {
+                    unset($users[$index]);
+                } else {
+                    if (!in_array($company->name, $companies[$user->id])) {
+                        unset($users[$index]);
+                    }
+                }
+            }
+            
+            return [
+                'users' => $users,
+                'companies' => $companies,
+                'logins' => $logins
+            ];
+        }
     }
 
     public function deactivateEmployee(int $userId): bool

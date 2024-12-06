@@ -6,29 +6,32 @@ use CodeIgniter\Model;
 
 class CompanyModel extends Model
 {
-    //protected $DBGroup = 'mitko';
     protected $table = 'company';
     protected $primaryKey = 'idcompany';
+    protected $returnType = 'object';
 
-    protected $allowedFields = [ 
-        'name',
-        'email',
-        'catchworld',
-        'logourl'
-    ]; 
-
-    public function getCompanyById(int $id)
+    public function getCompanies(): array
     {
-        return $this->where('idcompany', $id)->first();
+        return $this
+            ->select('
+                idcompany AS id,
+                name,
+                email
+            ')
+            ->findAll()
+        ;
     }
 
-    public function getCompanyByName(string $name)
+    public function getCompanyDetails(int $companyId): \stdClass
     {
-        return $this->where('name', $name)->first();
-    }
-
-    public function getAllCompanies()
-    {
-        return $this->findAll();
+        return $this
+            ->select('
+                idcompany AS id,
+                name,
+                email
+            ')
+            ->where('idcompany', $companyId)
+            ->first()
+        ;
     }
 }

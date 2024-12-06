@@ -32,7 +32,7 @@
                         <div class="card m-b-30">
                             <div class="card-header row align-items-center">
                                 <div class="col-6">
-                                    <h5 class="card-title"><?= $title ?></h5>
+                                    <h5 class="card-title"><?= $data['title'] ?></h5>
                                 </div>
                                 <div class="col-6">
                                     <ul class="list-inline-group text-right mb-0 pl-0">
@@ -40,22 +40,17 @@
                                             <div class="form-group mb-0 amount-spent-select">
                                                 <select class="form-control" id="employeeSelect">
                                                     <option>Wszyscy</option>
-                                                    <option <?= $selected === 'aktywni' ? 'selected' : null ?>>Aktywni</option>
-                                                    <option <?= $selected === 'nieaktywni' ? 'selected' : null ?>>Nieaktywni</option>
+                                                    <option <?= $data['selected'] === 'aktywni' ? 'selected' : null ?>>Aktywni</option>
+                                                    <option <?= $data['selected'] === 'nieaktywni' ? 'selected' : null ?>>Nieaktywni</option>
                                                 </select>
                                             </div>
-                                            <a
-                                                class="mt-2 btn btn-sm btn-success text-white"
-                                                href="<?= base_url('pracownik/nowy') ?>"
-                                                >Dodaj pracownika
-                                            </a>  
                                         </li>
                                     </ul>                                    
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="default-datatable" class="display table table-striped table-bordered">
+                                    <table id="default-datatable" class="display table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -67,7 +62,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                foreach ($employees['users'] as $employee) {
+                                                foreach ($data['employees']['users'] as $employee) {
                                                     ?>
                                                     <tr>
                                                         <td><?= $employee->id ?></td>
@@ -85,7 +80,7 @@
                                                         </td>
                                                         <td>
                                                             <?php
-                                                                foreach ($employees['companies'][$employee->id] ?? [] as $company) {
+                                                                foreach ($data['employees']['companies'][$employee->id] ?? [] as $company) {
                                                                     ?>
                                                                     <span class="badge badge-dark"><?= $company ?></span>
                                                                     <?php
@@ -106,7 +101,7 @@
                                                             ?>
                                                         </td>
                                                         <td>
-                                                            <div class="btn-group">
+                                                            <div class="container-buttons">
                                                                 <a
                                                                     type="button"
                                                                     class="btn btn-success-rgba"
@@ -147,43 +142,9 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const employeeSelect = document.getElementById('employeeSelect');
-
-        employeeSelect.addEventListener('change', (event) => {
-            const value = event.target.value;
-            let url = '<?= base_url('pracownicy') ?>';
-            if (value === 'Aktywni') {
-                url = '<?= base_url('pracownicy/aktywni') ?>';
-            } else if (value === 'Nieaktywni') {
-                url = '<?= base_url('pracownicy/nieaktywni') ?>';
-            }
-            window.location.href = url;
-        });
-    });
-
-    function loadEmployeeToModal(employee) {
-        const deactivateEmploeeModalUser = document.getElementById('deactivateEmploeeModalUser');
-        const deactivateEmploeeModalId = document.getElementById('deactivateEmploeeModalId');
-        
-        deactivateEmploeeModalUser.innerText = employee.name;
-        deactivateEmploeeModalId.value = employee.id;
-    }
-
-    function deactivateEmployee() {
-        const deactivateEmploeeModalId = document.getElementById('deactivateEmploeeModalId');
-        const id = deactivateEmploeeModalId.value;
-        
-        $.ajax({
-            url: '<?= base_url() ?>pracownik/'+id+'/zdezaktywuj',
-            type: 'PUT',
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
+<script
+    src="<?= base_url('public/assets/js/custom/custom-table-employees.js') ?>"
+    data-base-url="<?= base_url() ?>"
+    data-company-id="<?= $data['company']->id ?? null ?>"
+    >
 </script>

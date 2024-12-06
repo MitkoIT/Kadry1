@@ -35905,7 +35905,7 @@ mark {
   .horizontal-nav .horizontal-menu .dropdown .dropdown-menu {
     box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
-    width: 200px;
+    width: 240px;
     border: none;
   }
   .horizontal-nav .horizontal-menu .dropdown .dropdown-menu .dropdown-menu {
@@ -44143,10 +44143,8 @@ table.focus-on tfoot tr.focused td {
     : Custom - Responsive css :
 -----------------------------------
 */
-@media (max-width: 1199px) {
-  .container-fluid {
-    width: 100%;
-  }
+.container-fluid {
+  width: 100%;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   body {
