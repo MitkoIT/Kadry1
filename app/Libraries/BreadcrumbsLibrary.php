@@ -43,7 +43,7 @@ class BreadcrumbsLibrary
                     ]);
                 } elseif ($type[$index]['type'] === 'company') {
                     $response[] = (new FormatLibrary())->toObject([
-                        'name' => $type[$index]['company']->name,
+                        'name' => ucfirst(strtolower($type[$index]['company']->name)),
                         'path' => 'pracownicy/'.$type[$index]['company']->id,
                         'isLast' => $isLast
                     ]);

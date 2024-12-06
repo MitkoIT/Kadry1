@@ -22,8 +22,8 @@ $routes->group('pracownicy', ['filter' => 'UserAuth'], function($routes) {
 });
 $routes->group('pracownik', ['filter' => 'UserAuth'], function($routes) {
     $routes->get('', 'EmployeeController::redirectToEmployees');
-    $routes->get('nowy', 'EmployeeController::addEmployee');
-    $routes->get('(:num)', 'EmployeeController::employee/$1');
+    $routes->match(['get','post'], 'nowy', 'EmployeeController::addEmployee');
+    $routes->match(['get','post'], '(:num)', 'EmployeeController::employee/$1');
     $routes->get('(:num)/logi', 'EmployeeController::employeeLogs/$1');
     $routes->get('(:num)/aplikacje', 'EmployeeController::employeeAplications/$1');
     $routes->put('(:num)/zdezaktywuj', 'EmployeeController::deactivateEmployee/$1');

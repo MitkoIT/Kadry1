@@ -5,6 +5,7 @@ namespace App\Libraries;
 use App\Models\UserModel;
 use App\Models\UserCompanyModel;
 use App\Models\UserLoginModel;
+use App\Libraries\FormatLibrary;
 
 class EmployeeLibrary
 {
@@ -53,8 +54,41 @@ class EmployeeLibrary
         }
     }
 
+    public function getEmployeeDetails(
+        \stdClass $user,
+        array $companies
+    ): array
+    {
+        return [
+            'user' => $user,
+            'companies' => $this->userCompanyModel
+                ->getUserCompany($user->id)
+            ,
+        ];
+    }
+
     public function deactivateEmployee(int $userId): bool
     {
         return $this->userModel->deactivateUser($userId);
+    }
+
+    public function setEmployee(
+        int $userId = null,
+        array $data,
+        array $companies
+    ): int
+    {
+        $operation = $this->userModel->setUser(
+            $userId,
+            $data['user']
+        );
+
+        $this->userCompanyModel->setUserCompany(
+            $operation->userId,
+            $data['company'] ?? [],
+            $companies
+        );
+
+        return $operation->userId;
     }
 }

@@ -109,7 +109,7 @@ class EmployeeController extends BaseController
     public function companyEmployees(int $companyId): string
     {
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
-        $title = 'Pracownicy '.$company->name;
+        $title = 'Pracownicy '.ucfirst(strtolower($company->name));
 
         return
             view('base/body/nav-begin', [
@@ -150,7 +150,7 @@ class EmployeeController extends BaseController
     public function companyActiveEmployees(int $companyId): string
     {
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
-        $title = 'Aktywni pracownicy '.$company->name;
+        $title = 'Aktywni pracownicy '.ucfirst(strtolower($company->name));
 
         return
             view('base/body/nav-begin', [
@@ -191,7 +191,7 @@ class EmployeeController extends BaseController
     public function companyUnactiveEmployees(int $companyId): string
     {
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
-        $title = 'Nieaktywni pracownicy '.$company->name;
+        $title = 'Nieaktywni pracownicy '.ucfirst(strtolower($company->name));
 
         return
             view('base/body/nav-begin', [
@@ -234,30 +234,55 @@ class EmployeeController extends BaseController
         return redirect()->to('/pracownicy');
     }
 
-    public function employee(int $userId): string
+    public function employee(int $userId = null): string|\CodeIgniter\HTTP\RedirectResponse
     {
-        $user = (new UserLibrary())->getUserDetails($userId);
-        $title = $user->name;
+        $companies = (new CompanyLibrary())->getCompanies();
 
-        return
-            view('base/body/nav-begin', [
-                'user' => (new UserLibrary())->getSessionDetails(
-                    $_SESSION
-                ),
-                'page' => (new FormatLibrary())->toObject([
-                    'title' => $title
-                ])
-            ]).
-            view('base/body/breadcrumb', [
-                'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
-                    1 => [
-                        'type' => 'employee',
-                        'user' => $user
+        if ($this->request->getMethod() === 'post') {
+            $employeeId = (new EmployeeLibrary())->setEmployee(
+                $userId,
+                $this->request->getPost(),
+                $companies
+            );
+
+            return redirect()->to(base_url('pracownik/'.$employeeId));
+        } elseif ($this->request->getMethod() === 'get') {
+            $user = (new UserLibrary())->getUserDetails($userId);
+            $title = $user->name;
+
+            return
+                view('base/body/nav-begin', [
+                    'user' => (new UserLibrary())->getSessionDetails(
+                        $_SESSION
+                    ),
+                    'page' => (new FormatLibrary())->toObject([
+                        'title' => $title,
+                        'companies' => $companies
+                    ])
+                ]).
+                view('base/body/breadcrumb', [
+                    'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
+                        1 => [
+                            'type' => 'employee',
+                            'user' => $user
+                        ]
+                    ])
+                ]).
+                view('content/form-employee', [
+                    'data' => [
+                        'title' => $title,
+                        'companies' => $companies,
+                        'employee' => (new EmployeeLibrary())
+                            ->getEmployeeDetails(
+                                $user,
+                                $companies
+                            )
+                        ,
                     ]
-                ])
-            ]).
-            view('base/body/end')
-        ;
+                ]).
+                view('base/body/end')
+            ;
+        }
     }
 
     public function employeeLogs(int $userId): string
@@ -312,30 +337,45 @@ class EmployeeController extends BaseController
         ;
     }
 
-    public function addEmployee(): string
+    public function addEmployee(): string|\CodeIgniter\HTTP\RedirectResponse
     {
-        $title = 'Nowy pracownik';
+        $companies = (new CompanyLibrary())->getCompanies();
 
-        return
-            view('base/body/nav-begin', [
-                'user' => (new UserLibrary())->getSessionDetails(
-                    $_SESSION
-                ),
-                'page' => (new FormatLibrary())->toObject([
-                    'title' => $title,
-                    'companies' => (new CompanyLibrary())
-                        ->getCompanies()
-                    ,
-                ])
-            ]).
-            view('base/body/breadcrumb', [
-                'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
-            ]).
-            view('content/form-employee', [
-                'title' => $title
-            ]).
-            view('base/body/end')
-        ;
+        if ($this->request->getMethod() === 'post') {
+            $employeeId = (new EmployeeLibrary())->setEmployee(
+                null,
+                $this->request->getPost(),
+                $companies
+            );
+
+            return redirect()->to(base_url('pracownik/'.$employeeId));
+        } elseif ($this->request->getMethod() === 'get') {
+            $title = 'Nowy pracownik';
+
+            return
+                view('base/body/nav-begin', [
+                    'user' => (new UserLibrary())->getSessionDetails(
+                        $_SESSION
+                    ),
+                    'page' => (new FormatLibrary())->toObject([
+                        'title' => $title,
+                        'companies' => (new CompanyLibrary())
+                            ->getCompanies()
+                        ,
+                    ])
+                ]).
+                view('base/body/breadcrumb', [
+                    'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
+                ]).
+                view('content/form-employee', [
+                    'data' => [
+                        'title' => $title,
+                        'companies' => $companies
+                    ]
+                ]).
+                view('base/body/end')
+            ;
+        }
     }
 
     public function deactivateEmployee(int $userId): \CodeIgniter\HTTP\Response

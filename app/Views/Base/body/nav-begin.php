@@ -214,7 +214,7 @@
                                                 <li>
                                                     <a
                                                         href="<?= base_url('pracownicy/'.$company->id) ?>"
-                                                        >Pracownicy <span style="text-transform: capitalize"><?= strtolower($company->name) ?></span>
+                                                        >Pracownicy <span class="capitalize"><?= strtolower($company->name) ?></span>
                                                     </a>
                                                 </li>
                                                 <?php

@@ -7,7 +7,6 @@ use App\Libraries\FormatLibrary;
 
 class UserModel extends Model
 {
-    //protected $DBGroup = 'mitko';
     protected $table = 'users';
     protected $primaryKey = 'idusers';
     protected $returnType = 'object';
@@ -77,6 +76,43 @@ class UserModel extends Model
             ->where('idusers', $userId)
             ->first()
         ;
+    }
+
+    public function setUser(int $userId = null, array $data): \stdClass
+    {
+        $success = null;
+        $isActive = 'n';
+
+        if (isset($data['isEmployeeActive'])) {
+            $isActive = $data['isEmployeeActive'] === 'on' ? 'y' : 'n';
+        }
+
+        if ($userId === null) {
+            $success = $this
+                ->insert([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'active' => $isActive,
+                ])
+            ;
+
+            $userId = $this->db->insertID();
+        } else {
+            $success = $this
+                ->set([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'active' => $isActive,
+                ])
+                ->where('idusers', $userId)
+                ->update()
+            ;
+        }
+
+        return (new FormatLibrary())->toObject([
+            'success' => $success,
+            'userId' => $userId
+        ]);
     }
 
     public function deactivateUser(int $userId): bool
