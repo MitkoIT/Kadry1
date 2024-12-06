@@ -322,7 +322,10 @@ class EmployeeController extends BaseController
                     $_SESSION
                 ),
                 'page' => (new FormatLibrary())->toObject([
-                    'title' => $title
+                    'title' => $title,
+                    'companies' => (new CompanyLibrary())
+                        ->getCompanies()
+                    ,
                 ])
             ]).
             view('base/body/breadcrumb', [
