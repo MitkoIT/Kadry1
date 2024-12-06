@@ -98,30 +98,6 @@
                         ?>
                     </div>
                 </div>
-                <div class="card m-b-30">
-                    <div class="card-header">
-                        <h5 class="card-title">Role</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="product-tags">
-                            <span class="badge badge-secondary-inverse">New</span>
-                            <span class="badge badge-secondary-inverse">Latest</span>
-                            <span class="badge badge-secondary-inverse">Trending</span>
-                            <span class="badge badge-secondary-inverse">Popular</span>
-                            <span class="badge badge-secondary-inverse">Sale</span>
-                        </div>                                
-                    </div>
-                    <div class="card-footer">
-                        <div class="add-product-tags">
-                            <div class="input-group">
-                                <input type="search" class="form-control" placeholder="Add Tags" aria-label="Search" aria-describedby="button-addonTags">
-                                <div class="input-group-append">
-                                <button class="input-group-text" type="submit" id="button-addonTags">Add</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <button
                     type="submit"
                     class="btn btn-primary-rgba btn-lg btn-block"
