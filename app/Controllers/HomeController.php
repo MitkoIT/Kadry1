@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\FormatLibrary;
 use App\Libraries\UserLibrary;
+use App\Libraries\CompanyLibrary;
 
 class HomeController extends BaseController
 {
@@ -15,7 +16,10 @@ class HomeController extends BaseController
                     $_SESSION
                 ),
                 'page' => (new FormatLibrary())->toObject([
-                    'title' => 'Strona główna'
+                    'title' => 'Strona główna',
+                    'companies' => (new CompanyLibrary())
+                        ->getCompanies()
+                    ,
                 ])
             ]).
             view('base/body/nav-end').
