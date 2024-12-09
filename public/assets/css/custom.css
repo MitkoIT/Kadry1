@@ -13,3 +13,7 @@
 .capitalize {
   text-transform: capitalize;
 }
+
+.pull-left{
+  float: left !important;
+}
