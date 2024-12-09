@@ -219,7 +219,7 @@ code {
 }
 
 ::-webkit-scrollbar {
-  width: 0;
+  //width: 0;
 }
 
 ::-webkit-scrollbar-track {

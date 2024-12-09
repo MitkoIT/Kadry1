@@ -32,8 +32,9 @@ $(document).ready(function() {
                 sortDescending: ": activate to sort column descending"
             }
         },
-        pageLength: 100,
-        lengthMenu: [50, 100, 250],
+        paging: false,
+        //pageLength: 100,
+        //lengthMenu: [50, 100, 250],
         responsive: true
     } );    
     var table = $('#datatable-buttons').DataTable({
