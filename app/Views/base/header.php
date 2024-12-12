@@ -22,4 +22,5 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css"
     />
+    <link rel="stylesheet" href="https://dabeng.github.io/OrgChart/css/jquery.orgchart.css">
 </head>

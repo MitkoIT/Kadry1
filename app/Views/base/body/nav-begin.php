@@ -15,6 +15,7 @@
     <link href="<?= base_url('public/assets/css/flag-icon.min.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('public/assets/css/style.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('public/assets/css/custom.css') ?>" rel="stylesheet" type="text/css">
+    <link href="<?= base_url('public/assets/css/jquery.orgchart.css') ?>" rel="stylesheet" type="text/css">
 </head>
 <body class="horizontal-layout">
     <div id="infobar-settings-sidebar" class="infobar-settings-sidebar">
