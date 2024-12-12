@@ -9,6 +9,11 @@ class JobPositionNodeModel extends Model
     protected $table = 'job_position_node';
     protected $primaryKey = 'id';
     protected $returnType = 'object';
+    protected $allowedFields = [
+        'is_root',
+        'element_id',
+        'child_id'
+    ];
 
     protected function getFormattedUsersJobPositions(array $data): string
     {
@@ -135,5 +140,17 @@ class JobPositionNodeModel extends Model
             $users,
             true
         );
+    }
+
+    public function addJobPosition(
+        int $jobPositionId,
+        int $newJobPositionId
+    ): void
+    {
+        $this->insert([
+            'is_root' => $jobPositionId == 1 ? true : false,
+            'element_id' => $jobPositionId,
+            'child_id' => $newJobPositionId,
+        ]);
     }
 }

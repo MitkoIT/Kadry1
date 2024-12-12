@@ -3,21 +3,23 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Stanowisko: <span id="jobPositionModalPosition">{position}</span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <input
-                    type="hidden"
-                    id="deactivateEmploeeModalId"
-                    value=""
-                />
-                <p class="text-muted">Czy napewno chcesz zdezaktywować pracownika <span id="deactivateEmploeeModalUser">{name}</span>?</p>
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary-rgba" data-dismiss="modal">Zamknij</button>
-                <button type="button" class="btn btn-primary-rgba" onclick="deactivateEmployee()" data-dismiss="modal">Dodaj podległe stanowisko</button>
+                <a
+                    id="editJobPosition"
+                    class="btn btn-primary-rgba"
+                    href="<?= base_url() ?>"
+                    >Edytuj stanowisko
+                </a>
+                <a
+                    id="newJobPosition"
+                    class="btn btn-primary-rgba"
+                    href="<?= base_url() ?>"
+                    >Dodaj podległe stanowisko
+                </a>
             </div>
         </div>
     </div>
@@ -124,12 +126,15 @@
 
         const jobPositionModalPosition = document.getElementById('jobPositionModalPosition');
         const jobPositionId = $(this).find(".jobPositionId").val();
+        const editJobPosition = document.getElementById('editJobPosition');
+        const newJobPosition = document.getElementById('newJobPosition');
 
         $.ajax({
             url: '<?= base_url('api/v1/job-position/') ?>'+jobPositionId,
             type: 'GET',
             success: function(response) {
-                console.log(response);
+                editJobPosition.href = '<?= base_url('stanowisko/') ?>'+jobPositionId;
+                newJobPosition.href = '<?= base_url('stanowisko/') ?>'+jobPositionId+'/nowy';
                 jobPositionModalPosition.innerHTML = response.data.name;
             },
             error: function(error) {

@@ -40,14 +40,37 @@ class JobPositionLibrary
             ,
         );
 
-        //echo '<pre>'.print_r($nodes, 1).'</pre>';die();
-
-        /*foreach ($nodes as &$node) {
-            $node['name'] = $jobPositions[$node['id']]->name;
-        }*/
-
-        //$nodes = [];
-        //die();
         return json_encode($nodes);
+    }
+
+    public function setJobPosition(
+        int $jobPositionId,
+        array $data,
+        array $companies,
+        bool $newJobPosition = false
+    ): int
+    {
+        if ($newJobPosition) {
+            $newJobPositionId = $this->jobPositionModel->addJobPosition(
+                $data['jobPosition']
+            );
+
+            $this->jobPositionNodeModel->addJobPosition(
+                $jobPositionId,
+                $newJobPositionId
+            );
+
+            return $newJobPositionId;
+        } else {
+            return $this->jobPositionModel->setJobPosition(
+                $jobPositionId,
+                $data['jobPosition']
+            );
+        }
+    }
+
+    public function deleteJobPosition(int $jobPositionId): void
+    {
+        //$this->jobPositionModel->setJobPosition($jobPositionId);
     }
 }

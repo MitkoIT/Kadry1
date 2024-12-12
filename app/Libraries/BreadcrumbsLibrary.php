@@ -47,6 +47,12 @@ class BreadcrumbsLibrary
                         'path' => 'pracownicy/'.$type[$index]['company']->id,
                         'isLast' => $isLast
                     ]);
+                } elseif ($type[$index]['type'] === 'jobPosition') {
+                    $response[] = (new FormatLibrary())->toObject([
+                        'name' => ucfirst($type[$index]['jobPosition']->name),
+                        'path' => 'stanowisko/'.$type[$index]['jobPosition']->id,
+                        'isLast' => $isLast
+                    ]);
                 }
             } else {
                 $response[] = (new FormatLibrary())->toObject([

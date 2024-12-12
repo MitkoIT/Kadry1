@@ -29,6 +29,11 @@ $routes->group('pracownik', ['filter' => 'UserAuth'], function($routes) {
     $routes->put('(:num)/zdezaktywuj', 'EmployeeController::deactivateEmployee/$1');
 });
 $routes->get('stanowiska', 'JobPositionController::jobPositions', ['filter' => 'UserAuth']);
+$routes->group('stanowisko', ['filter' => 'UserAuth'], function($routes) {
+    $routes->get('', 'JobPositionController::redirectToJobPositions');
+    $routes->match(['get','post'], '(:num)', 'JobPositionController::jobPosition/$1', ['filter' => 'UserAuth']);
+    $routes->match(['get','post'], '(:num)/nowy', 'JobPositionController::addJobPosition/$1', ['filter' => 'UserAuth']);
+});
 $routes->get('api/v1/job-position/(:num)', 'JobPositionController::getJobPositionDetails/$1', ['filter' => 'UserAuth']);
 //$routes->get('pracownicy', 'EmployeeController::employees', ['filter' => 'UserAuth']);
 //$routes->get('pracownicy/aktywni', 'EmployeeController::activeEmployees', ['filter' => 'UserAuth']);

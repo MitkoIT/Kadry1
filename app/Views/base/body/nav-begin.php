@@ -223,6 +223,12 @@
                                         ?>
                                     </ul>
                                 </li>
+                                <li class="scroll">
+                                    <a href="<?= base_url('stanowiska') ?>">
+                                        <i class="ri-stack-line"></i>
+                                        <span>Stanowiska</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </nav>
