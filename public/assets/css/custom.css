@@ -17,3 +17,33 @@
 .pull-left{
   float: left !important;
 }
+
+#diagram-job-positions-container {
+  position: relative;
+  overflow: auto;
+  text-align: center;
+  background: #fff !important;
+}
+
+.chart-container {
+  width: 100%;
+  height: 100%;
+}
+
+.orgchart {
+  background: #fff !important;
+}
+
+.orgchart .hierarchy::before,
+.orgchart .hierarchy::after {
+  border-top: 1px solid #000 !important;
+}
+
+.orgchart .node:before,
+.orgchart .node:after {
+  background: #000 !important;
+}
+
+.orgchart .edge {
+  display: none;
+}

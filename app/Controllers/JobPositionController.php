@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Libraries\FormatLibrary;
 use App\Libraries\BreadcrumbsLibrary;
 use App\Libraries\UserLibrary;
+use App\Libraries\EmployeeLibrary;
 use App\Libraries\JobPositionLibrary;
 use App\Libraries\CompanyLibrary;
 
@@ -30,7 +31,7 @@ class JobPositionController extends BaseController
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
             view('base/body/nav-end').
-            view('content/job-position-tree2', [
+            view('content/diagram-job-positions', [
                 'data' => [
                     'nodes' => (new JobPositionLibrary())
                         ->getJobPositionSchema()
@@ -89,13 +90,23 @@ class JobPositionController extends BaseController
                 ]).
                 view('base/body/nav-end').
                 view('content/form-job-position', [
-                    'isDeleteable' => true,
+                    'isNewForm' => false,
                     'data' => [
                         'jobPosition' => (new JobPositionLibrary())
                             ->getJobPositionDetails(
                                 $jobPositionId
                             )
                         ,
+                        'employees' => [
+                            'position' => (new EmployeeLibrary())
+                                ->getJobPositionEmployees(
+                                    $jobPositionId
+                                )
+                            ,
+                            'all' => (new EmployeeLibrary())
+                                ->getEmployees()
+                            ,
+                        ]
                     ]
                 ]).
                 view('base/body/end')
@@ -146,7 +157,7 @@ class JobPositionController extends BaseController
                 ]).
                 view('base/body/nav-end').
                 view('content/form-job-position', [
-                    'isDeleteable' => false,
+                    'isNewForm' => true,
                     'data' => [
                         'jobPosition' => null
                     ]
@@ -170,5 +181,42 @@ class JobPositionController extends BaseController
     public function redirectToJobPositions(): \CodeIgniter\HTTP\RedirectResponse
     {
         return redirect()->to('/stanowiska');
+    }
+
+    public function editJobPositionEmployees(
+        int $jobPositionId,
+        int $employeeId
+    ): \CodeIgniter\HTTP\Response
+    {
+        if ($this->request->getMethod() === 'post') {
+            $post = $this->request->getPost();
+
+            return $this->response->setJSON([
+                'success' => (new JobPositionLibrary())
+                    ->addJobPositionEmployee(
+                        $jobPositionId,
+                        $employeeId,
+                    )
+            ]);
+        } elseif ($this->request->getMethod() === 'delete') {
+            return $this->response->setJSON([
+                'success' => (new JobPositionLibrary())
+                    ->deleteJobPositionEmployee(
+                        $jobPositionId,
+                        $employeeId,
+                    )
+            ]);
+        }
+    }
+
+    public function deleteJobPosition(int $jobPositionId): \CodeIgniter\HTTP\Response
+    {
+        return $this->response->setJSON([
+            'data' => (new JobPositionLibrary())
+                ->deleteJobPosition(
+                    $jobPositionId
+                )
+            ,
+        ]);
     }
 }

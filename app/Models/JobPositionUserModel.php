@@ -10,6 +10,11 @@ class JobPositionUserModel extends Model
     protected $table = 'job_position_user';
     protected $primaryKey = 'id';
     protected $returnType = 'object';
+    protected $allowedFields = [
+        'element_id',
+        'user_id',
+        'is_deleted'
+    ];
 
     public function getJobPositionUsers(): array
     {
@@ -20,7 +25,7 @@ class JobPositionUserModel extends Model
                 element_id AS elementId,
                 name
             ')
-            ->where('active', 'y')
+            ->where('is_deleted', null)
             ->join('users', 'users.idusers = job_position_user.user_id')
             ->findAll()
         ;
@@ -30,5 +35,31 @@ class JobPositionUserModel extends Model
         }
 
         return $response;
+    }
+
+    public function addJobPositionUser(
+        int $jobPositionId,
+        int $userId
+    ): int
+    {
+        $this->insert([
+            'element_id' => $jobPositionId,
+            'user_id' => $userId
+        ]);
+
+        return $this->insertID();
+    }
+
+    public function deleteJobPositionUser(
+        int $jobPositionId,
+        int $userId
+    ): int
+    {
+        return $this
+            ->set('is_deleted', true)
+            ->where('element_id', $jobPositionId)
+            ->where('user_id', $userId)
+            ->update()
+        ;
     }
 }

@@ -54,6 +54,39 @@ class EmployeeLibrary
         }
     }
 
+    public function getJobPositionEmployees(
+        int $jobPositionId = null
+    ): array
+    {
+        $users = $this->userModel->getUsers(null, $jobPositionId);
+        $companies = $this->userCompanyModel->getUsersCompany();
+        $logins = $this->userLoginModel->getUsersLogin();
+
+        if (empty($company)) {
+            return [
+                'users' => $users,
+                'companies' => $companies,
+                'logins' => $logins
+            ];
+        } else {
+            foreach ($users as $index => $user) {
+                if (!isset($companies[$user->id])) {
+                    unset($users[$index]);
+                } else {
+                    if (!in_array($company->name, $companies[$user->id])) {
+                        unset($users[$index]);
+                    }
+                }
+            }
+            
+            return [
+                'users' => $users,
+                'companies' => $companies,
+                'logins' => $logins
+            ];
+        }
+    }
+
     public function getEmployeeDetails(
         \stdClass $user,
         array $companies

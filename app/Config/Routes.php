@@ -30,11 +30,42 @@ $routes->group('pracownik', ['filter' => 'UserAuth'], function($routes) {
 });
 $routes->get('stanowiska', 'JobPositionController::jobPositions', ['filter' => 'UserAuth']);
 $routes->group('stanowisko', ['filter' => 'UserAuth'], function($routes) {
-    $routes->get('', 'JobPositionController::redirectToJobPositions');
-    $routes->match(['get','post'], '(:num)', 'JobPositionController::jobPosition/$1', ['filter' => 'UserAuth']);
-    $routes->match(['get','post'], '(:num)/nowy', 'JobPositionController::addJobPosition/$1', ['filter' => 'UserAuth']);
+    $routes->get(
+        '',
+        'JobPositionController::redirectToJobPositions'
+    );
+    $routes->match(
+        ['get','post'],
+        '(:num)',
+        'JobPositionController::jobPosition/$1',
+        ['filter' => 'UserAuth']
+    );
+    $routes->match(
+        ['get','post'],
+        '(:num)/nowy',
+        'JobPositionController::addJobPosition/$1',
+        ['filter' => 'UserAuth']
+    );
 });
-$routes->get('api/v1/job-position/(:num)', 'JobPositionController::getJobPositionDetails/$1', ['filter' => 'UserAuth']);
+$routes->group('api/v1/job-position', ['filter' => 'UserAuth'], function($routes) {
+    $routes->get(
+        '(:num)',
+        'JobPositionController::getJobPositionDetails/$1',
+        ['filter' => 'UserAuth']
+    );
+    $routes->match(
+        ['delete'],
+        '(:num)',
+        'JobPositionController::deleteJobPosition/$1',
+        ['filter' => 'UserAuth']
+    );
+    $routes->match(
+        ['post','delete'],
+        '(:num)/employee/(:num)',
+        'JobPositionController::editJobPositionEmployees/$1/$2',
+        ['filter' => 'UserAuth']
+    );
+});
 //$routes->get('pracownicy', 'EmployeeController::employees', ['filter' => 'UserAuth']);
 //$routes->get('pracownicy/aktywni', 'EmployeeController::activeEmployees', ['filter' => 'UserAuth']);
 //$routes->get('pracownicy/nieaktywni', 'EmployeeController::unactiveEmployees', ['filter' => 'UserAuth']);

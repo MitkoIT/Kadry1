@@ -38,7 +38,9 @@ class JobPositionNodeModel extends Model
                     element_id AS elementId,
                     child_id AS childId
                 ')
+                ->join('job_position', 'job_position.id = job_position_node.child_id')
                 ->where('is_root', $isRoot)
+                ->where('is_deleted', null)
                 ->findAll()
             ;
         } else {
@@ -48,7 +50,9 @@ class JobPositionNodeModel extends Model
                     element_id AS elementId,
                     child_id AS childId
                 ')
+                ->join('job_position', 'job_position.id = job_position_node.child_id')
                 ->where('element_id', $elementId)
+                ->where('is_deleted', null)
                 ->findAll()
             ;
         }
@@ -147,8 +151,16 @@ class JobPositionNodeModel extends Model
         int $newJobPositionId
     ): void
     {
+        $parent = $this
+            ->select('
+                is_root AS isRoot
+            ')
+            ->where('element_id', $jobPositionId)
+            ->first()
+        ;
+
         $this->insert([
-            'is_root' => $jobPositionId == 1 ? true : false,
+            'is_root' => $parent->isRoot ?? false,
             'element_id' => $jobPositionId,
             'child_id' => $newJobPositionId,
         ]);

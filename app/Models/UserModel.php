@@ -19,9 +19,52 @@ class UserModel extends Model
         'password'
     ]; 
 
-    public function getUsers(string $type = null): array
+    public function getUsers(
+        string $type = null,
+        int $jobPositionId = null
+    ): array
     {
-        if ($type === null) {
+        if (is_null($jobPositionId)) {
+            if ($type === null) {
+                return $this
+                    ->select('
+                        idusers AS id,
+                        name,
+                        email,
+                        active, 
+                        phone, 
+                        role
+                    ')
+                    ->findAll()
+                ;
+            } elseif ($type === 'active') {
+                return $this
+                    ->select('
+                        idusers AS id,
+                        name,
+                        email,
+                        active, 
+                        phone, 
+                        role
+                    ')
+                    ->where('active', 'y')
+                    ->findAll()
+                ;
+            } elseif ($type === 'unactive') {
+                return $this
+                    ->select('
+                        idusers AS id,
+                        name,
+                        email,
+                        active, 
+                        phone, 
+                        role
+                    ')
+                    ->where('active', 'n')
+                    ->findAll()
+                ;
+            }
+        } else {
             return $this
                 ->select('
                     idusers AS id,
@@ -31,32 +74,9 @@ class UserModel extends Model
                     phone, 
                     role
                 ')
-                ->findAll()
-            ;
-        } elseif ($type === 'active') {
-            return $this
-                ->select('
-                    idusers AS id,
-                    name,
-                    email,
-                    active, 
-                    phone, 
-                    role
-                ')
-                ->where('active', 'y')
-                ->findAll()
-            ;
-        } elseif ($type === 'unactive') {
-            return $this
-                ->select('
-                    idusers AS id,
-                    name,
-                    email,
-                    active, 
-                    phone, 
-                    role
-                ')
-                ->where('active', 'n')
+                ->join('job_position_user', 'job_position_user.user_id = users.idusers')
+                ->where('job_position_user.element_id', $jobPositionId)
+                ->where('job_position_user.is_deleted', null)
                 ->findAll()
             ;
         }

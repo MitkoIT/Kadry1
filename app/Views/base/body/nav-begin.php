@@ -16,6 +16,10 @@
     <link href="<?= base_url('public/assets/css/style.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('public/assets/css/custom.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('public/assets/css/jquery.orgchart.css') ?>" rel="stylesheet" type="text/css">
+    <link href="<?= base_url('public/assets/css/select2.min.css') ?>" rel="stylesheet" type="text/css">
+    <script src="<?= base_url('public/assets/js/jquery.min.js') ?>"></script>
+    <script src="<?= base_url('public/assets/js/jquery.orgchart.js') ?>"></script>
+    <script src="<?= base_url('public/assets/js/select2.min.js') ?>"></script>
 </head>
 <body class="horizontal-layout">
     <div id="infobar-settings-sidebar" class="infobar-settings-sidebar">

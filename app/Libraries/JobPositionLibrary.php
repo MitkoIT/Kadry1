@@ -69,8 +69,32 @@ class JobPositionLibrary
         }
     }
 
-    public function deleteJobPosition(int $jobPositionId): void
+    public function addJobPositionEmployee(
+        int $jobPositionId,
+        int $employeeId
+    ): int
     {
-        //$this->jobPositionModel->setJobPosition($jobPositionId);
+        return $this->jobPositionUserModel->addJobPositionUser(
+            $jobPositionId,
+            $employeeId
+        );
+    }    
+
+    public function deleteJobPositionEmployee(
+        int $jobPositionId,
+        int $employeeId
+    ): int
+    {
+        return $this->jobPositionUserModel->deleteJobPositionUser(
+            $jobPositionId,
+            $employeeId
+        );
+    }
+
+    public function deleteJobPosition(int $jobPositionId): int
+    {
+        return $this->jobPositionModel
+            ->deleteJobPosition($jobPositionId)
+        ;
     }
 }

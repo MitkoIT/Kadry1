@@ -10,7 +10,10 @@ class JobPositionModel extends Model
     protected $table = 'job_position';
     protected $primaryKey = 'id';
     protected $returnType = 'object';
-    protected $allowedFields = ['name'];
+    protected $allowedFields = [
+        'name',
+        'is_deleted',
+    ];
 
     public function getJobPositionDetails(int $jobPositionId): \stdClass
     {
@@ -32,6 +35,7 @@ class JobPositionModel extends Model
                     id,
                     name
                 ')
+                ->where('is_deleted', null)
                 ->findAll()
             )
         ;
@@ -56,5 +60,14 @@ class JobPositionModel extends Model
         $this->insert($data);
 
         return $this->insertID();
+    }
+
+    public function deleteJobPosition(int $jobPositionId): int
+    {
+        return $this
+            ->set('is_deleted', true)
+            ->where('id', $jobPositionId)
+            ->update()
+        ;
     }
 }
