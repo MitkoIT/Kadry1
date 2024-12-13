@@ -19,12 +19,11 @@ class JobPositionModel extends Model
     {
         return $this
             ->select('
-                job_position.id,
-                job_position.name,
-                job_position_node.is_root AS isRoot
+                id,
+                name,
+                is_root AS isRoot
             ')
-            ->join('job_position_node', 'job_position_node.element_id = job_position.id', 'left')
-            ->where('job_position.id', $jobPositionId)
+            ->where('id', $jobPositionId)
             ->first()
         ;
     }

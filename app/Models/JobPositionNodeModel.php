@@ -10,7 +10,6 @@ class JobPositionNodeModel extends Model
     protected $primaryKey = 'id';
     protected $returnType = 'object';
     protected $allowedFields = [
-        'is_root',
         'element_id',
         'child_id'
     ];
@@ -26,36 +25,19 @@ class JobPositionNodeModel extends Model
         return $response;
     }
 
-    protected function getNodes(
-        bool $isRoot = false,
-        int $elementId = null
-    ): array
+    protected function getNodes(int $elementId): array
     {
-        if ($isRoot === true) {
-            return $this
-                ->select('
-                    is_root,
-                    element_id AS elementId,
-                    child_id AS childId
-                ')
-                ->join('job_position', 'job_position.id = job_position_node.child_id')
-                ->where('is_root', $isRoot)
-                ->where('is_deleted', null)
-                ->findAll()
-            ;
-        } else {
-            return $this
-                ->select('
-                    is_root,
-                    element_id AS elementId,
-                    child_id AS childId
-                ')
-                ->join('job_position', 'job_position.id = job_position_node.child_id')
-                ->where('element_id', $elementId)
-                ->where('is_deleted', null)
-                ->findAll()
-            ;
-        }
+        return $this
+            ->select('
+                job_position.is_root,
+                job_position_node.element_id AS elementId,
+                job_position_node.child_id AS childId
+            ')
+            ->join('job_position', 'job_position.id = job_position_node.child_id')
+            ->where('job_position_node.element_id', $elementId)
+            ->where('is_deleted', null)
+            ->findAll()
+        ;
     }
 
     protected function generateNode(
@@ -112,7 +94,7 @@ class JobPositionNodeModel extends Model
                 new \stdClass()
             );
 
-            foreach ($this->getNodes(true) as $node) {
+            foreach ($this->getNodes(1) as $node) {
                 $response['children'][] = $this->generateNode(
                     false,
                     $jobPositions,
@@ -121,7 +103,7 @@ class JobPositionNodeModel extends Model
                 );
             }
         } else {
-            foreach ($this->getNodes(false, $elementId) as $node) {
+            foreach ($this->getNodes($elementId) as $node) {
                 $response[] = $this->generateNode(
                     false,
                     $jobPositions,
@@ -151,16 +133,7 @@ class JobPositionNodeModel extends Model
         int $newJobPositionId
     ): void
     {
-        $parent = $this
-            ->select('
-                is_root AS isRoot
-            ')
-            ->where('element_id', $jobPositionId)
-            ->first()
-        ;
-
         $this->insert([
-            'is_root' => $parent->isRoot ?? false,
             'element_id' => $jobPositionId,
             'child_id' => $newJobPositionId,
         ]);
