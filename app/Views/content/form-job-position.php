@@ -192,13 +192,19 @@
                             ><i class="feather ri-user-3-line mr-2"></i>
                             Przypisz pracownika
                         </button>
-                        <button
-                            type="button"
-                            onclick="$('#deleteJobPositionModal').modal('show')"
-                            class="btn btn-danger-rgba btn-lg btn-block"
-                            ><i class="feather icon-trash mr-2"></i>
-                            Usuń
-                        </button>
+                        <?php
+                            if ($data['jobPosition']->isRoot != 1) {
+                                ?>
+                                <button
+                                    type="button"
+                                    onclick="$('#deleteJobPositionModal').modal('show')"
+                                    class="btn btn-danger-rgba btn-lg btn-block"
+                                    ><i class="feather icon-trash mr-2"></i>
+                                    Usuń
+                                </button>
+                                <?php
+                            }
+                        ?>
                         <?php
                     }
                 ?>
