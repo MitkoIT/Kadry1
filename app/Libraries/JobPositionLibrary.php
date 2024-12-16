@@ -26,14 +26,18 @@ class JobPositionLibrary
         ;
     }
 
-    public function getJobPositionSchema(
-        string $type = null,
-        \stdClass $company = null
-    ): string
+    public function getJobPositionSchema(\stdClass $company): string
     {
         $nodes = $this->jobPositionNodeModel->assembleNodes(
             $this->jobPositionModel
-                ->getJobPositions()
+                ->getRootCompanyPosition(
+                    $company->id
+                )
+            ,
+            $this->jobPositionModel
+                ->getJobPositions(
+                    $company->id
+                )
             ,
             $this->jobPositionUserModel
                 ->getJobPositionUsers()

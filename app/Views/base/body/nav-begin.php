@@ -227,11 +227,22 @@
                                         ?>
                                     </ul>
                                 </li>
-                                <li class="scroll">
-                                    <a href="<?= base_url('stanowiska') ?>">
-                                        <i class="ri-stack-line"></i>
-                                        <span>Stanowiska</span>
-                                    </a>
+                                <li class="dropdown">
+                                    <a href="<?= base_url('stanowiska') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="ri-stack-line"></i><span>Stanowiska</span></a>
+                                    <ul class="dropdown-menu">
+                                        <?php
+                                            foreach ($page->companies as $company) {
+                                                ?>
+                                                <li>
+                                                    <a
+                                                        href="<?= base_url('stanowiska/'.$company->id) ?>"
+                                                        >Stanowiska <span class="capitalize"><?= strtolower($company->name) ?></span>
+                                                    </a>
+                                                </li>
+                                                <?php
+                                            }
+                                        ?>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>

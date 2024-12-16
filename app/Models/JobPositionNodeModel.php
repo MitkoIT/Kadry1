@@ -42,6 +42,7 @@ class JobPositionNodeModel extends Model
 
     protected function generateNode(
         bool $isRoot = false,
+        \stdClass $rootNode,
         array $jobPositions,
         array $users,
         \stdClass $node
@@ -50,11 +51,11 @@ class JobPositionNodeModel extends Model
         if ($isRoot) {
             return [
                 'id' => 1,
-                'name' => $jobPositions[1]->name,
+                'name' => $rootNode->name,
                 'title' => 
-                    '<input type="hidden" class="jobPositionId" value="'.$jobPositions[1]->id.'">'.
+                    '<input type="hidden" class="jobPositionId" value="'.$rootNode->id.'">'.
                     $this->getFormattedUsersJobPositions(
-                        $users[$jobPositions[1]->id] ?? []
+                        $users[$rootNode->id] ?? []
                     ),
                 'children' => [],
             ];
@@ -68,6 +69,7 @@ class JobPositionNodeModel extends Model
                         $users[$jobPositions[$node->childId]->id] ?? [],
                     ),
                 'children' => $this->generateNodes(
+                    $rootNode,
                     $jobPositions,
                     $users,
                     false,
@@ -78,6 +80,7 @@ class JobPositionNodeModel extends Model
     }
 
     public function generateNodes(
+        \stdClass $rootNode,
         array $jobPositions,
         array $users,
         bool $root = false,
@@ -86,30 +89,39 @@ class JobPositionNodeModel extends Model
     {
         $response = [];
         
-        if ($root == true) {
-            $response = $this->generateNode(
-                true,
-                $jobPositions,
-                $users,
-                new \stdClass()
-            );
+        if (!empty($jobPositions)) {
+            if ($root == true) {
+                $response = $this->generateNode(
+                    true,
+                    $rootNode,
+                    $jobPositions,
+                    $users,
+                    new \stdClass()
+                );
 
-            foreach ($this->getNodes(1) as $node) {
-                $response['children'][] = $this->generateNode(
-                    false,
-                    $jobPositions,
-                    $users,
-                    $node
-                );
-            }
-        } else {
-            foreach ($this->getNodes($elementId) as $node) {
-                $response[] = $this->generateNode(
-                    false,
-                    $jobPositions,
-                    $users,
-                    $node
-                );
+                foreach ($this->getNodes(1) as $node) {
+                    if (!empty($jobPositions[$node->childId])) {
+                        $response['children'][] = $this->generateNode(
+                            false,
+                            $rootNode,
+                            $jobPositions,
+                            $users,
+                            $node
+                        );
+                    }
+                }
+            } else {
+                foreach ($this->getNodes($elementId) as $node) {
+                    if (!empty($jobPositions[$node->childId])) {
+                        $response[] = $this->generateNode(
+                            false,
+                            $rootNode,
+                            $jobPositions,
+                            $users,
+                            $node
+                        );
+                    }
+                }
             }
         }
 
@@ -117,15 +129,21 @@ class JobPositionNodeModel extends Model
     }
 
     public function assembleNodes(
+        ?\stdClass $rootNode,
         array $jobPositions,
         array $users
     ): array
     {
-        return $this->generateNodes(
-            $jobPositions,
-            $users,
-            true
-        );
+        if (!is_null($rootNode)) {
+            return $this->generateNodes(
+                $rootNode,
+                $jobPositions,
+                $users,
+                true
+            );
+        } else {
+            return [];
+        }
     }
 
     public function addJobPosition(

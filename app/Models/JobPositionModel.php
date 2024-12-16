@@ -12,6 +12,7 @@ class JobPositionModel extends Model
     protected $returnType = 'object';
     protected $allowedFields = [
         'name',
+        'company_id',
         'is_deleted',
     ];
 
@@ -28,17 +29,33 @@ class JobPositionModel extends Model
         ;
     }
 
-    public function getJobPositions(): array
+    public function getJobPositions(int $companyId): array
     {
         return (new FormatLibrary())->index(
             $this
                 ->select('
                     id,
-                    name
+                    name,
+                    is_root AS isRoot
                 ')
+                ->where('company_id', $companyId)
                 ->where('is_deleted', null)
                 ->findAll()
             )
+        ;
+    }
+
+    public function getRootCompanyPosition(int $companyId): \stdClass|null
+    {
+        return $this
+            ->select('
+                id,
+                name
+            ')
+            ->where('company_id', $companyId)
+            ->where('is_root', true)
+            ->where('is_deleted', null)
+            ->first()
         ;
     }
 

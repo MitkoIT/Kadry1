@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
 <script>
     const nodes = <?= $data['nodes'] ?>;
 </script>

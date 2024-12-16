@@ -11,9 +11,15 @@ use App\Libraries\CompanyLibrary;
 
 class JobPositionController extends BaseController
 {
-    public function jobPositions(): string
+    public function jobPositions(int $companyId): string
     {
-        $title = 'Stanowiska';
+        $company = (new CompanyLibrary())->getCompanyDetails($companyId);
+        $title = 'Stanowiska '.ucfirst(strtolower($company->name));
+        $nodes = (new JobPositionLibrary())
+            ->getJobPositionSchema(
+                $company
+            )
+        ;
 
         return
             view('base/body/nav-begin', [
@@ -28,14 +34,17 @@ class JobPositionController extends BaseController
                 ])
             ]).
             view('base/body/breadcrumb', [
-                'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
+                'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
+                    1 => [
+                        'type' => 'company',
+                        'company' => $company
+                    ]
+                ])
             ]).
             view('base/body/nav-end').
             view('content/diagram-job-positions', [
                 'data' => [
-                    'nodes' => (new JobPositionLibrary())
-                        ->getJobPositionSchema()
-                    ,
+                    'nodes' => $nodes
                 ]
             ]).
             view('base/body/end')
