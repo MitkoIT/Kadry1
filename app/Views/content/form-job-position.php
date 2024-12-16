@@ -122,6 +122,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Imię i nazwisko</th>
+                                            <th>Opis</th>
                                             <th>Akcja</th>
                                         </tr>
                                     </thead>
@@ -143,6 +144,7 @@
                                                             </small>
                                                         </p>
                                                     </td>
+                                                    <td><?= $employee->description ?></td>
                                                     <td>
                                                         <div class="container-buttons">
                                                             <a

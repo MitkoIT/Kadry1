@@ -23,7 +23,8 @@ class JobPositionUserModel extends Model
             ->select('
                 user_id AS userId,
                 element_id AS elementId,
-                name
+                name,
+                description
             ')
             ->where('is_deleted', null)
             ->join('users', 'users.idusers = job_position_user.user_id')

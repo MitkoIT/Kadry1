@@ -19,7 +19,11 @@ class JobPositionNodeModel extends Model
         $response = '';
 
         foreach ($data ?? [] as $user) {
-            $response .= '<li>'.$user->name.'</li>';
+            if (!is_null($user->description)) {
+                $response .= '<li><b>'.$user->name.'</b> - '.$user->description.'</li>';
+            } else {
+                $response .= '<li><b>'.$user->name.'</b></li>';
+            }
         }
 
         return $response;

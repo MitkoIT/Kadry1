@@ -234,7 +234,7 @@
   justify-content: center;
   padding: 0 20px;
   box-sizing: border-box;
-  width: 130px;
+  width: 150px;
   height: 60px;
   text-align: center;
   font-size: 14px;
@@ -281,19 +281,18 @@
 }
 
 .orgchart .node .content {
+  padding: 5px;
   box-sizing: border-box;
-  width: 130px;
-  ///height: 20px;
-  line-height: 20px;
-  font-size: 10px;
+  width: 150px;
+  line-height: 12px;
+  font-size: 9px;
   border: 1px solid #000;
   border-width: 0 1px 1px 1px;
   border-radius: 0 0 0.25rem 0.25rem;
-  text-align: center;
   background-color: #fff;
   color: #333;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  text-align: left;
 }
 
 .orgchart.b2t .node .content {
@@ -304,13 +303,13 @@
 .orgchart.l2r .node .content {
   transform: rotate(-90deg) translate(-45px, -45px) rotateY(180deg);
   transform-origin: top center;
-  width: 130px;
+  width: 150px;
 }
 
 .orgchart.r2l .node .content {
   transform: rotate(-90deg) translate(-45px, -45px);
   transform-origin: top center;
-  width: 130px;
+  width: 150px;
 }
 
 .orgchart .node .edge {
