@@ -74,7 +74,7 @@ class JobPositionController extends BaseController
                     $companies
                 );
 
-                return redirect()->to(base_url('stanowisko/'.$jobPositionId));
+                return redirect()->to(base_url('stanowisko/'.$companyId.'/'.$jobPositionId));
             }
         } elseif ($this->request->getMethod() === 'get') {
             $jobPosition = (new JobPositionLibrary())
