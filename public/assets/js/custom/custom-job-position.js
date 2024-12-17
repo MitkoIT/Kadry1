@@ -7,6 +7,7 @@
 
 const scriptTag = document.currentScript;
 const baseUrl = scriptTag.getAttribute('data-base-url');
+const companyId = scriptTag.getAttribute('data-company-id');
 const jobPostionId = scriptTag.getAttribute('data-job-position-id');
 
 $('#addNodeEmployeeModalSelect').select2({
@@ -56,12 +57,12 @@ function deleteNodeEmployee() {
     });
 }
 
-function deleteJobPosition() {    
+function deleteJobPosition() {
     $.ajax({
         url: baseUrl+'api/v1/job-position/'+jobPostionId,
         type: 'DELETE',
         success: function () {
-            window.location.href = baseUrl+'stanowiska';
+            window.location.href = baseUrl+'stanowiska/'+companyId;
         },
         error: function (error) {
             console.log(error);

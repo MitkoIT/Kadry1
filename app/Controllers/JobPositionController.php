@@ -63,19 +63,13 @@ class JobPositionController extends BaseController
         if ($this->request->getMethod() === 'post') {
             $post = $this->request->getPost();
 
-            if (isset($post['delete'])) {
-                (new JobPositionLibrary())->deleteJobPosition($jobPositionId);
+            $jobPositionId = (new JobPositionLibrary())->setJobPosition(
+                $jobPositionId,
+                $post,
+                $companies
+            );
 
-                return redirect()->to('/stanowiska');
-            } else {
-                $jobPositionId = (new JobPositionLibrary())->setJobPosition(
-                    $jobPositionId,
-                    $post,
-                    $companies
-                );
-
-                return redirect()->to(base_url('stanowisko/'.$companyId.'/'.$jobPositionId));
-            }
+            return redirect()->to(base_url('stanowisko/'.$companyId.'/'.$jobPositionId));
         } elseif ($this->request->getMethod() === 'get') {
             $jobPosition = (new JobPositionLibrary())
                 ->getJobPositionDetails($jobPositionId)
@@ -110,6 +104,7 @@ class JobPositionController extends BaseController
                 view('content/form-job-position', [
                     'isNewForm' => false,
                     'data' => [
+                        'company' => $company,
                         'jobPosition' => [
                             'details' => (new JobPositionLibrary())
                                 ->getJobPositionDetails(

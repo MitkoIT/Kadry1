@@ -256,6 +256,7 @@
 <script
     src="<?= base_url('public/assets/js/custom/custom-job-position.js') ?>"
     data-base-url="<?= base_url() ?>"
+    data-company-id="<?= $data['company']->id ?? 0 ?>"
     data-job-position-id="<?= $data['jobPosition']['details']->id ?? 0 ?>"
     >
 </script>
