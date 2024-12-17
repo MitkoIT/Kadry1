@@ -18,11 +18,15 @@
   float: left !important;
 }
 
-#diagram-job-positions-container {
+.default-container {
+  padding: 10px 20px;
   position: relative;
-  overflow: auto;
-  text-align: center;
   background: #fff !important;
+}
+
+#diagram-job-positions-container {
+  text-align: center;
+  overflow: auto;
 }
 
 .chart-container {
@@ -46,4 +50,8 @@
 
 .orgchart .edge {
   display: none;
+}
+
+.employee-found {
+  background-color: #C0D0EE !important;
 }

@@ -45,7 +45,10 @@ class JobPositionController extends BaseController
             view('content/diagram-job-positions', [
                 'data' => [
                     'nodes' => $nodes,
-                    'company' => $company
+                    'company' => $company,
+                    'employees' => (new EmployeeLibrary())
+                        ->getEmployees(null, $company)
+                    ,
                 ]
             ]).
             view('base/end')

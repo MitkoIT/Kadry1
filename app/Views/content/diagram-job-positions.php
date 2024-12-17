@@ -24,12 +24,31 @@
         </div>
     </div>
 </div>
-<div class="horizontal-layout">   
+<div class="horizontal-layout">
     <div class="infobar-settings-sidebar-overlay"></div>
     <div id="containerbar" class="container-fluid">
         <div class="rightbar">
             <div class="contentbar">
-                <div id="diagram-job-positions-container"></div>
+                <div class="default-container">
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label for="name" class="col-sm-12 col-form-label">Wyszukaj pracownika</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="diagramEmployeeId">
+                                    <option>Wybierz pracownika</option>
+                                    <?php
+                                        foreach ($data['employees']['users'] ?? [] as $employee) {
+                                            ?>
+                                            <option value="<?= $employee->id ?>"><?= $employee->id ?> - <?= $employee->name ?></option>
+                                            <?php
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="diagram-job-positions-container"></div>
+                </div>
             </div>
         </div>
     </div>

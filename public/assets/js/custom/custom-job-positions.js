@@ -40,3 +40,20 @@ $(function() {
         });
     });
 });
+
+$('#diagramEmployeeId').select2({});
+$("#diagramEmployeeId").on("change", function() {
+    const employeeId = $(this).val();
+
+    $('.node').each(function() {
+        $(this).find('.title').removeClass('employee-found');
+        $(this).find('.content').removeClass('employee-found');
+    });
+
+    $('.node').each(function() {
+        if ($(this).find('.employee-id-'+employeeId).length) {
+            $(this).find('.title').addClass('employee-found');
+            $(this).find('.content').addClass('employee-found');
+        }
+    });
+});
