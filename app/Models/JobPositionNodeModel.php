@@ -103,7 +103,7 @@ class JobPositionNodeModel extends Model
                     new \stdClass()
                 );
 
-                foreach ($this->getNodes(1) as $node) {
+                foreach ($this->getNodes($rootNode->id) as $node) {
                     if (!empty($jobPositions[$node->childId])) {
                         $response['children'][] = $this->generateNode(
                             false,

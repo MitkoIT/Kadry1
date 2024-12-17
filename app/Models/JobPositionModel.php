@@ -73,9 +73,15 @@ class JobPositionModel extends Model
         return $jobPositionId;
     }
 
-    public function addJobPosition(array $data): int
+    public function addJobPosition(
+        int $companyId,
+        array $data
+    ): int
     {
-        $this->insert($data);
+        $this->insert([
+            'company_id' => $companyId,
+            'name' => $data['name']
+        ]);
 
         return $this->insertID();
     }

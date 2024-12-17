@@ -55,6 +55,7 @@ class JobPositionLibrary
     }
 
     public function setJobPosition(
+        int $companyId,
         int $jobPositionId,
         array $data,
         array $companies,
@@ -63,6 +64,7 @@ class JobPositionLibrary
     {
         if ($newJobPosition) {
             $newJobPositionId = $this->jobPositionModel->addJobPosition(
+                $companyId,
                 $data['jobPosition']
             );
 
