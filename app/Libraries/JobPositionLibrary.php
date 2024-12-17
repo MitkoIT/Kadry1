@@ -162,8 +162,6 @@ class JobPositionLibrary
         $nodeJobPositions = $this->getNodeJobPosition();
         $employeesJobPositions = $this->getJobPositionEmployees();
 
-        //echo '<prE>'.print_r($employeesJobPositions, true).'</pre>';die;
-
         foreach ($data as $element) {
             $parent = null;
 
@@ -172,7 +170,7 @@ class JobPositionLibrary
                 $employees = [];
 
                 foreach ($employeesJobPositions[$nodeJobPositions[$element->elementId]->elementId] as $employee) {
-                    $employees[] = $employee->userId;
+                    $employees[$employee->userId] = $employee;
                 }
 
                 $parent = (new FormatLibrary())->toObject([

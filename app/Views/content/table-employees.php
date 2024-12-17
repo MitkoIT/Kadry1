@@ -99,11 +99,14 @@
                                                                                     echo ' / '.$schema['child']->description;
                                                                                 }
                                                                                 
-                                                                                foreach ($schema['parent']->employees ?? [] as $parentEmployeeIndex => $employeeId) {
-                                                                                    if (isset($data['employees']['users'][$employeeId])) {
-                                                                                        ?>
-                                                                                        - [<small>Szef: <?= $data['employees']['users'][$employeeId]->name ?> - <?= $schema['parent']->name ?></small>]
-                                                                                        <?php
+                                                                                foreach ($schema['parent']->employees ?? [] as $parentEmployee) {
+                                                                                    if (isset($data['employees']['users'][$parentEmployee->userId])) {
+                                                                                        echo ' - [<small>Szef: '.$data['employees']['users'][$parentEmployee->userId]->name.' - '.$schema['parent']->name;
+                                                                                        if ((!is_null($parentEmployee->description)) &&
+                                                                                            (($parentEmployee->description != ''))) {
+                                                                                            echo ' / '.$parentEmployee->description;
+                                                                                        }
+                                                                                        echo '</small>]';
                                                                                     }
                                                                                 }
                                                                             ?>
