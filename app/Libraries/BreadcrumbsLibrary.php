@@ -42,29 +42,33 @@ class BreadcrumbsLibrary
                         'isLast' => $isLast
                     ]);
                 } elseif ($type[$index]['type'] === 'company') {
-                    if ($type[$index]['type'] === 'company') {
-                        if (isset($type[$index + 1]['type'])) {
-                            if ($type[$index + 1]['type'] === 'employee') {
-                                $response[] = (new FormatLibrary())->toObject([
-                                    'name' => ucfirst(strtolower($type[$index]['company']->name)),
-                                    'path' => 'pracownicy/'.$type[$index]['company']->id,
-                                    'isLast' => $isLast
-                                ]);
-                            } elseif ($type[$index + 1]['type'] === 'jobPosition') {
-                                $response[] = (new FormatLibrary())->toObject([
-                                    'name' => ucfirst(strtolower($type[$index]['company']->name)),
-                                    'path' => 'stanowiska/'.$type[$index]['company']->id,
-                                    'isLast' => $isLast
-                                ]);
-                            }
-                        } else {
+                    if (isset($type[$index + 1]['type'])) {
+                        if ($type[$index + 1]['type'] === 'employee') {
+                            $response[] = (new FormatLibrary())->toObject([
+                                'name' => ucfirst(strtolower($type[$index]['company']->name)),
+                                'path' => 'pracownicy/'.$type[$index]['company']->id,
+                                'isLast' => $isLast
+                            ]);
+                        } elseif ($type[$index + 1]['type'] === 'jobPosition') {
                             $response[] = (new FormatLibrary())->toObject([
                                 'name' => ucfirst(strtolower($type[$index]['company']->name)),
                                 'path' => 'stanowiska/'.$type[$index]['company']->id,
                                 'isLast' => $isLast
                             ]);
                         }
+                    } else {
+                        $response[] = (new FormatLibrary())->toObject([
+                            'name' => ucfirst(strtolower($type[$index]['company']->name)),
+                            'path' => 'stanowiska/'.$type[$index]['company']->id,
+                            'isLast' => $isLast
+                        ]);
                     }
+                } elseif ($type[$index]['type'] === 'jobPosition') {
+                    $response[] = (new FormatLibrary())->toObject([
+                        'name' => ucfirst(strtolower($type[$index]['jobPosition']->name)),
+                        'path' => $type[$index]['jobPosition']->id,
+                        'isLast' => $isLast
+                    ]);
                 }
             } else {
                 $response[] = (new FormatLibrary())->toObject([
@@ -74,6 +78,10 @@ class BreadcrumbsLibrary
                 ]);
             }
         }
+
+        //echo '<pre>'.print_r($type, 1).'</pre>';
+        //echo '<pre>'.print_r($response, 1).'</pre>';
+        //die();
 
         return $response;
     }
