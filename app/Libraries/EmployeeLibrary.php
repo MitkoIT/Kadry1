@@ -62,13 +62,7 @@ class EmployeeLibrary
         $companies = $this->userCompanyModel->getUsersCompany();
         $logins = $this->userLoginModel->getUsersLogin();
 
-        if (empty($company)) {
-            return [
-                'users' => $users,
-                'companies' => $companies,
-                'logins' => $logins
-            ];
-        } else {
+        if (!empty($company)) {
             foreach ($users as $index => $user) {
                 if (!isset($companies[$user->id])) {
                     unset($users[$index]);
@@ -78,13 +72,13 @@ class EmployeeLibrary
                     }
                 }
             }
-            
-            return [
-                'users' => $users,
-                'companies' => $companies,
-                'logins' => $logins
-            ];
         }
+            
+        return [
+            'users' => $users,
+            'companies' => $companies,
+            'logins' => $logins
+        ];
     }
 
     public function getEmployeeDetails(

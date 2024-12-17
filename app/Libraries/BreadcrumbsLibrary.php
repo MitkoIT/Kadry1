@@ -32,7 +32,7 @@ class BreadcrumbsLibrary
         ])];
 
         foreach ($segments as $index => $segment) {
-            $isLast = $index === count($segments) - 1 ? true : false; 
+            $isLast = $index === count($segments) - 1 ? true : false;
 
             if (isset($type[$index])) {
                 if ($type[$index]['type'] === 'employee') {
@@ -42,17 +42,29 @@ class BreadcrumbsLibrary
                         'isLast' => $isLast
                     ]);
                 } elseif ($type[$index]['type'] === 'company') {
-                    $response[] = (new FormatLibrary())->toObject([
-                        'name' => ucfirst(strtolower($type[$index]['company']->name)),
-                        'path' => 'pracownicy/'.$type[$index]['company']->id,
-                        'isLast' => $isLast
-                    ]);
-                } elseif ($type[$index]['type'] === 'jobPosition') {
-                    $response[] = (new FormatLibrary())->toObject([
-                        'name' => ucfirst($type[$index]['jobPosition']->name),
-                        'path' => 'stanowisko/'.$type[$index]['jobPosition']->id,
-                        'isLast' => $isLast
-                    ]);
+                    if ($type[$index]['type'] === 'company') {
+                        if (isset($type[$index + 1]['type'])) {
+                            if ($type[$index + 1]['type'] === 'employee') {
+                                $response[] = (new FormatLibrary())->toObject([
+                                    'name' => ucfirst(strtolower($type[$index]['company']->name)),
+                                    'path' => 'pracownicy/'.$type[$index]['company']->id,
+                                    'isLast' => $isLast
+                                ]);
+                            } elseif ($type[$index + 1]['type'] === 'jobPosition') {
+                                $response[] = (new FormatLibrary())->toObject([
+                                    'name' => ucfirst(strtolower($type[$index]['company']->name)),
+                                    'path' => 'stanowiska/'.$type[$index]['company']->id,
+                                    'isLast' => $isLast
+                                ]);
+                            }
+                        } else {
+                            $response[] = (new FormatLibrary())->toObject([
+                                'name' => ucfirst(strtolower($type[$index]['company']->name)),
+                                'path' => 'stanowiska/'.$type[$index]['company']->id,
+                                'isLast' => $isLast
+                            ]);
+                        }
+                    }
                 }
             } else {
                 $response[] = (new FormatLibrary())->toObject([

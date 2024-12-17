@@ -40,5 +40,6 @@
 <script
     src="<?= base_url('public/assets/js/custom/custom-job-positions.js') ?>"
     data-base-url="<?= base_url() ?>"
+    data-company-id="<?= $data['company']->id ?>"
     >
 </script>

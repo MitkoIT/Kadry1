@@ -68,3 +68,33 @@ function deleteJobPosition() {
         }
     });
 }
+
+function openChangeNodeEmployeeDescriptionModal(data) {
+    const nodeEmployeeId = document.getElementById('nodeEmployeeId');
+    const nodeEmployeeName = document.getElementById('nodeEmployeeName');
+    const nodeEmployeeDescription = document.getElementById('nodeEmployeeDescription');
+    $('#changeNodeEmployeeDescriptionModal').modal('show');
+
+    nodeEmployeeId.value = data.id;
+    nodeEmployeeName.innerHTML = data.name;
+    nodeEmployeeDescription.value = data.description;
+}
+
+function saveNodeEmployeeDescription() {
+    const nodeEmployeeId = document.getElementById('nodeEmployeeId');
+    const nodeEmployeeDescription = document.getElementById('nodeEmployeeDescription');
+
+    $.ajax({
+        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/employee/'+nodeEmployeeId.value,
+        type: 'PUT',
+        data: {
+            description: nodeEmployeeDescription.value
+        },
+        success: function () {
+            window.location.reload();
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+}

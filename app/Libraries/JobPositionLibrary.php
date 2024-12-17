@@ -26,6 +26,13 @@ class JobPositionLibrary
         ;
     }
 
+    public function getJobPositionUsersDetails(int $jobPositionId): array
+    {
+        return $this->jobPositionUserModel
+            ->getJobPositionUsersDetails($jobPositionId)
+        ;
+    }
+
     public function getJobPositionSchema(\stdClass $company): string
     {
         $nodes = $this->jobPositionNodeModel->assembleNodes(
@@ -99,6 +106,21 @@ class JobPositionLibrary
     {
         return $this->jobPositionModel
             ->deleteJobPosition($jobPositionId)
+        ;
+    }
+
+    public function updateJobPositionEmployeeDescription(
+        int $jobPositionId,
+        int $employeeId,
+        string $description
+    ): int
+    {
+        return $this->jobPositionUserModel
+            ->updateJobPositionUserDescription(
+                $jobPositionId,
+                $employeeId,
+                $description
+            )
         ;
     }
 }

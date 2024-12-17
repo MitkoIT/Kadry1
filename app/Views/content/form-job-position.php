@@ -84,6 +84,41 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="changeNodeEmployeeDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="changeNodeEmployeeDescriptionModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pracownik: <span id="nodeEmployeeName"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-12 col-form-label">Opis</label>
+                    <div class="col-sm-12">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="nodeEmployeeDescription"
+                            placeholder="Wpisz opis"
+                            value=""
+                        />
+                    </div>
+                </div>
+                <input
+                    type="hidden"
+                    id="nodeEmployeeId"
+                    value=""
+                />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary-rgba" data-dismiss="modal">Zamknij</button>
+                <button type="button" class="btn btn-primary-rgba" onclick="saveNodeEmployeeDescription()" data-dismiss="modal">Zapisz opis</button>
+            </div>
+        </div>
+    </div>
+</div>
 <form method="POST">
     <div class="contentbar">
         <div class="row">
@@ -102,7 +137,7 @@
                                     id="name"
                                     name="jobPosition[name]"
                                     placeholder="Wpisz nazwę stanowiska"
-                                    value="<?= $data['jobPosition']->name ?? null ?>"
+                                    value="<?= $data['jobPosition']['details']->name ?? null ?>"
                                 />
                             </div>
                         </div>
@@ -144,15 +179,19 @@
                                                             </small>
                                                         </p>
                                                     </td>
-                                                    <td><?= $employee->description ?></td>
+                                                    <td>
+                                                        <?= $data['jobPosition']['users'][$employee->id]->description ?>
+                                                    </td>
                                                     <td>
                                                         <div class="container-buttons">
-                                                            <a
+                                                            <button
                                                                 type="button"
                                                                 class="btn btn-success-rgba"
-                                                                href="<?= base_url('pracownik/'.$employee->id) ?>"
+                                                                data-toggle="modal"
+                                                                data-target="#changeNodeEmployeeDescriptionModal"
+                                                                onclick="openChangeNodeEmployeeDescriptionModal({description: '<?= $data['jobPosition']['users'][$employee->id]->description ?>', id: '<?= $employee->id ?>', name: '<?= $employee->name ?>'})"
                                                                 ><span class="ti-pencil"></span>
-                                                            </a>
+                                                            </button>
                                                             <button
                                                                 type="button"
                                                                 class="btn btn-danger-rgba"
@@ -195,7 +234,7 @@
                             Przypisz pracownika
                         </button>
                         <?php
-                            if ($data['jobPosition']->isRoot != 1) {
+                            if ($data['jobPosition']['details']->isRoot != 1) {
                                 ?>
                                 <button
                                     type="button"
@@ -217,6 +256,6 @@
 <script
     src="<?= base_url('public/assets/js/custom/custom-job-position.js') ?>"
     data-base-url="<?= base_url() ?>"
-    data-job-position-id="<?= $data['jobPosition']->id ?? 0 ?>"
+    data-job-position-id="<?= $data['jobPosition']['details']->id ?? 0 ?>"
     >
 </script>

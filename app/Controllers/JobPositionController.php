@@ -44,15 +44,20 @@ class JobPositionController extends BaseController
             view('base/body/nav-end').
             view('content/diagram-job-positions', [
                 'data' => [
-                    'nodes' => $nodes
+                    'nodes' => $nodes,
+                    'company' => $company
                 ]
             ]).
             view('base/body/end')
         ;
     }
 
-    public function jobPosition(int $jobPositionId): string|\CodeIgniter\HTTP\RedirectResponse
+    public function jobPosition(
+        int $companyId,
+        int $jobPositionId
+    ): string|\CodeIgniter\HTTP\RedirectResponse
     {
+        $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $companies = (new CompanyLibrary())->getCompanies();
 
         if ($this->request->getMethod() === 'post') {
@@ -75,7 +80,7 @@ class JobPositionController extends BaseController
             $jobPosition = (new JobPositionLibrary())
                 ->getJobPositionDetails($jobPositionId)
             ;
-            $title = $jobPosition->name;
+            $title = 'Stanowisko '.$jobPosition->name;
 
             return
                 view('base/body/nav-begin', [
@@ -92,6 +97,10 @@ class JobPositionController extends BaseController
                 view('base/body/breadcrumb', [
                     'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                         1 => [
+                            'type' => 'company',
+                            'company' => $company
+                        ],
+                        2 => [
                             'type' => 'jobPosition',
                             'jobPosition' => $jobPosition
                         ]
@@ -101,11 +110,17 @@ class JobPositionController extends BaseController
                 view('content/form-job-position', [
                     'isNewForm' => false,
                     'data' => [
-                        'jobPosition' => (new JobPositionLibrary())
-                            ->getJobPositionDetails(
-                                $jobPositionId
-                            )
-                        ,
+                        'jobPosition' => [
+                            'details' => (new JobPositionLibrary())
+                                ->getJobPositionDetails(
+                                    $jobPositionId
+                                ),
+                            'users' => (new JobPositionLibrary())
+                                ->getJobPositionUsersDetails(
+                                    $jobPositionId
+                                )
+                            ,
+                        ],
                         'employees' => [
                             'position' => (new EmployeeLibrary())
                                 ->getJobPositionEmployees(
@@ -123,8 +138,12 @@ class JobPositionController extends BaseController
         }
     }
 
-    public function addJobPosition(int $jobPositionId): string|\CodeIgniter\HTTP\RedirectResponse
+    public function addJobPosition(
+        int $companyId,
+        int $jobPositionId
+    ): string|\CodeIgniter\HTTP\RedirectResponse
     {
+        $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $companies = (new CompanyLibrary())->getCompanies();
         
         if ($this->request->getMethod() === 'post') {
@@ -159,6 +178,10 @@ class JobPositionController extends BaseController
                 view('base/body/breadcrumb', [
                     'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                         1 => [
+                            'type' => 'company',
+                            'company' => $company
+                        ],
+                        2 => [
                             'type' => 'jobPosition',
                             'jobPosition' => $jobPosition
                         ]
@@ -187,9 +210,9 @@ class JobPositionController extends BaseController
         ]);
     }
 
-    public function redirectToJobPositions(): \CodeIgniter\HTTP\RedirectResponse
+    public function redirectToHome(): \CodeIgniter\HTTP\RedirectResponse
     {
-        return redirect()->to('/stanowiska');
+        return redirect()->to('/');
     }
 
     public function editJobPositionEmployees(
@@ -206,6 +229,19 @@ class JobPositionController extends BaseController
                         $jobPositionId,
                         $employeeId,
                     )
+                ,
+            ]);
+        } elseif ($this->request->getMethod() === 'put') {
+            $request = \Config\Services::request();
+
+            return $this->response->setJSON([
+                'success' => (new JobPositionLibrary())
+                    ->updateJobPositionEmployeeDescription(
+                        $jobPositionId,
+                        $employeeId,
+                        $request->getRawInput()['description']
+                    )
+                ,
             ]);
         } elseif ($this->request->getMethod() === 'delete') {
             return $this->response->setJSON([
@@ -214,6 +250,7 @@ class JobPositionController extends BaseController
                         $jobPositionId,
                         $employeeId,
                     )
+                ,
             ]);
         }
     }

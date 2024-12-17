@@ -13,6 +13,7 @@ class JobPositionUserModel extends Model
     protected $allowedFields = [
         'element_id',
         'user_id',
+        'description',
         'is_deleted'
     ];
 
@@ -58,6 +59,44 @@ class JobPositionUserModel extends Model
     {
         return $this
             ->set('is_deleted', true)
+            ->where('element_id', $jobPositionId)
+            ->where('user_id', $userId)
+            ->update()
+        ;
+    }
+
+    public function getJobPositionUsersDetails(int $jobPositionId): array
+    {
+        $response = [];
+        $users = $this
+            ->select('
+                user_id AS id,
+                element_id AS elementId,
+                description
+            ')
+            ->where('element_id', $jobPositionId)
+            ->where('is_deleted', null)
+            ->findAll()
+        ;
+
+        foreach ($users as $user) {
+            $response[$user->id] = (new FormatLibrary())->toObject([
+                'elementId' => $user->elementId,
+                'description' => $user->description
+            ]);
+        }
+
+        return $response;
+    }
+
+    public function updateJobPositionUserDescription(
+        int $jobPositionId,
+        int $userId,
+        string $description
+    ): int
+    {
+        return $this
+            ->set('description', $description)
             ->where('element_id', $jobPositionId)
             ->where('user_id', $userId)
             ->update()

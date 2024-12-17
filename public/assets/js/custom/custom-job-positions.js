@@ -7,6 +7,7 @@
 
 const scriptTag = document.currentScript;
 const baseUrl = scriptTag.getAttribute('data-base-url');
+const companyId = scriptTag.getAttribute('data-company-id');
 
 $(function() {
     $('#diagram-job-positions-container').orgchart({
@@ -26,8 +27,8 @@ $(function() {
             url: baseUrl+'api/v1/job-position/'+jobPositionId,
             type: 'GET',
             success: function(response) {
-                editJobPosition.href = baseUrl+'stanowisko/'+jobPositionId;
-                newJobPosition.href = baseUrl+'stanowisko/'+jobPositionId+'/nowy';
+                editJobPosition.href = baseUrl+'stanowisko/'+companyId+'/'+jobPositionId;
+                newJobPosition.href = baseUrl+'stanowisko/'+companyId+'/'+jobPositionId+'/nowy';
                 jobPositionModalPosition.innerHTML = response.data.name;
             },
             error: function(error) {
