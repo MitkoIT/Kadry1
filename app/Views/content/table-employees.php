@@ -56,7 +56,6 @@
                                                 <th>ID</th>
                                                 <th>Imię i nazwisko</th>
                                                 <th>Firma</th>
-                                                <th>Przypisane role</th>
                                                 <th>Schemat</th>
                                                 <th>Akcja</th>
                                             </tr>
@@ -88,36 +87,22 @@
                                                                 }
                                                             ?>
                                                         </td>
-                                                        <td>
-                                                            <?php
-                                                                foreach (explode(",", $employee->role) ?? [] as $role) {
-                                                                    if (strlen($role) > 1) {
-                                                                        ?>
-                                                                        <span class="badge badge-primary">
-                                                                            <?= $role ?>
-                                                                        </span>
-                                                                        <?php
-                                                                    }
-                                                                }
-                                                            ?>
-                                                        </td>
                                                         <td class="col-5">
                                                             <ul>
                                                                 <?php
                                                                     foreach ($data['employees']['schema'][$employee->id] ?? [] as $schema) {
                                                                         ?>
                                                                         <li>
-                                                                            <?php
-                                                                                if (!$schema['params']->isTopLevel) {
-                                                                                    echo $schema['parent']->name.' /';
-                                                                                }
-                                                                            ?>
                                                                             <b><?= $schema['child']->name ?></b>
                                                                             <?php
+                                                                                if ($schema['child']->description) {
+                                                                                    echo ' / '.$schema['child']->description;
+                                                                                }
+                                                                                
                                                                                 foreach ($schema['parent']->employees ?? [] as $parentEmployeeIndex => $employeeId) {
                                                                                     if (isset($data['employees']['users'][$employeeId])) {
                                                                                         ?>
-                                                                                        - <small><?= $data['employees']['users'][$employeeId]->name ?></small>
+                                                                                        - [<small>Szef: <?= $data['employees']['users'][$employeeId]->name ?> - <?= $schema['parent']->name ?></small>]
                                                                                         <?php
                                                                                     }
                                                                                 }
@@ -156,7 +141,6 @@
                                                 <th>ID</th>
                                                 <th>Imię i nazwisko</th>
                                                 <th>Firma</th>
-                                                <th>Przypisane role</th>
                                                 <th>Schemat</th>
                                                 <th>Akcja</th>
                                             </tr>

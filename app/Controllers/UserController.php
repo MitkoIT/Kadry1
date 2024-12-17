@@ -90,7 +90,7 @@ class UserController extends BaseController
         $title = 'Użytkownicy';
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -98,15 +98,15 @@ class UserController extends BaseController
                     'title' => $title
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-users', [
                 'title' => $title,
                 'users' => (new UserLibrary())->getUsers()
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -115,7 +115,7 @@ class UserController extends BaseController
         $title = 'Aktywni użytkownicy';
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -123,15 +123,15 @@ class UserController extends BaseController
                     'title' => $title
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-users', [
                 'title' => $title,
                 'users' => (new UserLibrary())->getUsers('active')
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -140,7 +140,7 @@ class UserController extends BaseController
         $title = 'Nieaktywni użytkownicy';
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -148,15 +148,15 @@ class UserController extends BaseController
                     'title' => $title
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-users', [
                 'title' => $title,
                 'users' => (new UserLibrary())->getUsers('unactive')
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 

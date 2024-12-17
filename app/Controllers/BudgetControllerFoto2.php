@@ -20,7 +20,7 @@ class BudgetController extends BaseController
         $title = 'Budżet';
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -28,11 +28,11 @@ class BudgetController extends BaseController
                     'title' => $title
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
-            view('base/body/nav-end').
-            view('base/body/end')
+            view('base/nav-end').
+            view('base/end')
         ;
     }
 }

@@ -11,7 +11,7 @@ class HomeController extends BaseController
     public function home(): string
     {
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -22,8 +22,8 @@ class HomeController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/nav-end').
-            view('base/body/end')
+            view('base/nav-end').
+            view('base/end')
         ;
     }
 }

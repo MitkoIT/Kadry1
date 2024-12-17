@@ -22,7 +22,7 @@ class JobPositionController extends BaseController
         ;
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -33,7 +33,7 @@ class JobPositionController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                     1 => [
                         'type' => 'company',
@@ -41,14 +41,14 @@ class JobPositionController extends BaseController
                     ]
                 ])
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/diagram-job-positions', [
                 'data' => [
                     'nodes' => $nodes,
                     'company' => $company
                 ]
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -78,7 +78,7 @@ class JobPositionController extends BaseController
             $title = 'Stanowisko '.$jobPosition->name;
 
             return
-                view('base/body/nav-begin', [
+                view('base/nav-begin', [
                     'user' => (new UserLibrary())->getSessionDetails(
                         $_SESSION
                     ),
@@ -89,7 +89,7 @@ class JobPositionController extends BaseController
                         ,
                     ])
                 ]).
-                view('base/body/breadcrumb', [
+                view('base/breadcrumb', [
                     'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                         1 => [
                             'type' => 'company',
@@ -101,7 +101,7 @@ class JobPositionController extends BaseController
                         ]
                     ])
                 ]).
-                view('base/body/nav-end').
+                view('base/nav-end').
                 view('content/form-job-position', [
                     'isNewForm' => false,
                     'data' => [
@@ -129,7 +129,7 @@ class JobPositionController extends BaseController
                         ]
                     ]
                 ]).
-                view('base/body/end')
+                view('base/end')
             ;
         }
     }
@@ -161,7 +161,7 @@ class JobPositionController extends BaseController
             $title = $jobPosition->name;
 
             return
-                view('base/body/nav-begin', [
+                view('base/nav-begin', [
                     'user' => (new UserLibrary())->getSessionDetails(
                         $_SESSION
                     ),
@@ -172,7 +172,7 @@ class JobPositionController extends BaseController
                         ,
                     ])
                 ]).
-                view('base/body/breadcrumb', [
+                view('base/breadcrumb', [
                     'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                         1 => [
                             'type' => 'company',
@@ -184,14 +184,14 @@ class JobPositionController extends BaseController
                         ]
                     ])
                 ]).
-                view('base/body/nav-end').
+                view('base/nav-end').
                 view('content/form-job-position', [
                     'isNewForm' => true,
                     'data' => [
                         'jobPosition' => null
                     ]
                 ]).
-                view('base/body/end')
+                view('base/end')
             ;
         }
     }

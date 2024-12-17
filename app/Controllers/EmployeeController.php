@@ -16,7 +16,7 @@ class EmployeeController extends BaseController
         $title = 'Pracownicy';
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -27,10 +27,10 @@ class EmployeeController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
                     'title' => $title,
@@ -41,7 +41,7 @@ class EmployeeController extends BaseController
                     ,
                 ]
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -50,7 +50,7 @@ class EmployeeController extends BaseController
         $title = 'Aktywni pracownicy';
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -61,10 +61,10 @@ class EmployeeController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
                     'title' => $title,
@@ -73,7 +73,7 @@ class EmployeeController extends BaseController
                     'employees' => (new EmployeeLibrary())->getEmployees('active')
                 ]
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -82,7 +82,7 @@ class EmployeeController extends BaseController
         $title = 'Nieaktywni pracownicy';
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -93,10 +93,10 @@ class EmployeeController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
                     'title' => $title,
@@ -105,7 +105,7 @@ class EmployeeController extends BaseController
                     'employees' => (new EmployeeLibrary())->getEmployees('unactive')
                 ]
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -115,7 +115,7 @@ class EmployeeController extends BaseController
         $title = 'Pracownicy '.ucfirst(strtolower($company->name));
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -126,7 +126,7 @@ class EmployeeController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                     1 => [
                         'type' => 'company',
@@ -134,7 +134,7 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
                     'title' => $title,
@@ -146,7 +146,7 @@ class EmployeeController extends BaseController
                     )
                 ]
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -156,7 +156,7 @@ class EmployeeController extends BaseController
         $title = 'Aktywni pracownicy '.ucfirst(strtolower($company->name));
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -167,7 +167,7 @@ class EmployeeController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                     1 => [
                         'type' => 'company',
@@ -175,7 +175,7 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
                     'title' => $title,
@@ -187,7 +187,7 @@ class EmployeeController extends BaseController
                     )
                 ]
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -197,7 +197,7 @@ class EmployeeController extends BaseController
         $title = 'Nieaktywni pracownicy '.ucfirst(strtolower($company->name));
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -208,7 +208,7 @@ class EmployeeController extends BaseController
                     ,
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                     1 => [
                         'type' => 'company',
@@ -216,7 +216,7 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
-            view('base/body/nav-end').
+            view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
                     'title' => $title,
@@ -228,7 +228,7 @@ class EmployeeController extends BaseController
                     )
                 ]
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -254,7 +254,7 @@ class EmployeeController extends BaseController
             $title = $user->name;
 
             return
-                view('base/body/nav-begin', [
+                view('base/nav-begin', [
                     'user' => (new UserLibrary())->getSessionDetails(
                         $_SESSION
                     ),
@@ -263,7 +263,7 @@ class EmployeeController extends BaseController
                         'companies' => $companies
                     ])
                 ]).
-                view('base/body/breadcrumb', [
+                view('base/breadcrumb', [
                     'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                         1 => [
                             'type' => 'employee',
@@ -283,7 +283,7 @@ class EmployeeController extends BaseController
                         ,
                     ]
                 ]).
-                view('base/body/end')
+                view('base/end')
             ;
         }
     }
@@ -294,7 +294,7 @@ class EmployeeController extends BaseController
         $title = 'Logi - '.$user->name;
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -302,7 +302,7 @@ class EmployeeController extends BaseController
                     'title' => $title
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                     1 => [
                         'type' => 'employee',
@@ -310,7 +310,7 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -320,7 +320,7 @@ class EmployeeController extends BaseController
         $title = 'Aplikacje - '.$user->name;
 
         return
-            view('base/body/nav-begin', [
+            view('base/nav-begin', [
                 'user' => (new UserLibrary())->getSessionDetails(
                     $_SESSION
                 ),
@@ -328,7 +328,7 @@ class EmployeeController extends BaseController
                     'title' => $title
                 ])
             ]).
-            view('base/body/breadcrumb', [
+            view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse([
                     1 => [
                         'type' => 'employee',
@@ -336,7 +336,7 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
-            view('base/body/end')
+            view('base/end')
         ;
     }
 
@@ -356,7 +356,7 @@ class EmployeeController extends BaseController
             $title = 'Nowy pracownik';
 
             return
-                view('base/body/nav-begin', [
+                view('base/nav-begin', [
                     'user' => (new UserLibrary())->getSessionDetails(
                         $_SESSION
                     ),
@@ -367,7 +367,7 @@ class EmployeeController extends BaseController
                         ,
                     ])
                 ]).
-                view('base/body/breadcrumb', [
+                view('base/breadcrumb', [
                     'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
                 ]).
                 view('content/form-employee', [
@@ -376,7 +376,7 @@ class EmployeeController extends BaseController
                         'companies' => $companies
                     ]
                 ]).
-                view('base/body/end')
+                view('base/end')
             ;
         }
     }
