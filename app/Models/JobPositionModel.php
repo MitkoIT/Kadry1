@@ -94,4 +94,55 @@ class JobPositionModel extends Model
             ->update()
         ;
     }
+
+    public function getEmployeesJobPosition(): array
+    {
+        return $this
+            ->select('
+                job_position.name,
+                is_root As isRoot,
+                company_id AS companyId,
+                element_id AS elementId,
+                user_id AS userId,
+                description
+            ')
+            ->join('job_position_user', 'job_position_user.element_id = job_position.id')
+            ->where('job_position.is_deleted', null)
+            ->where('job_position_user.is_deleted', null)
+            ->findAll()
+        ;
+    }
+
+    public function getJobPositionEmployees(): array
+    {
+        return $this
+            ->select('
+                job_position_user.id,
+                company_id AS companyId,
+                element_id AS elementId,
+                user_id AS userId,
+                description
+            ')
+            ->join('job_position_user', 'job_position_user.element_id = job_position.id')
+            ->where('job_position.is_deleted', null)
+            ->where('job_position_user.is_deleted', null)
+            ->findAll()
+        ;
+    }
+
+    public function getNodeJobPositions(): array
+    {
+        return $this
+            ->select('
+                name,
+                is_root AS isRoot,
+                company_id AS companyId,
+                element_id AS elementId,
+                child_id AS childId
+            ')
+            ->join('job_position_node', 'job_position_node.element_id = job_position.id')
+            ->where('job_position.is_deleted', null)
+            ->findAll()
+        ;
+    }
 }

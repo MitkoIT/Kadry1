@@ -6,6 +6,7 @@ use App\Libraries\FormatLibrary;
 use App\Libraries\BreadcrumbsLibrary;
 use App\Libraries\UserLibrary;
 use App\Libraries\EmployeeLibrary;
+use App\Libraries\JobPositionLibrary;
 use App\Libraries\CompanyLibrary;
 
 class EmployeeController extends BaseController
@@ -35,7 +36,9 @@ class EmployeeController extends BaseController
                     'title' => $title,
                     'company' => null,
                     'selected' => null,
-                    'employees' => (new EmployeeLibrary())->getEmployees()
+                    'employees' => (new EmployeeLibrary())
+                        ->getEmployees()
+                    ,
                 ]
             ]).
             view('base/body/end')

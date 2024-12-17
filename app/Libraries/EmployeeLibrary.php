@@ -6,6 +6,7 @@ use App\Models\UserModel;
 use App\Models\UserCompanyModel;
 use App\Models\UserLoginModel;
 use App\Libraries\FormatLibrary;
+use App\Libraries\JobPositionLibrary;
 
 class EmployeeLibrary
 {
@@ -25,33 +26,33 @@ class EmployeeLibrary
         \stdClass $company = null
     ): array
     {
-        $users = $this->userModel->getUsers($type);
+        $companyUsers = $users = (new FormatLibrary())
+            ->index($this->userModel->getUsers($type))
+        ;
         $companies = $this->userCompanyModel->getUsersCompany();
         $logins = $this->userLoginModel->getUsersLogin();
 
-        if (empty($company)) {
-            return [
-                'users' => $users,
-                'companies' => $companies,
-                'logins' => $logins
-            ];
-        } else {
-            foreach ($users as $index => $user) {
+        if (!empty($company)) {
+            foreach ($companyUsers as $index => $user) {
                 if (!isset($companies[$user->id])) {
-                    unset($users[$index]);
+                    unset($companyUsers[$index]);
                 } else {
                     if (!in_array($company->name, $companies[$user->id])) {
-                        unset($users[$index]);
+                        unset($companyUsers[$index]);
                     }
                 }
             }
-            
-            return [
-                'users' => $users,
-                'companies' => $companies,
-                'logins' => $logins
-            ];
         }
+            
+        return [
+            'users' => $users,
+            'companyUsers' => $companyUsers,
+            'companies' => $companies,
+            'logins' => $logins,
+            'schema' => (new JobPositionLibrary())
+                ->getEmployeesSchema()
+            ,
+        ];
     }
 
     public function getJobPositionEmployees(

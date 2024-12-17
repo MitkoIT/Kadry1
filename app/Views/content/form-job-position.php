@@ -186,7 +186,7 @@
                                                         <div class="container-buttons">
                                                             <button
                                                                 type="button"
-                                                                class="btn btn-success-rgba"
+                                                                class="btn btn-primary-rgba"
                                                                 data-toggle="modal"
                                                                 data-target="#changeNodeEmployeeDescriptionModal"
                                                                 onclick="openChangeNodeEmployeeDescriptionModal({description: '<?= $data['jobPosition']['users'][$employee->id]->description ?>', id: '<?= $employee->id ?>', name: '<?= $employee->name ?>'})"
@@ -229,7 +229,7 @@
                         <button
                             type="button"
                             onclick="$('#addNodeEmployeeModal').modal('show')"
-                            class="btn btn-success-rgba btn-lg btn-block"
+                            class="btn btn-primary-rgba btn-lg btn-block"
                             ><i class="feather ri-user-3-line mr-2"></i>
                             Przypisz pracownika
                         </button>

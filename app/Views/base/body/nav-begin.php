@@ -107,7 +107,7 @@
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
                                         <div class="logobar">
-                                            <a href="index.html" class="appTitle">KADRY</a>
+                                            <a href="<?= base_url() ?>" class="appTitle">KADRY</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -219,7 +219,7 @@
                                                 <li>
                                                     <a
                                                         href="<?= base_url('pracownicy/'.$company->id) ?>"
-                                                        >Pracownicy <span class="capitalize"><?= strtolower($company->name) ?></span>
+                                                        >Pracownicy <?= ucfirst(strtolower($company->name)) ?>
                                                     </a>
                                                 </li>
                                                 <?php
@@ -236,7 +236,7 @@
                                                 <li>
                                                     <a
                                                         href="<?= base_url('stanowiska/'.$company->id) ?>"
-                                                        >Stanowiska <span class="capitalize"><?= strtolower($company->name) ?></span>
+                                                        >Stanowiska <?= ucfirst(strtolower($company->name)) ?>
                                                     </a>
                                                 </li>
                                                 <?php

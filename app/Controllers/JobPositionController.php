@@ -64,6 +64,7 @@ class JobPositionController extends BaseController
             $post = $this->request->getPost();
 
             $jobPositionId = (new JobPositionLibrary())->setJobPosition(
+                $companyId,
                 $jobPositionId,
                 $post,
                 $companies

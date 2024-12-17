@@ -125,4 +125,82 @@ class JobPositionLibrary
             )
         ;
     }
+
+    protected function getNodeJobPosition(): array
+    {
+        $response = [];
+
+        $jobPositions = $this->jobPositionModel
+            ->getNodeJobPositions()
+        ;
+
+        foreach ($jobPositions as $jobPosition) {
+            $response[$jobPosition->childId] = $jobPosition;
+        }
+
+        return $response;
+    }
+
+    protected function getJobPositionEmployees(): array
+    {
+        $response = [];
+
+        $employees = $this->jobPositionModel
+            ->getJobPositionEmployees()
+        ;
+
+        foreach ($employees as $employee) {
+            $response[$employee->elementId][] = $employee;
+        }
+
+        return $response;
+    }
+
+    protected function parseEmployeeSchema(array $data): array
+    {
+        $response = [];
+        $nodeJobPositions = $this->getNodeJobPosition();
+        $employeesJobPositions = $this->getJobPositionEmployees();
+
+        //echo '<prE>'.print_r($employeesJobPositions, true).'</pre>';die;
+
+        foreach ($data as $element) {
+            $parent = null;
+
+            if (!$element->isRoot &&
+                !empty($nodeJobPositions[$element->elementId])) {
+                $employees = [];
+
+                foreach ($employeesJobPositions[$nodeJobPositions[$element->elementId]->elementId] as $employee) {
+                    $employees[] = $employee->userId;
+                }
+
+                $parent = (new FormatLibrary())->toObject([
+                    'name' => $nodeJobPositions[$element->elementId]->name,
+                    'employees' => $employees
+                ]);
+            }
+
+            $response[$element->userId][] = [
+                'params' => (new FormatLibrary())->toObject([
+                    'isTopLevel' => $element->isRoot
+                ]),
+                'parent' => $parent,
+                'child' => (new FormatLibrary())->toObject([
+                    'name' => $element->name,
+                    'isRoot' => $element->isRoot,
+                    'description' => $element->description
+                ])
+            ];
+        }
+
+        return $response;
+    }
+
+    public function getEmployeesSchema()
+    {
+        return $this->parseEmployeeSchema(
+            $this->jobPositionModel->getEmployeesJobPosition()
+        );
+    }
 }

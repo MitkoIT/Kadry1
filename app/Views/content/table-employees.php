@@ -57,12 +57,13 @@
                                                 <th>Imię i nazwisko</th>
                                                 <th>Firma</th>
                                                 <th>Przypisane role</th>
+                                                <th>Schemat</th>
                                                 <th>Akcja</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                                foreach ($data['employees']['users'] as $employee) {
+                                                foreach ($data['employees']['companyUsers'] as $employee) {
                                                     ?>
                                                     <tr>
                                                         <td><?= $employee->id ?></td>
@@ -100,11 +101,38 @@
                                                                 }
                                                             ?>
                                                         </td>
+                                                        <td class="col-5">
+                                                            <ul>
+                                                                <?php
+                                                                    foreach ($data['employees']['schema'][$employee->id] ?? [] as $schema) {
+                                                                        ?>
+                                                                        <li>
+                                                                            <?php
+                                                                                if (!$schema['params']->isTopLevel) {
+                                                                                    echo $schema['parent']->name.' /';
+                                                                                }
+                                                                            ?>
+                                                                            <b><?= $schema['child']->name ?></b>
+                                                                            <?php
+                                                                                foreach ($schema['parent']->employees ?? [] as $parentEmployeeIndex => $employeeId) {
+                                                                                    if (isset($data['employees']['users'][$employeeId])) {
+                                                                                        ?>
+                                                                                        - <small><?= $data['employees']['users'][$employeeId]->name ?></small>
+                                                                                        <?php
+                                                                                    }
+                                                                                }
+                                                                            ?>
+                                                                        </li>
+                                                                        <?php
+                                                                    }
+                                                                ?>
+                                                            </ul>
+                                                        </td>
                                                         <td>
                                                             <div class="container-buttons">
                                                                 <a
                                                                     type="button"
-                                                                    class="btn btn-success-rgba"
+                                                                    class="btn btn-primary-rgba"
                                                                     href="<?= base_url('pracownik/'.$employee->id) ?>"
                                                                     ><span class="ti-pencil"></span>
                                                                 </a>
@@ -129,6 +157,7 @@
                                                 <th>Imię i nazwisko</th>
                                                 <th>Firma</th>
                                                 <th>Przypisane role</th>
+                                                <th>Schemat</th>
                                                 <th>Akcja</th>
                                             </tr>
                                         </tfoot>
