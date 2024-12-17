@@ -65,7 +65,7 @@ class BreadcrumbsLibrary
                     }
                 } elseif ($type[$index]['type'] === 'jobPosition') {
                     $response[] = (new FormatLibrary())->toObject([
-                        'name' => ucfirst(strtolower($type[$index]['jobPosition']->name)),
+                        'name' => $type[$index]['jobPosition']->name,
                         'path' => $type[$index]['jobPosition']->id,
                         'isLast' => $isLast
                     ]);
@@ -78,10 +78,6 @@ class BreadcrumbsLibrary
                 ]);
             }
         }
-
-        //echo '<pre>'.print_r($type, 1).'</pre>';
-        //echo '<pre>'.print_r($response, 1).'</pre>';
-        //die();
 
         return $response;
     }
