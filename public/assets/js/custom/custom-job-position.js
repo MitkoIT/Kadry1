@@ -14,16 +14,31 @@ $('#addNodeEmployeeModalSelect').select2({
     dropdownParent: $("#addNodeEmployeeModal")
 });
 
+$('#addNodeBudgetModalSelect').select2({
+    dropdownParent: $("#addNodeBudgetModal")
+});
+
 function addNodeEmployee() {
     const employeeId = $('#addNodeEmployeeModalSelect').val();
 
     $.ajax({
-        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/employee/'+employeeId,
+        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/employees/'+employeeId,
         type: 'POST',
-        data: {
-            jobPostionId: jobPostionId,
-            employeeId: employeeId
+        success: function () {
+            window.location.reload();
         },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function addNodeBudget() {
+    const budgetId = $('#addNodeBudgetModalSelect').val();
+
+    $.ajax({
+        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/budgets/'+budgetId,
+        type: 'POST',
         success: function () {
             window.location.reload();
         },
@@ -41,12 +56,36 @@ function loadEmployeeToNodeEmployeeModal(employee) {
     deleteNodeEmployeeModalId.value = employee.id;
 }
 
+function loadBudgetToNodeBudgetModal(budget) {
+    const deleteNodeBudgetModalBudget = document.getElementById('deleteNodeBudgetModalBudget');
+    const deleteNodeBudgetModalId = document.getElementById('deleteNodeBudgetModalId');
+    
+    deleteNodeBudgetModalBudget.innerText = budget.name;
+    deleteNodeBudgetModalId.value = budget.id;
+}
+
 function deleteNodeEmployee() {
     const deleteNodeEmployeeModalId = document.getElementById('deleteNodeEmployeeModalId');
     const employeeId = deleteNodeEmployeeModalId.value;
     
     $.ajax({
-        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/employee/'+employeeId,
+        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/employees/'+employeeId,
+        type: 'DELETE',
+        success: function () {
+            window.location.reload();
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function deleteNodeBudget() {
+    const deleteNodeBudgetModalId = document.getElementById('deleteNodeBudgetModalId');
+    const budgetId = deleteNodeBudgetModalId.value;
+    
+    $.ajax({
+        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/budgets/'+budgetId,
         type: 'DELETE',
         success: function () {
             window.location.reload();

@@ -64,8 +64,14 @@ $routes->group('api/v1/job-position', ['filter' => 'UserAuth'], function($routes
     );
     $routes->match(
         ['post','put','delete'],
-        '(:num)/employee/(:num)',
+        '(:num)/employees/(:num)',
         'JobPositionController::editJobPositionEmployees/$1/$2',
+        ['filter' => 'UserAuth']
+    );
+    $routes->match(
+        ['post','delete'],
+        '(:num)/budgets/(:num)',
+        'JobPositionController::editJobPositionBudgets/$1/$2',
         ['filter' => 'UserAuth']
     );
 });

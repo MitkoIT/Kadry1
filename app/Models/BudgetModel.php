@@ -6,10 +6,11 @@ use CodeIgniter\Model;
 
 class BudgetModel extends Model
 {
-    //protected $DBGroup = 'mitko';
+    protected $DBGroup = 'od';
     protected $table = 'd_budzet';
     protected $tabled_firma = 'd_firma';
     protected $tabled_cel = 'd_cel';
+    protected $returnType = 'object';
 
     protected $allowedFields = [ 
         'budzet_nazwa',
@@ -18,69 +19,23 @@ class BudgetModel extends Model
     ]; 
 
 
-    public function getAllBudgets()
+    public function getBudgets(): array
     {
-        return $this->findAll();
-    }
+        $response = [];
+        $budgets = $this
+            ->select('
+                id_budzet AS id,
+                budzet_nazwa AS name,
+                id_cel AS goalId,
+                id_firma AS companyId
+            ')
+            ->findAll()
+        ;
 
-    public function getAllBudgetsWithCompany()
-    {
-        return $this
-        ->select('d_budzet.* , d_firma.firma_nazwa')
-        ->join('d_firma', 'd_firma.id_firma = d_budzet.id_firma', 'left')
-        ->findAll();
-    }
+        foreach ($budgets as $budget) {
+            $response[$budget->id] = $budget;
+        }
 
-     //This one is for search
-    //searches by first letter
-    public function getBudgetByFirstLetter(string $name)
-    {
-        return $this
-        ->select('*')
-        ->like('budzet_nazwa', $name)
-        ->findAll();
-    }
-
-    public function getBudgetByFirstLetterWithCompany(string $name)
-    {
-        return $this
-        ->select('d_budzet.*, d_firma.firma_nazwa')
-        ->join('d_firma', 'd_firma.id_firma = d_budzet.id_firma', 'left')
-        ->like('budzet_nazwa', $name)
-        ->findAll();
-    }
-
-    public function getBudgetById(int $id)
-    {
-        return $this->where('id_budzet', $id)->first();
-    }
-
-    public function getBudgetByIdWithCompany(int $id)
-    {
-        return $this
-        ->select('d_budzet.*, d_firma.firma_nazwa')
-        ->join('d_firma', 'd_firma.id_firma = d_budzet.id_firma', 'left')
-        ->where('id_budzet', $id)->first();
-    }
-
-    public function getAllBudgetCompanys()
-    {
-        return $this
-        ->db->table($this->tabled_firma)
-        ->get()->getResultArray(); //get and getResult() instead first and findAll()
-    }
-
-    public function getAllBudgetTargets()
-    {
-        return $this
-        ->db->table($this->tabled_cel)
-        ->get()->getResultArray();
-    }
-
-    public function getNextId()
-    {
-        return $this
-        ->select('COALESCE(MAX(id_budzet), 0) + 1 AS next_id')
-        ->first();
+        return $response;
     }
 }

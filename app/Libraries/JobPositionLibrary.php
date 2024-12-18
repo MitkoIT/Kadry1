@@ -5,18 +5,21 @@ namespace App\Libraries;
 use App\Models\JobPositionModel;
 use App\Models\JobPositionUserModel;
 use App\Models\JobPositionNodeModel;
+use App\Models\JobPositionBudgetModel;
 
 class JobPositionLibrary
 {
     private JobPositionModel $jobPositionModel;
     private JobPositionUserModel $jobPositionUserModel;
     private JobPositionNodeModel $jobPositionNodeModel;
+    private JobPositionBudgetModel $jobPositionBudgetModel;
 
     public function __construct()
     {
         $this->jobPositionModel = new JobPositionModel();
         $this->jobPositionUserModel = new JobPositionUserModel();
         $this->jobPositionNodeModel = new JobPositionNodeModel();
+        $this->jobPositionBudgetModel = new JobPositionBudgetModel();
     }
 
     public function getJobPositionDetails(int $jobPositionId): \stdClass
@@ -91,7 +94,19 @@ class JobPositionLibrary
             $jobPositionId,
             $employeeId
         );
+    }
+
+    public function addJobPositionBudget(
+        int $jobPositionId,
+        int $budgetId
+    ): int
+    {
+        return $this->jobPositionBudgetModel->addJobPositionBudget(
+            $jobPositionId,
+            $budgetId
+        );
     }    
+
 
     public function deleteJobPositionEmployee(
         int $jobPositionId,
@@ -101,6 +116,17 @@ class JobPositionLibrary
         return $this->jobPositionUserModel->deleteJobPositionUser(
             $jobPositionId,
             $employeeId
+        );
+    }
+
+    public function deleteJobPositionBudget(
+        int $jobPositionId,
+        int $budgetId
+    ): int
+    {
+        return $this->jobPositionBudgetModel->deleteJobPositionBudget(
+            $jobPositionId,
+            $budgetId
         );
     }
 
@@ -200,5 +226,12 @@ class JobPositionLibrary
         return $this->parseEmployeeSchema(
             $this->jobPositionModel->getEmployeesJobPosition()
         );
+    }
+
+    public function getJobPositionBudgets(int $jobPositionId): array
+    {
+        return $this->jobPositionBudgetModel
+            ->getJobPositionBudgets($jobPositionId)
+        ;
     }
 }

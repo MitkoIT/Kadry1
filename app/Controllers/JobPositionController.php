@@ -7,6 +7,7 @@ use App\Libraries\BreadcrumbsLibrary;
 use App\Libraries\UserLibrary;
 use App\Libraries\EmployeeLibrary;
 use App\Libraries\JobPositionLibrary;
+use App\Libraries\BudgetLibrary;
 use App\Libraries\CompanyLibrary;
 
 class JobPositionController extends BaseController
@@ -62,6 +63,7 @@ class JobPositionController extends BaseController
     {
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $companies = (new CompanyLibrary())->getCompanies();
+        $budgets = (new BudgetLibrary())->getBudgets();
 
         if ($this->request->getMethod() === 'post') {
             $post = $this->request->getPost();
@@ -109,6 +111,7 @@ class JobPositionController extends BaseController
                     'isNewForm' => false,
                     'data' => [
                         'company' => $company,
+                        'budgets' => $budgets,
                         'jobPosition' => [
                             'details' => (new JobPositionLibrary())
                                 ->getJobPositionDetails(
@@ -119,17 +122,22 @@ class JobPositionController extends BaseController
                                     $jobPositionId
                                 )
                             ,
-                        ],
-                        'employees' => [
-                            'position' => (new EmployeeLibrary())
-                                ->getJobPositionEmployees(
+                            'employees' => [
+                                'position' => (new EmployeeLibrary())
+                                    ->getJobPositionEmployees(
+                                        $jobPositionId
+                                    )
+                                ,
+                                'all' => (new EmployeeLibrary())
+                                    ->getEmployees()
+                                ,
+                            ],
+                            'budgets' => (new JobPositionLibrary())
+                                ->getJobPositionBudgets(
                                     $jobPositionId
                                 )
                             ,
-                            'all' => (new EmployeeLibrary())
-                                ->getEmployees()
-                            ,
-                        ]
+                        ],
                     ]
                 ]).
                 view('base/end')
@@ -249,6 +257,32 @@ class JobPositionController extends BaseController
                     ->deleteJobPositionEmployee(
                         $jobPositionId,
                         $employeeId,
+                    )
+                ,
+            ]);
+        }
+    }
+
+    public function editJobPositionBudgets(
+        int $jobPositionId,
+        int $budgetId
+    ): \CodeIgniter\HTTP\Response
+    {
+        if ($this->request->getMethod() === 'post') {
+            return $this->response->setJSON([
+                'success' => (new JobPositionLibrary())
+                    ->addJobPositionBudget(
+                        $jobPositionId,
+                        $budgetId,
+                    )
+                ,
+            ]);
+        } elseif ($this->request->getMethod() === 'delete') {
+            return $this->response->setJSON([
+                'success' => (new JobPositionLibrary())
+                    ->deleteJobPositionBudget(
+                        $jobPositionId,
+                        $budgetId,
                     )
                 ,
             ]);

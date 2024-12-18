@@ -14,7 +14,7 @@
                         <select class="form-control" id="addNodeEmployeeModalSelect">
                             <option>Wybierz pracownika</option>
                             <?php
-                                foreach ($data['employees']['all']['users'] ?? [] as $employee) {
+                                foreach ($data['jobPosition']['employees']['all']['users'] ?? [] as $employee) {
                                     ?>
                                     <option value="<?= $employee->id ?>"><?= $employee->id ?> - <?= $employee->name ?></option>
                                     <?php
@@ -32,6 +32,44 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary-rgba" data-dismiss="modal">Zamknij</button>
                 <button type="button" class="btn btn-primary-rgba" onclick="addNodeEmployee()" data-dismiss="modal">Dodaj przypisanie</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addNodeBudgetModal" tabindex="-1" role="dialog" aria-labelledby="addNodeBudgetModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dodaj budżet do stanowiska</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-12 col-form-label">Budżet</label>
+                    <div class="col-sm-12">
+                        <select class="form-control" id="addNodeBudgetModalSelect">
+                            <option>Wybierz budżet</option>
+                            <?php
+                                foreach ($data['budgets'] ?? [] as $budget) {
+                                    ?>
+                                    <option value="<?= $budget->id ?>"><?= $budget->id ?> - <?= $budget->name ?></option>
+                                    <?php
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <input
+                    type="hidden"
+                    id="addNodeBudgetModalId"
+                    value=""
+                />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary-rgba" data-dismiss="modal">Zamknij</button>
+                <button type="button" class="btn btn-primary-rgba" onclick="addNodeBudget()" data-dismiss="modal">Dodaj przypisanie</button>
             </div>
         </div>
     </div>
@@ -56,6 +94,30 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary-rgba" data-dismiss="modal">Zamknij</button>
                 <button type="button" class="btn btn-danger-rgba" onclick="deleteNodeEmployee()" data-dismiss="modal">Usuń przypisanie</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteNodeBudgetModal" tabindex="-1" role="dialog" aria-labelledby="deleteNodeBudgetModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Potwierdź usunięcie przypisania</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input
+                    type="hidden"
+                    id="deleteNodeBudgetModalId"
+                    value=""
+                />
+                <p class="text-muted">Czy napewno chcesz usunąć przypisanie budżetu <span id="deleteNodeBudgetModalBudget">{name}</span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary-rgba" data-dismiss="modal">Zamknij</button>
+                <button type="button" class="btn btn-danger-rgba" onclick="deleteNodeBudget()" data-dismiss="modal">Usuń przypisanie</button>
             </div>
         </div>
     </div>
@@ -163,7 +225,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            foreach ($data['employees']['position']['users'] ?? [] as $employee) {
+                                            foreach ($data['jobPosition']['employees']['position']['users'] ?? [] as $employee) {
                                                 ?>
                                                 <tr>
                                                     <td><?= $employee->id ?></td>
@@ -214,6 +276,54 @@
                         <?php
                     }
                 ?>
+                <?php
+                    if (!$isNewForm) {
+                        ?>
+                        <div class="card m-b-30">
+                            <div class="card-header">
+                                <h5 class="card-title">Budżety przypisane do stanowiska</h5>
+                            </div>
+                            <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="default-datatable" class="display table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nazwa</th>
+                                            <th>Akcja</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            foreach ($data['jobPosition']['budgets'] ?? [] as $budget) {
+                                                ?>
+                                                <tr>
+                                                    <td><?= $budget->id ?></td>
+                                                    <td><?= $data['budgets'][$budget->id]->name ?></td>
+                                                    <td>
+                                                        <div class="container-buttons">
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-danger-rgba"
+                                                                data-toggle="modal"
+                                                                data-target="#deleteNodeBudgetModal"
+                                                                onclick="loadBudgetToNodeBudgetModal({name: '<?= $data['budgets'][$budget->id]->name ?>', id: '<?= $budget->id ?>'})"
+                                                                ><span class="ti-trash"></span>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                ?>
             </div>
             <div class="col-lg-4 col-xl-3">
                 <button
@@ -232,6 +342,13 @@
                             class="btn btn-primary-rgba btn-lg btn-block"
                             ><i class="feather ri-user-3-line mr-2"></i>
                             Przypisz pracownika
+                        </button>
+                        <button
+                            type="button"
+                            onclick="$('#addNodeBudgetModal').modal('show')"
+                            class="btn btn-primary-rgba btn-lg btn-block"
+                            ><i class="feather icon-plus mr-2"></i>
+                            Przypisz budżet
                         </button>
                         <?php
                             if ($data['jobPosition']['details']->isRoot != 1) {
