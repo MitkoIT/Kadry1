@@ -61,7 +61,7 @@
                             </label>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
             <div class="col-lg-4 col-xl-3">
                 <div class="card m-b-30">
@@ -96,6 +96,61 @@
                                 <?php
                             }
                         ?>
+                    </div>
+                </div>
+                <div class="card m-b-30">
+                    <div class="card-header">
+                        <h5 class="card-title">Aktualne zatrudnienie</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="custom-control custom-checkbox">
+                            <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="isEmployeeHasJobEmployment"
+                                name="user[isEmployeeHasJobEmployment]"
+                                <?php
+                                    if (isset($data['employee']['user'])) {
+                                        echo $data['employee']['user']->isEmployeeHasJobEmployment == 1 ? 'checked' : null;
+                                    }
+                                ?>
+                            />
+                            <label class="custom-control-label" for="isEmployeeHasJobEmployment">
+                                <span>Etat</span>
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="isEmployeeHasMandateEmployment"
+                                name="user[isEmployeeHasMandateEmployment]"
+                                <?php
+                                    if (isset($data['employee']['user'])) {
+                                        echo $data['employee']['user']->isEmployeeHasMandateEmployment == 1 ? 'checked' : null;
+                                    }
+                                ?>
+                            />
+                            <label class="custom-control-label" for="isEmployeeHasMandateEmployment">
+                                <span>Zlecenie</span>
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="isEmployeeHasContractEmployment"
+                                name="user[isEmployeeHasContractEmployment]"
+                                <?php
+                                    if (isset($data['employee']['user'])) {
+                                        echo $data['employee']['user']->isEmployeeHasContractEmployment == 1 ? 'checked' : null;
+                                    }
+                                ?>
+                            />
+                            <label class="custom-control-label" for="isEmployeeHasContractEmployment">
+                                <span>Kontrakt</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <button

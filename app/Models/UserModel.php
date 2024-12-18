@@ -16,7 +16,10 @@ class UserModel extends Model
         'email',
         'phone',
         'active', 
-        'password'
+        'password',
+        'is_employee_has_job_employment',
+        'is_employee_has_mandate_employment',
+        'is_employee_has_contract_employment'
     ]; 
 
     public function getUsers(
@@ -91,7 +94,10 @@ class UserModel extends Model
                 email,
                 active, 
                 phone, 
-                role
+                role,
+                is_employee_has_job_employment AS isEmployeeHasJobEmployment,
+                is_employee_has_mandate_employment AS isEmployeeHasMandateEmployment,
+                is_employee_has_contract_employment AS isEmployeeHasContractEmployment
             ')
             ->where('idusers', $userId)
             ->first()
@@ -102,9 +108,24 @@ class UserModel extends Model
     {
         $success = null;
         $isActive = 'n';
+        $isEmployeeHasJobEmployment = false;
+        $isEmployeeHasMandateEmployment = false;
+        $isEmployeeHasContractEmployment = false;
 
         if (isset($data['isEmployeeActive'])) {
             $isActive = $data['isEmployeeActive'] === 'on' ? 'y' : 'n';
+        }
+
+        if (isset($data['isEmployeeHasJobEmployment'])) {
+            $isEmployeeHasJobEmployment = $data['isEmployeeHasJobEmployment'] === 'on' ? true : false;
+        }
+
+        if (isset($data['isEmployeeHasMandateEmployment'])) {
+            $isEmployeeHasMandateEmployment = $data['isEmployeeHasMandateEmployment'] === 'on' ? true : false;
+        }
+
+        if (isset($data['isEmployeeHasContractEmployment'])) {
+            $isEmployeeHasContractEmployment = $data['isEmployeeHasContractEmployment'] === 'on' ? true : false;
         }
 
         if ($userId === null) {
@@ -113,6 +134,9 @@ class UserModel extends Model
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'active' => $isActive,
+                    'is_employee_has_job_employment' => $isEmployeeHasJobEmployment,
+                    'is_employee_has_mandate_employment' => $isEmployeeHasMandateEmployment,
+                    'is_employee_has_contract_employment' => $isEmployeeHasContractEmployment
                 ])
             ;
 
@@ -123,6 +147,9 @@ class UserModel extends Model
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'active' => $isActive,
+                    'is_employee_has_job_employment' => $isEmployeeHasJobEmployment,
+                    'is_employee_has_mandate_employment' => $isEmployeeHasMandateEmployment,
+                    'is_employee_has_contract_employment' => $isEmployeeHasContractEmployment
                 ])
                 ->where('idusers', $userId)
                 ->update()
