@@ -11,6 +11,7 @@ $routes->setDefaultController('LoginController');
 $routes->set404Override(function() {
     return view('base/error404.php');
 });
+$routes->get('error500', 'ErrorController::error500');
 $routes->get('logowanie', 'LoginController::login', ['filter' => 'NoAuth']);
 $routes->get('wylogowywanie', 'LoginController::logout', ['filter' => 'UserAuth']);
 $routes->get('nie-zalogowany', 'LoginController::noAuth', ['filter' => 'NoAuth']);
