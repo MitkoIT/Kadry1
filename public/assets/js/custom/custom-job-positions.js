@@ -13,6 +13,7 @@ $(function() {
     $('#diagram-job-positions-container').orgchart({
         'data' : nodes,
         'nodeContent': 'title',
+        'pan': false
     });
 
     $(".node").on("click", function() {

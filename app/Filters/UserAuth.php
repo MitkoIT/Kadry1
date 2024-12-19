@@ -10,8 +10,9 @@ class UserAuth implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(!session()->has('id_user')){
-           throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!session()->has('id_user')){
+            echo view('base/logged-out.php'); die();
+            //throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 
