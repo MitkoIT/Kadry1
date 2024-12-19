@@ -60,10 +60,6 @@ class EmployeeController extends BaseController
         $notifications = (new UserLibrary())
             ->getUserNotifications($user->id)
         ;
-        $user = (new UserLibrary())->getSessionDetails($_SESSION);
-        $notifications = (new UserLibrary())
-            ->getUserNotifications($user->id)
-        ;
         $title = 'Aktywni pracownicy';
 
         return
