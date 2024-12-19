@@ -50,6 +50,11 @@ class JobPositionController extends BaseController
                     'employees' => (new EmployeeLibrary())
                         ->getEmployees(null, $company)
                     ,
+                    'unassignedBudgets' => (new JobPositionLibrary())
+                        ->getUnassignedBudgets(
+                            (new BudgetLibrary())->getBudgets()
+                        )
+                    ,
                 ]
             ]).
             view('base/end')

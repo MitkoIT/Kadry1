@@ -105,8 +105,7 @@ class JobPositionLibrary
             $jobPositionId,
             $budgetId
         );
-    }    
-
+    }
 
     public function deleteJobPositionEmployee(
         int $jobPositionId,
@@ -228,10 +227,34 @@ class JobPositionLibrary
         );
     }
 
+    protected function getJobPositionsBudgets(): array
+    {
+        return $this->jobPositionBudgetModel
+            ->getJobPositionsBudgets()
+        ;
+    }
+
     public function getJobPositionBudgets(int $jobPositionId): array
     {
         return $this->jobPositionBudgetModel
             ->getJobPositionBudgets($jobPositionId)
         ;
+    }
+
+    public function getUnassignedBudgets(array $budgets): array
+    {
+        $unassignedBudgets = [];
+        $assignedBudgets = $this->getJobPositionsBudgets();
+
+        foreach ($budgets as $budget) {
+            if (!isset($assignedBudgets[$budget->id])) {
+                $unassignedBudgets[$budget->id] = $budget;
+            }
+        }
+
+        return [
+            'amount' => count($unassignedBudgets),
+            'budgets' => $unassignedBudgets
+        ];
     }
 }

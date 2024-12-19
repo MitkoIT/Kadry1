@@ -15,13 +15,14 @@ class JobPositionBudgetModel extends Model
         'is_deleted'
     ];
 
-    public function getJobPositionBudgets(): array
+    public function getJobPositionBudgets(int $jobPositionId): array
     {
         return $this
             ->select('
                 budget_id AS id,
                 job_position_id AS jobPositionId
             ')
+            ->where('job_position_id', $jobPositionId)
             ->where('is_deleted', null)
             ->findAll()
         ;
@@ -49,5 +50,24 @@ class JobPositionBudgetModel extends Model
             ->where('budget_id', $budgetId)
             ->update()
         ;
+    }
+
+    public function getJobPositionsBudgets(): array
+    {
+        $response = [];
+        $budgets = $this
+            ->select('
+                budget_id AS id,
+                job_position_id AS jobPositionId
+            ')
+            ->where('is_deleted', null)
+            ->findAll()
+        ;
+
+        foreach ($budgets as $budget) {
+            $response[$budget->id] = $budget;
+        }
+
+        return $response;
     }
 }

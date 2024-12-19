@@ -55,3 +55,7 @@
 .employee-found {
   background-color: #C0D0EE !important;
 }
+
+.to-right {
+  float: right;
+}

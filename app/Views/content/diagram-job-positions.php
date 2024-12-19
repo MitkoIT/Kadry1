@@ -24,6 +24,49 @@
         </div>
     </div>
 </div>
+<div class="modal fade show" id="budgetLeftModal" tabindex="-1" role="dialog" aria-labelledby="budgetLeftModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nieprzypisane budżety</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="display table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nazwa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            foreach ($data['unassignedBudgets']['budgets'] as $budget) {
+                                ?>
+                                <tr>
+                                    <td><?= $budget->id ?></td>
+                                    <td><?= $budget->name ?></td>
+                                </tr>
+                                <?php
+                            }
+                        ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nazwa</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary-rgba" data-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="horizontal-layout">
     <div class="infobar-settings-sidebar-overlay"></div>
     <div id="containerbar" class="container-fluid">
@@ -45,6 +88,17 @@
                                     ?>
                                 </select>
                             </div>
+                        </div>
+                        <div class="col-6"></div>
+                        <div class="col-3">
+                            <button
+                                id="budgetLeftModalButton"
+                                type="button"
+                                class="btn btn-primary-rgba to-right"
+                                data-toggle="modal"
+                                data-target="#budgetLeftModal"
+                                >$ (<?= $data['unassignedBudgets']['amount'] ?>)
+                            </button>
                         </div>
                     </div>
                     <div id="diagram-job-positions-container"></div>
