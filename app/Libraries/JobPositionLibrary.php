@@ -194,7 +194,7 @@ class JobPositionLibrary
                 !empty($nodeJobPositions[$element->elementId])) {
                 $employees = [];
 
-                foreach ($employeesJobPositions[$nodeJobPositions[$element->elementId]->elementId] as $employee) {
+                foreach ($employeesJobPositions[$nodeJobPositions[$element->elementId]->elementId] ?? [] as $employee) {
                     $employees[$employee->userId] = $employee;
                 }
 
