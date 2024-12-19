@@ -367,6 +367,10 @@ class JobPositionController extends BaseController
     public function deleteJobPosition(int $jobPositionId): \CodeIgniter\HTTP\Response
     {
         $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        
+        (new JobPositionLibrary())
+            ->deleteJobPosition($jobPositionId)
+        ;
 
         if (is_numeric($jobPositionId)) {
             (new UserLibrary())->setUserNotification(
@@ -376,11 +380,7 @@ class JobPositionController extends BaseController
         }
 
         return $this->response->setJSON([
-            'data' => (new JobPositionLibrary())
-                ->deleteJobPosition(
-                    $jobPositionId
-                )
-            ,
+            'success' => true
         ]);
     }
 }

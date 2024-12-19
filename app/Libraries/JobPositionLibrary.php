@@ -129,11 +129,25 @@ class JobPositionLibrary
         );
     }
 
-    public function deleteJobPosition(int $jobPositionId): int
+    public function getSubordinateJobPosition(int $jobPositionId): array
     {
-        return $this->jobPositionModel
+        return $this->jobPositionNodeModel
+            ->assembleSubordinateNodes($jobPositionId)
+        ;
+    }
+
+    public function deleteJobPosition(int $jobPositionId): void
+    {
+        $this->jobPositionModel
             ->deleteJobPosition($jobPositionId)
         ;
+
+        foreach ($this->getSubordinateJobPosition($jobPositionId)
+            as $jobPosition) {
+            $this->jobPositionModel->deleteJobPosition(
+                $jobPosition->childId
+            );
+        };
     }
 
     public function updateJobPositionEmployeeDescription(

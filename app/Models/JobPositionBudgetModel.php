@@ -60,7 +60,9 @@ class JobPositionBudgetModel extends Model
                 budget_id AS id,
                 job_position_id AS jobPositionId
             ')
-            ->where('is_deleted', null)
+            ->join('job_position', 'job_position.id = job_position_budget.job_position_id')
+            ->where('job_position_budget.is_deleted', null)
+            ->where('job_position.is_deleted', null)
             ->findAll()
         ;
 

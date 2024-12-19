@@ -13,6 +13,7 @@ class JobPositionNodeModel extends Model
         'element_id',
         'child_id'
     ];
+    protected $subordinateNodes = [];
 
     protected function getFormattedUsersJobPositions(array $data): string
     {
@@ -159,5 +160,35 @@ class JobPositionNodeModel extends Model
             'element_id' => $jobPositionId,
             'child_id' => $newJobPositionId,
         ]);
+    }
+
+    protected function getSubordinateNodes(int $nodeId): array
+    {
+        return $this
+            ->select('
+                element_id AS elementId,
+                child_id AS childId,
+                name
+            ') 
+            ->join('job_position', 'job_position.id = job_position_node.child_id')
+            ->where('element_id', $nodeId)
+            ->where('job_position.is_deleted', null)
+            ->findAll()
+        ;
+    }
+
+    protected function generateSubordinate(int $nodeId): void
+    {
+        foreach ($this->getSubordinateNodes($nodeId) as $node) {
+            $this->subordinateNodes[] = $node;
+            $this->generateSubordinate($node->childId);
+        }
+    }
+
+    public function assembleSubordinateNodes(int $jobPositionId): array
+    {
+        $this->generateSubordinate($jobPositionId);
+
+        return $this->subordinateNodes;
     }
 }
