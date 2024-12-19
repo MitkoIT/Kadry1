@@ -13,6 +13,10 @@ class EmployeeController extends BaseController
 {
     public function employees(): string
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
         $title = 'Pracownicy';
 
         return
@@ -29,6 +33,11 @@ class EmployeeController extends BaseController
             ]).
             view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
+            ]).
+            view('base/notification', [
+                'data' => [
+                    'notifications' => $notifications
+                ]
             ]).
             view('base/nav-end').
             view('content/table-employees', [
@@ -47,6 +56,14 @@ class EmployeeController extends BaseController
 
     public function activeEmployees(): string
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
         $title = 'Aktywni pracownicy';
 
         return
@@ -64,6 +81,11 @@ class EmployeeController extends BaseController
             view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
+            view('base/notification', [
+                'data' => [
+                    'notifications' => $notifications
+                ]
+            ]).
             view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
@@ -79,6 +101,10 @@ class EmployeeController extends BaseController
 
     public function unactiveEmployees(): string
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
         $title = 'Nieaktywni pracownicy';
 
         return
@@ -96,6 +122,11 @@ class EmployeeController extends BaseController
             view('base/breadcrumb', [
                 'breadcrumbs' => (new BreadcrumbsLibrary())->parse()
             ]).
+            view('base/notification', [
+                'data' => [
+                    'notifications' => $notifications
+                ]
+            ]).
             view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
@@ -111,6 +142,10 @@ class EmployeeController extends BaseController
 
     public function companyEmployees(int $companyId): string
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $title = 'Pracownicy '.ucfirst(strtolower($company->name));
 
@@ -134,6 +169,11 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
+            view('base/notification', [
+                'data' => [
+                    'notifications' => $notifications
+                ]
+            ]).
             view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
@@ -152,6 +192,10 @@ class EmployeeController extends BaseController
 
     public function companyActiveEmployees(int $companyId): string
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $title = 'Aktywni pracownicy '.ucfirst(strtolower($company->name));
 
@@ -175,6 +219,11 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
+            view('base/notification', [
+                'data' => [
+                    'notifications' => $notifications
+                ]
+            ]).
             view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
@@ -193,6 +242,10 @@ class EmployeeController extends BaseController
 
     public function companyUnactiveEmployees(int $companyId): string
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $title = 'Nieaktywni pracownicy '.ucfirst(strtolower($company->name));
 
@@ -216,6 +269,11 @@ class EmployeeController extends BaseController
                     ]
                 ])
             ]).
+            view('base/notification', [
+                'data' => [
+                    'notifications' => $notifications
+                ]
+            ]).
             view('base/nav-end').
             view('content/table-employees', [
                 'data' => [
@@ -237,20 +295,31 @@ class EmployeeController extends BaseController
         return redirect()->to('/pracownicy');
     }
 
-    public function employee(int $userId = null): string|\CodeIgniter\HTTP\RedirectResponse
+    public function employee(int $employeeId = null): string|\CodeIgniter\HTTP\RedirectResponse
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
         $companies = (new CompanyLibrary())->getCompanies();
 
         if ($this->request->getMethod() === 'post') {
             $employeeId = (new EmployeeLibrary())->setEmployee(
-                $userId,
+                $employeeId,
                 $this->request->getPost(),
                 $companies
             );
 
+            if (is_numeric($employeeId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'save-success'
+                );
+            }
+
             return redirect()->to(base_url('pracownik/'.$employeeId));
         } elseif ($this->request->getMethod() === 'get') {
-            $user = (new UserLibrary())->getUserDetails($userId);
+            $notifications = (new UserLibrary())
+                ->getUserNotifications($user->id)
+            ;
+            $user = (new UserLibrary())->getUserDetails($employeeId);
             $title = $user->name;
 
             return
@@ -270,6 +339,11 @@ class EmployeeController extends BaseController
                             'user' => $user
                         ]
                     ])
+                ]).
+                view('base/notification', [
+                    'data' => [
+                        'notifications' => $notifications
+                    ]
                 ]).
                 view('content/form-employee', [
                     'data' => [
@@ -342,6 +416,7 @@ class EmployeeController extends BaseController
 
     public function addEmployee(): string|\CodeIgniter\HTTP\RedirectResponse
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
         $companies = (new CompanyLibrary())->getCompanies();
 
         if ($this->request->getMethod() === 'post') {
@@ -350,6 +425,13 @@ class EmployeeController extends BaseController
                 $this->request->getPost(),
                 $companies
             );
+
+            if (is_numeric($employeeId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'added-employee'
+                );
+            }
 
             return redirect()->to(base_url('pracownik/'.$employeeId));
         } elseif ($this->request->getMethod() === 'get') {
@@ -381,12 +463,24 @@ class EmployeeController extends BaseController
         }
     }
 
-    public function deactivateEmployee(int $userId): \CodeIgniter\HTTP\Response
+    public function deactivateEmployee(int $employeeId): \CodeIgniter\HTTP\Response
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+
+        if (is_numeric($employeeId)) {
+            (new UserLibrary())->setUserNotification(
+                $user->id,
+                'deactivated-employee'
+            );
+        }
+
         return $this->response
             ->setJSON([
                 'success' => (new EmployeeLibrary())
-                    ->deactivateEmployee($userId)
+                    ->deactivateEmployee($employeeId)
+                ,
+                'notifications' => (new UserLibrary())
+                    ->getUserNotifications($user->id)
                 ,
             ])
             ->setStatusCode(200)

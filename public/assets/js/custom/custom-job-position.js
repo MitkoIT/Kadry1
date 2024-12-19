@@ -125,7 +125,7 @@ function saveNodeEmployeeDescription() {
     const nodeEmployeeDescription = document.getElementById('nodeEmployeeDescription');
 
     $.ajax({
-        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/employee/'+nodeEmployeeId.value,
+        url: baseUrl+'api/v1/job-position/'+jobPostionId+'/employees/'+nodeEmployeeId.value,
         type: 'PUT',
         data: {
             description: nodeEmployeeDescription.value

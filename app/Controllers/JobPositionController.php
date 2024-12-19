@@ -14,6 +14,10 @@ class JobPositionController extends BaseController
 {
     public function jobPositions(int $companyId): string
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+        $notifications = (new UserLibrary())
+            ->getUserNotifications($user->id)
+        ;
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $title = 'Stanowiska '.ucfirst(strtolower($company->name));
         $nodes = (new JobPositionLibrary())
@@ -42,6 +46,11 @@ class JobPositionController extends BaseController
                     ]
                 ])
             ]).
+            view('base/notification', [
+                'data' => [
+                    'notifications' => $notifications
+                ]
+            ]).
             view('base/nav-end').
             view('content/diagram-job-positions', [
                 'data' => [
@@ -66,6 +75,7 @@ class JobPositionController extends BaseController
         int $jobPositionId
     ): string|\CodeIgniter\HTTP\RedirectResponse
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $companies = (new CompanyLibrary())->getCompanies();
         $budgets = (new BudgetLibrary())->getBudgets();
@@ -80,8 +90,18 @@ class JobPositionController extends BaseController
                 $companies
             );
 
+            if (is_numeric($jobPositionId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'save-success'
+                );
+            }
+
             return redirect()->to(base_url('stanowisko/'.$companyId.'/'.$jobPositionId));
         } elseif ($this->request->getMethod() === 'get') {
+            $notifications = (new UserLibrary())
+                ->getUserNotifications($user->id)
+            ;
             $jobPosition = (new JobPositionLibrary())
                 ->getJobPositionDetails($jobPositionId)
             ;
@@ -110,6 +130,11 @@ class JobPositionController extends BaseController
                             'jobPosition' => $jobPosition
                         ]
                     ])
+                ]).
+                view('base/notification', [
+                    'data' => [
+                        'notifications' => $notifications
+                    ]
                 ]).
                 view('base/nav-end').
                 view('content/form-job-position', [
@@ -155,6 +180,7 @@ class JobPositionController extends BaseController
         int $jobPositionId
     ): string|\CodeIgniter\HTTP\RedirectResponse
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
         $company = (new CompanyLibrary())->getCompanyDetails($companyId);
         $companies = (new CompanyLibrary())->getCompanies();
         
@@ -168,6 +194,13 @@ class JobPositionController extends BaseController
                 $companies,
                 true
             );
+
+            if (is_numeric($jobPositionId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'added-job-position'
+                );
+            }
 
             return redirect()->to(base_url('stanowisko/'.$companyId.'/'.$jobPositionId));
         } elseif ($this->request->getMethod() === 'get') {
@@ -233,8 +266,15 @@ class JobPositionController extends BaseController
         int $employeeId
     ): \CodeIgniter\HTTP\Response
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+
         if ($this->request->getMethod() === 'post') {
-            $post = $this->request->getPost();
+            if (is_numeric($jobPositionId) && is_numeric($employeeId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'added-employee-to-job-position'
+                );
+            }
 
             return $this->response->setJSON([
                 'success' => (new JobPositionLibrary())
@@ -247,6 +287,13 @@ class JobPositionController extends BaseController
         } elseif ($this->request->getMethod() === 'put') {
             $request = \Config\Services::request();
 
+            if (is_numeric($jobPositionId) && is_numeric($employeeId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'changed-employee-job-position-description'
+                );
+            }
+
             return $this->response->setJSON([
                 'success' => (new JobPositionLibrary())
                     ->updateJobPositionEmployeeDescription(
@@ -257,6 +304,13 @@ class JobPositionController extends BaseController
                 ,
             ]);
         } elseif ($this->request->getMethod() === 'delete') {
+            if (is_numeric($jobPositionId) && is_numeric($employeeId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'deleted-employee-from-job-position'
+                );
+            }
+
             return $this->response->setJSON([
                 'success' => (new JobPositionLibrary())
                     ->deleteJobPositionEmployee(
@@ -273,7 +327,16 @@ class JobPositionController extends BaseController
         int $budgetId
     ): \CodeIgniter\HTTP\Response
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+
         if ($this->request->getMethod() === 'post') {
+            if (is_numeric($jobPositionId) && is_numeric($budgetId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'added-budget-to-job-position'
+                );
+            }
+
             return $this->response->setJSON([
                 'success' => (new JobPositionLibrary())
                     ->addJobPositionBudget(
@@ -283,6 +346,13 @@ class JobPositionController extends BaseController
                 ,
             ]);
         } elseif ($this->request->getMethod() === 'delete') {
+            if (is_numeric($jobPositionId) && is_numeric($budgetId)) {
+                (new UserLibrary())->setUserNotification(
+                    $user->id,
+                    'deleted-budget-from-job-position'
+                );
+            }
+
             return $this->response->setJSON([
                 'success' => (new JobPositionLibrary())
                     ->deleteJobPositionBudget(
@@ -296,6 +366,15 @@ class JobPositionController extends BaseController
 
     public function deleteJobPosition(int $jobPositionId): \CodeIgniter\HTTP\Response
     {
+        $user = (new UserLibrary())->getSessionDetails($_SESSION);
+
+        if (is_numeric($jobPositionId)) {
+            (new UserLibrary())->setUserNotification(
+                $user->id,
+                'deleted-job-position'
+            );
+        }
+
         return $this->response->setJSON([
             'data' => (new JobPositionLibrary())
                 ->deleteJobPosition(

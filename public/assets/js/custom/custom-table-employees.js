@@ -50,7 +50,7 @@ function deactivateEmployee() {
         url: scriptTag.getAttribute('data-base-url')+'pracownik/'+id+'/zdezaktywuj',
         type: 'PUT',
         success: function (response) {
-            console.log(response);
+            notify(response.notifications);
         },
         error: function (error) {
             console.log(error);
