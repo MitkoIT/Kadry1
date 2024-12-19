@@ -90,7 +90,7 @@
                                         <?= $checked ?>
                                     />
                                     <label class="custom-control-label" for="company_<?= $company->name ?>">
-                                        <span class="capitalize"><?= strtolower($company->name) ?></span>
+                                        <?= ucfirst(strtolower($company->name)) ?>
                                     </label>
                                 </div>
                                 <?php
